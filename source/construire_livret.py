@@ -104,7 +104,8 @@ p {{ margin: 0 0 0.5em; orphans: 2; widows: 2; }}
 .entete .num {{ display: inline-block; padding: 0.6mm 3.5mm; border-radius: 1.2mm; font-weight: 700; font-size: 8pt;
   letter-spacing: 1.2pt; text-transform: uppercase; }}
 .entete h1 {{ margin: 2.5mm 0 0; font-weight: 700; font-size: 17pt; line-height: 1.12; color: {ENCRE}; }}
-.corps {{ text-align: justify; hyphens: auto; }}
+.corps {{ text-align: justify; hyphens: none; }}
+.corps p {{ orphans: 3; widows: 3; }}
 .corps p {{ text-indent: 4.5mm; margin: 0; }}
 .corps p:first-child {{ text-indent: 0; }}
 /* Le carnet de montage, après le séparateur */
@@ -112,7 +113,7 @@ p {{ margin: 0 0 0.5em; orphans: 2; widows: 2; }}
 .carnet-titre {{ display: block; text-align: center; font-weight: 600; font-size: 7pt; letter-spacing: 1.4pt; text-transform: uppercase;
   color: {DOUCE}; margin: -0.5mm 0 1.5mm; }}
 /* Fin de chapitre */
-.suite {{ break-inside: avoid; break-before: avoid; }}
+.suite {{ break-inside: avoid; }}
 .separateur {{ display: flex; align-items: flex-end; justify-content: center; gap: 1.3mm; margin: 3.5mm 0 2.5mm; }}
 .separateur::before, .separateur::after {{ content: ""; width: 14mm; height: 0.4mm; margin: 0 2mm 1.3mm; background: {TRAIT}; }}
 .separateur i {{ position: relative; display: block; width: 3.4mm; height: 3mm; border-radius: 0.6mm; }}
@@ -135,9 +136,12 @@ p {{ margin: 0 0 0.5em; orphans: 2; widows: 2; }}
 .fin span {{ display: block; font-weight: 600; font-size: 10pt; color: {DOUCE}; }}
 
 /* Chapitres resserrés : seule l'image de tête rapetisse, le texte reste à 11 pt */
-.serre .tete {{ width: 82%; margin-left: auto; margin-right: auto; }}
+.serre .tete {{ width: 72%; margin-left: auto; margin-right: auto; }}
+.serre .montage {{ padding: 1.5mm 8mm; }}
 .serre .scene {{ height: 76mm; }}
-.serre2 .tete {{ width: 66%; }}
+.serre2 .tete {{ width: 52%; }}
+.serre2 .montage {{ padding: 1mm 14mm; }}
+.serre2 .separateur {{ margin: 2mm 0 1.5mm; }}
 .serre2 .scene {{ height: 62mm; }}
 
 /* Contexte, arbre, dos */
@@ -192,17 +196,23 @@ def chapitre(ch, suivant, pages):
     etapes = sorted((RACINE / "images" / "etapes").glob(f"{illustration(ch['nom'])}-*.png"))
     couleur = COULEURS[n_sachet]
     morceaux = [f'<section class="page-seule chap{serre}"><span class="marque">@@CH{cle}@@</span>']
+    # Le prologue et la fin ont des scènes en hauteur : le livret en prend une version carrée, à la largeur du texte
+    carre = image.with_name(image.stem + "-carre.jpg")
+    if carre.exists():
+        image = carre
     if image.exists():
-        morceaux.append(f'<img class="{"tete" if etapes else "scene"}" src="{image.as_uri()}" alt="">')
+        morceaux.append(f'<img class="tete" src="{image.as_uri()}" alt="">')
     numero = "Prologue" if ch["nom"] == "Prologue" else ch["numero"]
     morceaux.append(f'<div class="entete"><span class="num" style="background:{couleur};color:{ENCRE if couleur == JAUNE else "#fff"}">'
                     f'{e(numero)}</span><h1>{e(ch["titre"])}</h1></div>')
 
     corps, consigne, tirages, cible, fin = lire_choix(ch)
     morceaux.append('<div class="corps">' + "".join(f"<p>{e(p)}</p>" for p in corps) + "</div>")
+    # Fin de chapitre d'un seul bloc (jamais coupé) : séparateur, montage, puis les choix
+    fin_bloc = []
     if etapes:
-        morceaux.append(f'<div class="carnet">{SEPARATEUR}<span class="carnet-titre">Carnet de montage</span><div class="montage">'
-                        + '<span class="fl">→</span>'.join(f'<img src="{x.as_uri()}" alt="">' for x in etapes) + '</div></div>')
+        fin_bloc.append(SEPARATEUR + '<div class="montage">'
+                        + '<span class="fl">→</span>'.join(f'<img src="{x.as_uri()}" alt="">' for x in etapes) + '</div>')
     suite = []
     if tirages:
         suite.append(f'<div class="de"><p class="consigne">{e(consigne)}</p>' + "".join(
@@ -213,8 +223,9 @@ def chapitre(ch, suivant, pages):
         suite.append(f'<p class="elan">{e(renvoi(cible, pages))}</p>')
     if fin:
         suite += ([] if etapes else [SEPARATEUR]) + ['<div class="fin">Fin</div>']
-    if suite:
-        morceaux.append(f'<div class="suite">{"".join(suite)}</div>')
+    fin_bloc += suite
+    if fin_bloc:
+        morceaux.append(f'<div class="suite">{"".join(fin_bloc)}</div>')
     morceaux.append("</section>")
     return "".join(morceaux)
 
