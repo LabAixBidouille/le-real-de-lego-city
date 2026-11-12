@@ -178,6 +178,8 @@
 
 
 
+
+
 <meta name="robots" content="noindex, nofollow, noarchive">
 <meta content="width=device-width, initial-scale=1" name="viewport">
 <title>Le Real de Lego City</title>
@@ -187,12 +189,13 @@
 <body>
 <tw-story><noscript><tw-noscript>JavaScript doit être activé pour lire Le Real de Lego City.</tw-noscript></noscript></tw-story>
 <tw-storydata name="Le Real de Lego City" startnode="2" creator="Twine" creator-version="2.12.1" format="Harlowe" format-version="3.3.9" ifid="A12B021D-6E51-5AC2-A2C6-3E46CABB8B87" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">
-@font-face { font-family: "Fredoka"; font-weight: 300 700; font-display: swap; src: url("fonts/Fredoka.woff2") format("woff2"); }
-@font-face { font-family: "Lexend"; font-weight: 300 700; font-display: swap; src: url("fonts/Lexend.woff2") format("woff2"); }
+@font-face { font-family: "Jost"; font-weight: 300 800; font-display: swap; src: url("fonts/Jost.woff2") format("woff2"); }
 
 /* Couleurs prises aux images : le crème du papier, le gris des plaques à tétons, les briques */
 :root {
-  --papier: #f8f4ea;
+  --papier: #ffffff;
+  --notice: #e8eef6;
+  --notice-trait: #cfd8e3;
   --encre: #22252b;
   --encre-douce: #5b5f68;
   --plaque: #c9c6bf;
@@ -207,8 +210,8 @@
 html, body, tw-story { background-color: var(--papier); color: var(--encre); }
 
 tw-story {
-  font-family: "Lexend", "Trebuchet MS", sans-serif;
-  font-weight: 350;
+  font-family: "Jost", "Trebuchet MS", sans-serif;
+  font-weight: 400;
   font-size: 1.08em;
   line-height: 1.7;
   padding: 0.8em 1.2em 3em;
@@ -228,51 +231,42 @@ tw-story { overflow: clip; }
 .cote img { display: block; width: 100%; height: auto; }
 .page:not(:has(.cote)) .texte { padding-top: 2.2em; }
 
-/* Le numéro du chapitre : une plaque jaune 1 × 6, ses tétons au-dessus */
+/* Le numéro du chapitre : un gros chiffre encadré, comme une étape de notice de montage */
 .chapitre { text-align: center; margin: 0 0 1.2em; font-weight: 400; font-size: 1em; line-height: 1.1; }
 .chapitre .numero {
-  position: relative;
-  display: inline-block;
-  margin: 10px 0 0.7em;
-  padding: 0.28em 1.1em 0.22em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.7em;
+  height: 1.7em;
+  padding: 0 0.2em;
+  margin-bottom: 0.35em;
+  border: 3px solid var(--encre);
   border-radius: 5px;
-  background: var(--jaune);
-  box-shadow: inset 0 -3px 0 rgba(0,0,0,0.16);
-  font-family: "Fredoka", sans-serif;
-  font-weight: 600;
-  font-size: 0.85em;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  background: #fff;
+  font-family: "Jost", sans-serif;
+  font-weight: 800;
+  font-size: 1.6em;
   color: var(--encre);
-}
-.chapitre .numero::before {
-  content: "";
-  position: absolute;
-  left: 10px; right: 10px; top: -7px; height: 8px;
-  color: var(--jaune);
-  background-image: radial-gradient(ellipse 5px 4px at 50% 100%, #d6a90c 0 98%, transparent 100%),
-                    radial-gradient(ellipse 5px 4px at 50% 60%, var(--jaune) 0 98%, transparent 100%);
-  background-size: 16px 8px;
-  background-position: center;
-  background-repeat: repeat-x;
 }
 .chapitre .titre {
   display: block;
-  font-family: "Fredoka", sans-serif;
-  font-weight: 600;
-  font-size: 2.3em;
+  font-family: "Jost", sans-serif;
+  font-weight: 700;
+  font-size: 2.2em;
   line-height: 1.12;
   color: var(--encre);
 }
 
-/* Séparateur : trois briques 1 × 1, rouge, jaune et bleue, entre deux traits de crayon */
-.separateur { display: flex; align-items: flex-end; justify-content: center; gap: 0.35em; margin: 1.8em 0 1.4em; }
-.separateur::before, .separateur::after { content: ""; width: 4em; height: 1.5px; margin: 0 0.6em 0.35em;
-  background: var(--plaque-fonce); border-radius: 1px; }
-.separateur i { position: relative; display: block; width: 0.9em; height: 0.75em; border-radius: 2px;
-  box-shadow: inset 0 -2px 0 rgba(0,0,0,0.2); }
-.separateur i::before { content: ""; position: absolute; left: 50%; top: -0.22em; width: 0.5em; height: 0.26em;
-  transform: translateX(-50%); border-radius: 2px 2px 0 0; background: inherit; }
+/* Séparateur : trois briques 2 × 1, rouge, jaune et bleue, chacune avec ses deux tétons */
+.separateur { display: flex; align-items: flex-end; justify-content: center; gap: 0.45em; margin: 2em 0 1.4em; }
+.separateur::before, .separateur::after { content: ""; width: 4em; height: 2px; margin: 0 0.7em 0.45em; background: var(--notice-trait); }
+.separateur i { position: relative; display: block; width: 1.9em; height: 0.95em; border-radius: 3px;
+  box-shadow: inset 0 -3px 0 rgba(0,0,0,0.22); }
+.separateur i::before, .separateur i::after { content: ""; position: absolute; top: -0.3em; width: 0.55em; height: 0.34em;
+  border-radius: 2px 2px 0 0; background: inherit; box-shadow: inset 0 -1px 0 rgba(0,0,0,0.15); }
+.separateur i::before { left: 0.22em; }
+.separateur i::after { right: 0.22em; }
 .separateur i:nth-child(1) { background: var(--rouge); }
 .separateur i:nth-child(2) { background: var(--jaune); }
 .separateur i:nth-child(3) { background: var(--bleu); }
@@ -280,7 +274,7 @@ tw-story { overflow: clip; }
 /* Lien Couverture */
 .retour { max-width: 1120px; margin: 0 auto 0.6em; text-align: left; }
 .retour tw-link, .retour .enchantment-link, .lien-retour tw-link, .lien-retour .enchantment-link {
-  font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.95em; color: var(--encre-douce);
+  font-family: "Jost", sans-serif; font-weight: 500; font-size: 0.95em; color: var(--encre-douce);
 }
 .retour tw-link::before, .lien-retour tw-link::before { content: "← "; }
 .retour tw-link:hover, .lien-retour tw-link:hover { color: var(--bleu); }
@@ -291,58 +285,47 @@ tw-link:hover, .enchantment-link:hover { color: var(--bleu); }
 /* Poursuis : en rouge, la flèche avance au survol */
 .elan { text-align: center; margin-top: 0.4em; }
 .elan tw-link, .elan .enchantment-link {
-  font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.3em; color: var(--rouge);
+  font-family: "Jost", sans-serif; font-weight: 600; font-size: 1.3em; color: var(--bleu);
   text-decoration: none; transition: color 0.2s ease;
 }
 .elan tw-link::after, .elan .enchantment-link::after { content: "→"; display: inline-block; margin-left: 0.35em;
-  color: var(--bleu); transition: transform 0.2s ease; }
+  color: var(--rouge); transition: transform 0.2s ease; }
 .elan tw-link:hover::after { transform: translateX(5px); }
-.elan tw-link:hover { color: var(--rouge-fonce); }
+.elan tw-link:hover { color: var(--bleu-fonce); }
 
-/* La case du dé : une plaque blanche cerclée de gris, comme le cadre des images, ses tétons sur le bord haut */
+/* La case du dé : un cadre bleu aux coins arrondis, les faces du dé sur de petites briques jaunes */
 .de {
-  position: relative;
   display: flex;
   align-items: center;
   gap: 1.2em;
-  margin-top: 2em;
+  margin-top: 1.8em;
   padding: 1em 1.3em 0.9em;
-  border: 3px solid var(--plaque);
+  border: 3px solid var(--bleu);
   border-radius: 10px;
   background: #fff;
-  box-shadow: 0 4px 0 var(--plaque-fonce);
-}
-.de::before {
-  content: "";
-  position: absolute;
-  left: 14px; right: 14px; top: -10px; height: 9px;
-  background-image: radial-gradient(ellipse 5.5px 4.5px at 50% 100%, var(--plaque-fonce) 0 98%, transparent 100%),
-                    radial-gradient(ellipse 5.5px 4.5px at 50% 65%, var(--plaque) 0 98%, transparent 100%);
-  background-size: 22px 9px;
-  background-repeat: repeat-x;
 }
 .de-texte { flex: 1; min-width: 0; }
-.de .consigne { display: block; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.08em;
+.de .consigne { display: block; font-family: "Jost", sans-serif; font-weight: 600; font-size: 1.08em;
   color: var(--encre); margin-bottom: 0.5em; }
 .choix { display: flex; flex-direction: column; align-items: flex-start; gap: 0.45em; }
 .tirage { display: inline-flex; align-items: center; gap: 0.8em; }
-/* Les faces du dé, sur une petite brique rouge 1 × 2 */
+/* Les faces du dé, sur une petite brique jaune */
 .tirage b {
   flex: none;
   min-width: 5.6em;
   padding: 0.12em 0.7em 0.08em;
   border-radius: 4px;
-  background: var(--rouge);
-  box-shadow: inset 0 -3px 0 rgba(0,0,0,0.2);
-  font-family: "Fredoka", sans-serif;
+  background: var(--jaune);
+  box-shadow: inset 0 -3px 0 rgba(0,0,0,0.15);
+  font-family: "Jost", sans-serif;
   font-weight: 600;
   font-size: 0.88em;
   text-align: center;
   white-space: nowrap;
-  color: #fff;
+  color: var(--encre);
 }
 .de .choix tw-link, .de .choix .enchantment-link {
-  font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.05em; color: var(--bleu);
+  font-family: "Jost", sans-serif; font-weight: 600; font-size: 1.05em; color: var(--bleu);
   white-space: nowrap; transition: color 0.2s ease;
 }
 .de .choix tw-link:hover { color: var(--bleu-fonce); }
@@ -357,72 +340,73 @@ tw-link:hover, .enchantment-link:hover { color: var(--bleu); }
 .brique.roule .corps { animation: tourne 0.9s cubic-bezier(.4, 0, .2, 1); }
 @keyframes tourne { 0% { transform: rotate(0) translateY(0); } 50% { transform: rotate(200deg) translateY(-10px); } 100% { transform: rotate(360deg) translateY(0); } }
 .brique .face { position: absolute; left: 0; right: 0; top: 18%; bottom: 6%; display: flex; align-items: center;
-  justify-content: center; font-family: "Fredoka", sans-serif; font-weight: 700; font-size: 2.5em; color: #fff;
+  justify-content: center; font-family: "Jost", sans-serif; font-weight: 700; font-size: 2.5em; color: #fff;
   opacity: 0; transition: opacity 0.3s ease 0.1s; }
 .brique.montre .face { opacity: 1; }
-.lancer .aide { font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.82em; color: var(--encre-douce); }
+.lancer .aide { font-family: "Jost", sans-serif; font-weight: 500; font-size: 0.82em; color: var(--encre-douce); }
 .resultat { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
 /* Fin */
 .fin { text-align: center; margin-top: 0.4em; }
-.fin .mot-fin { display: block; font-family: "Fredoka", sans-serif; font-weight: 700; font-size: 3.4em; line-height: 1;
+.fin .mot-fin { display: block; font-family: "Jost", sans-serif; font-weight: 700; font-size: 3.4em; line-height: 1;
   color: var(--rouge); margin-bottom: 0.4em; }
 .secondaires { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5em 1.6em; }
-.secondaires tw-link, .secondaires .enchantment-link { font-family: "Fredoka", sans-serif; font-weight: 600;
-  font-size: 1.05em; color: var(--bleu); text-decoration: underline 2px var(--jaune); text-underline-offset: 0.3em; }
+.secondaires tw-link, .secondaires .enchantment-link { font-family: "Jost", sans-serif; font-weight: 600;
+  font-size: 1.05em; color: var(--bleu); text-decoration: underline 2px var(--notice-trait); text-underline-offset: 0.3em; }
 
-/* Couverture, sans défilement : le titre en briques, le résumé, les boutons ; la mention en bas de page */
+/* Couverture, sans défilement : le titre dans un encadré de notice, le résumé, le bouton bleu */
 tw-story:has(.garde) { padding-top: 0; padding-bottom: 0; }
-.garde { position: relative; min-height: 100vh; box-sizing: border-box; padding: 5vh 0 9vh;
+.garde { position: relative; min-height: 100vh; box-sizing: border-box; padding: 4vh 0 9vh;
   display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
-  gap: clamp(0.8em, 2.4vh, 1.4em); }
-.garde .surtitre { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.9em; letter-spacing: 0.18em;
-  text-transform: uppercase; color: var(--bleu); }
-.garde .grand-titre { font-family: "Fredoka", sans-serif; font-weight: 700; font-size: clamp(2.8em, 10vh, 5em);
-  line-height: 0.98; color: var(--rouge); }
-.garde .grand-titre span { display: block; font-size: 0.62em; color: var(--bleu); }
-.garde .nom-auteur { font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1.2em; color: var(--encre-douce); }
-.garde .synopsis { max-width: 34em; font-size: clamp(0.9em, 2.1vh, 1.02em); line-height: 1.65; }
+  gap: clamp(0.8em, 2.4vh, 1.3em); }
+.garde .encadre { display: flex; flex-direction: column; align-items: center; gap: 0.5em; padding: 1.6em 3em 1.5em;
+  border: 2px solid var(--notice-trait); border-radius: 5px; }
+.garde .surtitre { font-family: "Jost", sans-serif; font-weight: 600; font-size: 0.85em; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--encre-douce); }
+.garde .grand-titre { font-family: "Jost", sans-serif; font-weight: 800; font-size: clamp(2.8em, 9.5vh, 4.8em);
+  line-height: 1; color: var(--encre); }
+.garde .grand-titre span { display: block; font-size: 0.6em; color: var(--bleu); }
+.garde .nom-auteur { font-family: "Jost", sans-serif; font-weight: 500; font-size: 1.15em; color: var(--encre-douce); }
+.garde .synopsis { max-width: 34em; font-size: clamp(0.92em, 2.1vh, 1.05em); line-height: 1.65; }
 .garde .synopsis p { margin: 0.5em 0; }
 .garde .commencer tw-link, .garde .commencer .enchantment-link {
-  display: inline-block; padding: 0.35em 1.3em 0.3em; border-radius: 8px; background: var(--rouge);
-  box-shadow: inset 0 -5px 0 rgba(0,0,0,0.2); font-family: "Fredoka", sans-serif; font-weight: 700; font-size: 1.6em;
-  color: #fff; transition: transform 0.15s ease;
+  display: inline-block; padding: 0.35em 1.4em 0.32em; border-radius: 4px; background: var(--bleu);
+  font-family: "Jost", sans-serif; font-weight: 700; font-size: 1.5em; color: #fff; transition: background 0.15s ease;
 }
-.garde .commencer tw-link:hover { transform: translateY(-2px); color: #fff; }
+.garde .commencer tw-link:hover { background: var(--bleu-fonce); color: #fff; }
 .garde .secondaires { gap: 0; font-size: 0.95em; }
 .garde .secondaires tw-link, .garde .secondaires .enchantment-link { text-decoration: none; color: var(--encre-douce); }
 .garde .secondaires tw-link:hover { color: var(--bleu); }
-.garde .secondaires .point { margin: 0 0.8em; color: var(--rouge); }
-.garde .mention { position: absolute; left: 0; right: 0; bottom: 1.5vh; font-size: 0.78em; font-style: italic;
+.garde .secondaires .point { margin: 0 0.8em; color: var(--notice-trait); }
+.garde .mention { position: absolute; left: 0; right: 0; bottom: 1.5vh; font-size: 0.8em; font-style: italic;
   color: var(--encre-douce); }
 
 /* Page de l'arbre */
 .arbre .lien-retour { display: block; font-size: 0.9em; }
 .arbre-tete { text-align: center; margin: 0.5em 0 1.5em; }
-.arbre h1 { margin: 0; font-family: "Fredoka", sans-serif; font-weight: 700; font-size: 2.3em; color: var(--rouge); }
+.arbre h1 { margin: 0; font-family: "Jost", sans-serif; font-weight: 800; font-size: 2.3em; color: var(--encre); }
 .arbre .arbre-sous-titre { display: block; color: var(--encre-douce); margin-top: 0.3em; }
 .arbre img { display: block; width: 100%; max-width: 900px; height: auto; margin: 0 auto; }
 
 /* Page « Comment est née cette histoire » */
 .contexte { max-width: 40em; margin: 1em auto 0; text-align: center; }
 .contexte .lien-retour { display: block; text-align: left; margin-bottom: 1em; }
-.contexte h1 { font-family: "Fredoka", sans-serif; font-weight: 700; font-size: 2.2em; line-height: 1.15; color: var(--encre); margin: 1em 0 0; }
+.contexte h1 { font-family: "Jost", sans-serif; font-weight: 700; font-size: 2.2em; line-height: 1.15; color: var(--encre); margin: 1em 0 0; }
 .contexte-texte { text-align: left; }
-.citation { margin: 1.8em auto; max-width: 28em; text-align: center; font-family: "Fredoka", sans-serif; font-weight: 500;
+.citation { margin: 1.8em auto; max-width: 28em; text-align: center; font-family: "Jost", sans-serif; font-weight: 500;
   font-size: 1.3em; line-height: 1.4; color: var(--bleu-fonce); }
 .citation .source { display: block; margin-top: 0.5em; font-size: 0.6em; letter-spacing: 0.12em; text-transform: uppercase; color: var(--encre-douce); }
 .dessins { display: flex; justify-content: center; align-items: flex-end; gap: 2.5em; margin: 0.6em auto 0.4em; }
 .dessins figure { margin: 0; }
 .dessins img { display: block; height: 8em; width: auto; margin: 0 auto; }
-.dessins figcaption { margin-top: 0.4em; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.9em; color: var(--bleu-fonce); }
+.dessins figcaption { margin-top: 0.4em; font-family: "Jost", sans-serif; font-weight: 600; font-size: 0.9em; color: var(--bleu-fonce); }
 .table-fiches { margin: 2.6em auto 0; }
-.table-fiches .titre-table { display: block; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.3em; margin-bottom: 1.2em; }
+.table-fiches .titre-table { display: block; font-family: "Jost", sans-serif; font-weight: 600; font-size: 1.3em; margin-bottom: 1.2em; }
 .miniatures { display: flex; justify-content: center; align-items: flex-start; flex-wrap: wrap; gap: 1.6em; }
 .miniatures figure { margin: 0; }
 .miniatures figcaption { margin-top: 0.7em; color: var(--encre-douce); }
 .miniature { display: block; padding: 0; border: none; background: none; cursor: zoom-in; }
-.miniature img { display: block; height: 13em; width: auto; border: 3px solid var(--plaque); border-radius: 6px; transition: transform 0.2s ease; }
+.miniature img { display: block; height: 13em; width: auto; border: 2px solid var(--notice-trait); border-radius: 6px; transition: transform 0.2s ease; }
 .miniature:hover img { transform: scale(1.04); }
 .contexte .credits { display: block; margin-top: 2em; font-size: 0.9em; color: var(--encre-douce); }
 .contexte .avertissement { display: block; margin-top: 0.8em; font-size: 0.82em; font-style: italic; color: var(--encre-douce); }
@@ -477,7 +461,7 @@ document.addEventListener('keydown', function (evenement) {
   var ouvert = document.querySelector('.agrandi');
   if (ouvert && evenement.key === 'Escape') ouvert.remove();
 });
-</script><tw-passagedata pid="1" name="Bouton couverture" tags="header" position="150,0" size="100,100">(unless: (a: &quot;Page de garde&quot;, &quot;Comment est née cette histoire&quot;, &quot;L’arbre de l’histoire&quot;) contains (passage:)&#x27;s name)[&lt;div class=&quot;retour&quot;&gt;[[Couverture-&gt;Page de garde]]&lt;/div&gt;]</tw-passagedata><tw-passagedata pid="2" name="Page de garde" tags="" position="300,0" size="100,100">&lt;div class=&quot;garde&quot;&gt;&lt;span class=&quot;surtitre&quot;&gt;Une histoire dont le lecteur est le héros&lt;/span&gt;&lt;span class=&quot;grand-titre&quot;&gt;Le Real&lt;span&gt;de Lego City&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;nom-auteur&quot;&gt;une histoire par Ernest et Abel&lt;/span&gt;&lt;div class=&quot;separateur&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;synopsis&quot;&gt;&lt;p&gt;Kylian Mbappé visitait tranquillement le musée du football quand le plancher s’est ouvert sous ses pieds. Le voici tombé à Lego City, avec des pinces à la place des mains et des jambes qui ne plient plus.&lt;/p&gt;&lt;p&gt;La ville veut participer à la Ligue des Champions en Briques, mais elle n’a pas d’équipe. Avec Messi, Ronaldo, un pompier, une boulangère, un pirate et un astronaute, Kylian va devoir en construire une.&lt;/p&gt;&lt;p&gt;Lance le dé : il décidera de ton atterrissage, de ton entraîneur et de ce qui t’attend avant la finale.&lt;/p&gt;&lt;/div&gt;&lt;div class=&quot;commencer&quot;&gt;[[Commencer l’histoire-&gt;Prologue]]&lt;/div&gt;&lt;div class=&quot;secondaires&quot;&gt;[[Comment est née cette histoire-&gt;Comment est née cette histoire]]&lt;span class=&quot;point&quot;&gt;·&lt;/span&gt;[[L’arbre de l’histoire-&gt;L’arbre de l’histoire]]&lt;/div&gt;&lt;span class=&quot;mention&quot;&gt;Fan fiction humoristique librement inspirée du football et des jouets LEGO®&lt;/span&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="3" name="Comment est née cette histoire" tags="" position="450,0" size="100,100">&lt;div class=&quot;contexte&quot;&gt;&lt;span class=&quot;lien-retour&quot;&gt;[[Couverture-&gt;Page de garde]]&lt;/span&gt;
+</script><tw-passagedata pid="1" name="Bouton couverture" tags="header" position="150,0" size="100,100">(unless: (a: &quot;Page de garde&quot;, &quot;Comment est née cette histoire&quot;, &quot;L’arbre de l’histoire&quot;) contains (passage:)&#x27;s name)[&lt;div class=&quot;retour&quot;&gt;[[Couverture-&gt;Page de garde]]&lt;/div&gt;]</tw-passagedata><tw-passagedata pid="2" name="Page de garde" tags="" position="300,0" size="100,100">&lt;div class=&quot;garde&quot;&gt;&lt;div class=&quot;encadre&quot;&gt;&lt;span class=&quot;surtitre&quot;&gt;Une histoire dont le lecteur est le héros&lt;/span&gt;&lt;span class=&quot;grand-titre&quot;&gt;Le Real&lt;span&gt;de Lego City&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;nom-auteur&quot;&gt;une histoire par Ernest et Abel&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;separateur&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;synopsis&quot;&gt;&lt;p&gt;Kylian Mbappé visitait tranquillement le musée du football quand le plancher s’est ouvert sous ses pieds. Le voici tombé à Lego City, avec des pinces à la place des mains et des jambes qui ne plient plus.&lt;/p&gt;&lt;p&gt;La ville veut participer à la Ligue des Champions en Briques, mais elle n’a pas d’équipe. Avec Messi, Ronaldo, un pompier, une boulangère, un pirate et un astronaute, Kylian va devoir en construire une.&lt;/p&gt;&lt;p&gt;Lance le dé : il décidera de ton atterrissage, de ton entraîneur et de ce qui t’attend avant la finale.&lt;/p&gt;&lt;/div&gt;&lt;div class=&quot;commencer&quot;&gt;[[Commencer l’histoire-&gt;Prologue]]&lt;/div&gt;&lt;div class=&quot;secondaires&quot;&gt;[[Comment est née cette histoire-&gt;Comment est née cette histoire]]&lt;span class=&quot;point&quot;&gt;·&lt;/span&gt;[[L’arbre de l’histoire-&gt;L’arbre de l’histoire]]&lt;/div&gt;&lt;span class=&quot;mention&quot;&gt;Fan fiction humoristique librement inspirée du football et des jouets LEGO®&lt;/span&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="3" name="Comment est née cette histoire" tags="" position="450,0" size="100,100">&lt;div class=&quot;contexte&quot;&gt;&lt;span class=&quot;lien-retour&quot;&gt;[[Couverture-&gt;Page de garde]]&lt;/span&gt;
 &lt;div class=&quot;dessins&quot;&gt;&lt;figure&gt;&lt;img src=&quot;images/dessins/kylian.png&quot; alt=&quot;Kylian, dessiné par Ernest et Abel&quot;&gt;&lt;figcaption&gt;Kylian&lt;/figcaption&gt;&lt;/figure&gt;&lt;figure&gt;&lt;img src=&quot;images/dessins/messi.png&quot; alt=&quot;Messi, dessiné par Ernest et Abel&quot;&gt;&lt;figcaption&gt;Messi&lt;/figcaption&gt;&lt;/figure&gt;&lt;figure&gt;&lt;img src=&quot;images/dessins/ronaldo.png&quot; alt=&quot;Ronaldo, dessiné par Ernest et Abel&quot;&gt;&lt;figcaption&gt;Ronaldo&lt;/figcaption&gt;&lt;/figure&gt;&lt;/div&gt;&lt;h1&gt;Comment est née cette histoire&lt;/h1&gt;&lt;div class=&quot;separateur&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;contexte-texte&quot;&gt;En octobre 2026, le L.A.B a animé l’atelier « La quête du curry, une histoire dont tu es le héros » dans les bibliothèques Méjanes d’Aix-en-Provence. Les enfants ont été accompagnés dans la création d’un récit complet, depuis l’invention des personnages jusqu’à la construction d’une intrigue reliant les différentes étapes de leur aventure.
 
 Nous leur avons proposé d’introduire une part de hasard dans leur récit. Le résultat d’un lancer de dé pouvait modifier le déroulement de certains passages et conduire le lecteur vers un chapitre ou un autre.
@@ -488,7 +472,7 @@ Ernest et Abel ont choisi d’écrire une fan fiction humoristique, où de vrais
 
 &lt;b&gt;À son origine, il y a avant tout les idées, les personnages et les dessins d’Ernest et d’Abel.&lt;/b&gt;&lt;/div&gt;&lt;div class=&quot;table-fiches&quot;&gt;&lt;span class=&quot;titre-table&quot;&gt;Les fiches de l’atelier&lt;/span&gt;&lt;div class=&quot;miniatures&quot;&gt;&lt;figure&gt;&lt;button class=&quot;miniature&quot; type=&quot;button&quot; aria-label=&quot;Agrandir la fiche récit d’Ernest et d’Abel&quot;&gt;&lt;img src=&quot;images/fiches/fiche_recit.jpg&quot; alt=&quot;la fiche récit d’Ernest et d’Abel&quot;&gt;&lt;/button&gt;&lt;figcaption&gt;Le récit&lt;/figcaption&gt;&lt;/figure&gt;&lt;figure&gt;&lt;button class=&quot;miniature&quot; type=&quot;button&quot; aria-label=&quot;Agrandir la fiche personnage de Kylian&quot;&gt;&lt;img src=&quot;images/fiches/fiche_personnage_kylian.jpg&quot; alt=&quot;la fiche personnage de Kylian&quot;&gt;&lt;/button&gt;&lt;figcaption&gt;Une fiche personnage&lt;/figcaption&gt;&lt;/figure&gt;&lt;figure&gt;&lt;button class=&quot;miniature&quot; type=&quot;button&quot; aria-label=&quot;Agrandir la fiche situation n° 1, avec ses choix au dé&quot;&gt;&lt;img src=&quot;images/fiches/fiche_situation_1.jpg&quot; alt=&quot;la fiche situation n° 1, avec ses choix au dé&quot;&gt;&lt;/button&gt;&lt;figcaption&gt;Une fiche à embranchement&lt;/figcaption&gt;&lt;/figure&gt;&lt;/div&gt;&lt;/div&gt;&lt;span class=&quot;credits&quot;&gt;Une histoire librement inspirée du récit d’Ernest et d’Abel.
 Réalisation du livre : Laboratoire d’Aix-périmentation et de Bidouille.&lt;/span&gt;&lt;span class=&quot;avertissement&quot;&gt;Une fan fiction humoristique, librement inspirée du monde du football et de l’univers des jouets LEGO®. Les joueurs, l’entraîneur et les clubs qui existent réellement n’y apparaissent que comme des personnages de fiction : les situations et les paroles qu’on leur prête sont entièrement imaginaires. Ce livre n’est ni approuvé ni soutenu par eux, par leurs clubs ou par le groupe LEGO. LEGO est une marque déposée de son propriétaire.&lt;/span&gt;&lt;div class=&quot;secondaires&quot;&gt;[[Commencer le livre-&gt;Prologue]]&lt;/div&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="4" name="L’arbre de l’histoire" tags="" position="600,0" size="100,100">&lt;div class=&quot;arbre&quot;&gt;&lt;span class=&quot;lien-retour&quot;&gt;[[Couverture-&gt;Page de garde]]&lt;/span&gt;&lt;div class=&quot;arbre-tete&quot;&gt;&lt;h1&gt;Le Real de Lego City&lt;/h1&gt;&lt;span class=&quot;arbre-sous-titre&quot;&gt;Tous les chemins de l’histoire imaginée par Ernest et Abel&lt;/span&gt;&lt;/div&gt;&lt;img src=&quot;images/arbre.svg?v=c22cb40d&quot; alt=&quot;L’arbre de toutes les branches de l’histoire&quot;&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="5" name="Prologue" tags="" position="750,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;titre&quot;&gt;Le mystère de la vitrine vide&lt;/span&gt;&lt;/h1&gt;Ce jour-là, Kylian Mbappé ne jouait pas. Pas d’entraînement, pas de match, pas de photographes. Il avait une journée pour lui et une idée en tête depuis longtemps : visiter le musée du football.
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="4" name="L’arbre de l’histoire" tags="" position="600,0" size="100,100">&lt;div class=&quot;arbre&quot;&gt;&lt;span class=&quot;lien-retour&quot;&gt;[[Couverture-&gt;Page de garde]]&lt;/span&gt;&lt;div class=&quot;arbre-tete&quot;&gt;&lt;h1&gt;Le Real de Lego City&lt;/h1&gt;&lt;span class=&quot;arbre-sous-titre&quot;&gt;Tous les chemins de l’histoire imaginée par Ernest et Abel&lt;/span&gt;&lt;/div&gt;&lt;img src=&quot;images/arbre.svg?v=2e551eb4&quot; alt=&quot;L’arbre de toutes les branches de l’histoire&quot;&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="5" name="Prologue" tags="" position="750,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;titre&quot;&gt;Le mystère de la vitrine vide&lt;/span&gt;&lt;/h1&gt;Ce jour-là, Kylian Mbappé ne jouait pas. Pas d’entraînement, pas de match, pas de photographes. Il avait une journée pour lui et une idée en tête depuis longtemps : visiter le musée du football.
 
 Il passa devant les maillots des grands joueurs, les ballons cousus à la main et les vieilles chaussures à crampons. Certaines avaient l’air si lourdes qu’il se demanda comment on pouvait courir avec. Plus loin, des coupes brillaient sous les lampes. Kylian ralentit. Il avait toujours aimé les regarder de près.
 
@@ -500,7 +484,7 @@ Il fit un pas de côté.
 
 Clic.
 
-Le plancher s’ouvrit sous son pied. Kylian écarta les bras, chercha quelque chose à quoi se retenir et disparut dans la trappe.&lt;div class=&quot;separateur&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;elan&quot;&gt;[[Poursuis au chapitre 1-&gt;Chapitre 1]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="6" name="Chapitre 1" tags="" position="900,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 1&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Chute libre à Lego City&lt;/span&gt;&lt;/h1&gt;Kylian tomba longtemps. Assez longtemps pour se demander à quelle profondeur pouvait bien se trouver le sous-sol d’un musée.
+Le plancher s’ouvrit sous son pied. Kylian écarta les bras, chercha quelque chose à quoi se retenir et disparut dans la trappe.&lt;div class=&quot;separateur&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;elan&quot;&gt;[[Poursuis au chapitre 1-&gt;Chapitre 1]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="6" name="Chapitre 1" tags="" position="900,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot; aria-label=&quot;Chapitre 1&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Chute libre à Lego City&lt;/span&gt;&lt;/h1&gt;Kylian tomba longtemps. Assez longtemps pour se demander à quelle profondeur pouvait bien se trouver le sous-sol d’un musée.
 
 Autour de lui défilaient des murs de briques rouges, jaunes et bleues. Il tendit une main vers le mur, puis la ramena aussitôt devant ses yeux.
 
@@ -512,7 +496,7 @@ Kylian essaya de plier les genoux. Impossible. Il tendit une jambe, puis l’aut
 
 Tout en bas, une ville approchait. Des routes grises, des arbres en forme de cônes, des camions de pompiers et des habitants minuscules. Au milieu, un stade. Sur une banderole tendue au-dessus des tribunes, Kylian lut : « LIGUE DES CHAMPIONS EN BRIQUES : LEGO CITY CHERCHE SES JOUEURS ! »
 
-Il aurait bien voulu comprendre. Mais le sol se rapprochait trop vite.&lt;div class=&quot;de&quot;&gt;&lt;div class=&quot;de-texte&quot;&gt;&lt;span class=&quot;consigne&quot;&gt;Lance le dé pour savoir où Kylian atterrit :&lt;/span&gt;&lt;div class=&quot;choix&quot;&gt;&lt;span class=&quot;tirage&quot;&gt;&lt;b&gt;Impair&lt;/b&gt;&lt;span&gt;[[Poursuis au chapitre 2-&gt;Chapitre 2]]&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;tirage&quot;&gt;&lt;b&gt;Pair&lt;/b&gt;&lt;span&gt;[[Poursuis au chapitre 3-&gt;Chapitre 3]]&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;lancer&quot;&gt;&lt;button class=&quot;brique&quot; type=&quot;button&quot; aria-label=&quot;Toucher la brique pour lancer le dé&quot;&gt;&lt;span class=&quot;corps&quot;&gt;&lt;/span&gt;&lt;span class=&quot;face&quot;&gt;&lt;/span&gt;&lt;/button&gt;&lt;span class=&quot;aide&quot;&gt;touche la brique&lt;/span&gt;&lt;span class=&quot;resultat&quot; aria-live=&quot;polite&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="7" name="Chapitre 2" tags="" position="1050,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 2&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Une arrivée qui sent mauvais&lt;/span&gt;&lt;/h1&gt;Kylian atterrit tête la première dans une poubelle.
+Il aurait bien voulu comprendre. Mais le sol se rapprochait trop vite.&lt;div class=&quot;de&quot;&gt;&lt;div class=&quot;de-texte&quot;&gt;&lt;span class=&quot;consigne&quot;&gt;Lance le dé pour savoir où Kylian atterrit :&lt;/span&gt;&lt;div class=&quot;choix&quot;&gt;&lt;span class=&quot;tirage&quot;&gt;&lt;b&gt;Impair&lt;/b&gt;&lt;span&gt;[[Poursuis au chapitre 2-&gt;Chapitre 2]]&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;tirage&quot;&gt;&lt;b&gt;Pair&lt;/b&gt;&lt;span&gt;[[Poursuis au chapitre 3-&gt;Chapitre 3]]&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;lancer&quot;&gt;&lt;button class=&quot;brique&quot; type=&quot;button&quot; aria-label=&quot;Toucher la brique pour lancer le dé&quot;&gt;&lt;span class=&quot;corps&quot;&gt;&lt;/span&gt;&lt;span class=&quot;face&quot;&gt;&lt;/span&gt;&lt;/button&gt;&lt;span class=&quot;aide&quot;&gt;touche la brique&lt;/span&gt;&lt;span class=&quot;resultat&quot; aria-live=&quot;polite&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="7" name="Chapitre 2" tags="" position="1050,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot; aria-label=&quot;Chapitre 2&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Une arrivée qui sent mauvais&lt;/span&gt;&lt;/h1&gt;Kylian atterrit tête la première dans une poubelle.
 
 Il en ressortit avec une épluchure sur l’épaule et une chaussette en plastique accrochée au dos. Un petit chien s’approcha, renifla sa chaussure, puis recula en couinant.
 
@@ -538,7 +522,7 @@ Ronaldo remarqua l’annonce derrière Kylian. Il la lut, puis posa la main sur 
 
 « Tu cherches des joueurs ? »
 
-Kylian regarda Messi, puis Ronaldo. Son équipe venait de faire un grand pas en avant.&lt;div class=&quot;separateur&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;elan&quot;&gt;[[Poursuis au chapitre 4-&gt;Chapitre 4]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="8" name="Chapitre 3" tags="" position="1200,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 3&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Un atterrissage à rebondissements&lt;/span&gt;&lt;/h1&gt;Kylian atterrit sur un trampoline, dans le jardin d’une petite maison jaune.
+Kylian regarda Messi, puis Ronaldo. Son équipe venait de faire un grand pas en avant.&lt;div class=&quot;separateur&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;elan&quot;&gt;[[Poursuis au chapitre 4-&gt;Chapitre 4]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="8" name="Chapitre 3" tags="" position="1200,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot; aria-label=&quot;Chapitre 3&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Un atterrissage à rebondissements&lt;/span&gt;&lt;/h1&gt;Kylian atterrit sur un trampoline, dans le jardin d’une petite maison jaune.
 
 La toile s’enfonça sous lui et le renvoya en l’air. Il passa au-dessus de la clôture, aperçut la rue, puis retomba. Au saut suivant, il dépassa le toit de la maison. Au troisième, il vit le marchand de glaces lever la tête depuis son camion.
 
@@ -578,7 +562,7 @@ Messi lut à son tour.
 
 « Tu veux former une équipe ? On en cherche une depuis qu’on est arrivés. »
 
-Kylian sourit. Il venait à peine d’afficher son annonce et il avait déjà deux coéquipiers. Les trois joueurs partirent ensemble en direction du stade.&lt;div class=&quot;separateur&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;elan&quot;&gt;[[Poursuis au chapitre 4-&gt;Chapitre 4]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="9" name="Chapitre 4" tags="" position="1350,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 4&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Onze joueurs à assembler&lt;/span&gt;&lt;/h1&gt;Sur le chemin vers le stade, les trois joueurs s’installèrent à la terrasse d’un café. Kylian raconta sa chute. Messi et Ronaldo lui parlèrent de leurs recherches : en une semaine, ils n’avaient trouvé ni la trappe ni le chemin du musée.
+Kylian sourit. Il venait à peine d’afficher son annonce et il avait déjà deux coéquipiers. Les trois joueurs partirent ensemble en direction du stade.&lt;div class=&quot;separateur&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;elan&quot;&gt;[[Poursuis au chapitre 4-&gt;Chapitre 4]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="9" name="Chapitre 4" tags="" position="1350,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot; aria-label=&quot;Chapitre 4&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Onze joueurs à assembler&lt;/span&gt;&lt;/h1&gt;Sur le chemin vers le stade, les trois joueurs s’installèrent à la terrasse d’un café. Kylian raconta sa chute. Messi et Ronaldo lui parlèrent de leurs recherches : en une semaine, ils n’avaient trouvé ni la trappe ni le chemin du musée.
 
 « On continuera à chercher ensemble », dit Kylian.
 
@@ -602,7 +586,7 @@ Ils passèrent des annonces dans le journal, à la radio et jusque sur les camio
 
 Kylian leur distribua des ballons. Le pirate envoya le sien dans les tribunes. La boulangère partit le chercher à toute vitesse et revint avant qu’il ait fini de s’excuser. Sur le terrain, le pompier arrêta une attaque en se plaçant simplement au bon endroit. L’astronaute, lui, plongea vers un ballon et atterrit à plat ventre, les bras tendus. Il se releva avec la balle dans les mains.
 
-À la fin de la journée, l’équipe était complète. La nouvelle allait bientôt faire le tour de Lego City… et mettre toute la ville en mouvement.&lt;div class=&quot;separateur&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;elan&quot;&gt;[[Poursuis au chapitre 5-&gt;Chapitre 5]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="10" name="Chapitre 5" tags="" position="1500,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 5&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Une ville qui s’assemble&lt;/span&gt;&lt;/h1&gt;La nouvelle se répandit dans les rues de Lego City : la ville avait enfin son équipe ! À la boulangerie, à la caserne et même à bord du camion de glaces, tout le monde parlait du premier match.
+À la fin de la journée, l’équipe était complète. La nouvelle allait bientôt faire le tour de Lego City… et mettre toute la ville en mouvement.&lt;div class=&quot;separateur&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;elan&quot;&gt;[[Poursuis au chapitre 5-&gt;Chapitre 5]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="10" name="Chapitre 5" tags="" position="1500,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot; aria-label=&quot;Chapitre 5&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Une ville qui s’assemble&lt;/span&gt;&lt;/h1&gt;La nouvelle se répandit dans les rues de Lego City : la ville avait enfin son équipe ! À la boulangerie, à la caserne et même à bord du camion de glaces, tout le monde parlait du premier match.
 
 Le stade avait besoin d’un coup de neuf. Dès le matin, des habitants arrivèrent avec des caisses de briques. Les uns réparèrent les gradins, les autres replacèrent les sièges qui manquaient. Une grue souleva un projecteur jusqu’en haut du stade. En bas, son conducteur suivait les indications d’une enfant qui criait :
 
@@ -618,7 +602,7 @@ Le lendemain, les joueurs enfilèrent leurs nouveaux maillots et se rangèrent p
 
 Kylian regarda la foule. Quelques jours plus tôt, il était tombé dans une ville inconnue. Maintenant, elle était tout entière derrière son équipe.
 
-Il leur manquait encore un entraîneur.&lt;div class=&quot;de&quot;&gt;&lt;div class=&quot;de-texte&quot;&gt;&lt;span class=&quot;consigne&quot;&gt;Lance le dé pour découvrir qui va entraîner l’équipe :&lt;/span&gt;&lt;div class=&quot;choix&quot;&gt;&lt;span class=&quot;tirage&quot;&gt;&lt;b&gt;Pair&lt;/b&gt;&lt;span&gt;[[Poursuis au chapitre 6-&gt;Chapitre 6]]&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;tirage&quot;&gt;&lt;b&gt;Impair&lt;/b&gt;&lt;span&gt;[[Poursuis au chapitre 7-&gt;Chapitre 7]]&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;lancer&quot;&gt;&lt;button class=&quot;brique&quot; type=&quot;button&quot; aria-label=&quot;Toucher la brique pour lancer le dé&quot;&gt;&lt;span class=&quot;corps&quot;&gt;&lt;/span&gt;&lt;span class=&quot;face&quot;&gt;&lt;/span&gt;&lt;/button&gt;&lt;span class=&quot;aide&quot;&gt;touche la brique&lt;/span&gt;&lt;span class=&quot;resultat&quot; aria-live=&quot;polite&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="11" name="Chapitre 6" tags="" position="1650,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 6&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Un entraîneur de légende&lt;/span&gt;&lt;/h1&gt;Le lendemain matin, un homme au crâne lisse attendait au bord du terrain, les bras croisés. Kylian le reconnut aussitôt.
+Il leur manquait encore un entraîneur.&lt;div class=&quot;de&quot;&gt;&lt;div class=&quot;de-texte&quot;&gt;&lt;span class=&quot;consigne&quot;&gt;Lance le dé pour découvrir qui va entraîner l’équipe :&lt;/span&gt;&lt;div class=&quot;choix&quot;&gt;&lt;span class=&quot;tirage&quot;&gt;&lt;b&gt;Pair&lt;/b&gt;&lt;span&gt;[[Poursuis au chapitre 6-&gt;Chapitre 6]]&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;tirage&quot;&gt;&lt;b&gt;Impair&lt;/b&gt;&lt;span&gt;[[Poursuis au chapitre 7-&gt;Chapitre 7]]&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;lancer&quot;&gt;&lt;button class=&quot;brique&quot; type=&quot;button&quot; aria-label=&quot;Toucher la brique pour lancer le dé&quot;&gt;&lt;span class=&quot;corps&quot;&gt;&lt;/span&gt;&lt;span class=&quot;face&quot;&gt;&lt;/span&gt;&lt;/button&gt;&lt;span class=&quot;aide&quot;&gt;touche la brique&lt;/span&gt;&lt;span class=&quot;resultat&quot; aria-live=&quot;polite&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="11" name="Chapitre 6" tags="" position="1650,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot; aria-label=&quot;Chapitre 6&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Un entraîneur de légende&lt;/span&gt;&lt;/h1&gt;Le lendemain matin, un homme au crâne lisse attendait au bord du terrain, les bras croisés. Kylian le reconnut aussitôt.
 
 « Zidane ? »
 
@@ -638,7 +622,7 @@ Avec leurs jambes de plastique qui ne pliaient pas aux genoux, les joueurs duren
 
 Les passes arrivèrent d’abord trop fort, puis trop tard. Peu à peu, Kylian apprit à lever les yeux avant de partir. Messi répéta ses penaltys face à l’astronaute, qui bondissait d’un poteau à l’autre. Ronaldo travailla ses acrobaties ; après un retourné, il resta un instant allongé, les deux jambes en l’air. Le pompier en profita pour lui prendre le ballon.
 
-Après plusieurs séances, Zidane réunit les joueurs. Pour la première fois, Lego City allait participer à la Ligue des Champions en Briques ! Le tournoi approchait, et toute l’équipe avait hâte d’entrer sur le terrain.&lt;div class=&quot;separateur&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;elan&quot;&gt;[[Poursuis au chapitre 8-&gt;Chapitre 8]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="12" name="Chapitre 7" tags="" position="1800,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 7&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Des consignes à dormir debout&lt;/span&gt;&lt;/h1&gt;Le lendemain matin, un homme en costume attendait au bord du terrain, un sifflet autour du cou et un tableau sous le bras. Il disait avoir entraîné l’OM avant de tomber dans la trappe.
+Après plusieurs séances, Zidane réunit les joueurs. Pour la première fois, Lego City allait participer à la Ligue des Champions en Briques ! Le tournoi approchait, et toute l’équipe avait hâte d’entrer sur le terrain.&lt;div class=&quot;separateur&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;elan&quot;&gt;[[Poursuis au chapitre 8-&gt;Chapitre 8]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="12" name="Chapitre 7" tags="" position="1800,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot; aria-label=&quot;Chapitre 7&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Des consignes à dormir debout&lt;/span&gt;&lt;/h1&gt;Le lendemain matin, un homme en costume attendait au bord du terrain, un sifflet autour du cou et un tableau sous le bras. Il disait avoir entraîné l’OM avant de tomber dans la trappe.
 
 Les joueurs avaient cherché un entraîneur, mais peu de candidats s’étaient présentés. Le tournoi approchait : faute d’avoir trouvé quelqu’un d’autre, ils décidèrent de composer avec cet étrange individu.
 
@@ -668,7 +652,7 @@ Ils recommencèrent plusieurs soirs de suite. Messi répéta ses penaltys jusqu�
 
 Pour la première fois, Lego City allait participer à la Ligue des Champions en Briques. Au dernier entraînement secret, les joueurs se réunirent autour de Kylian. Ils étaient prêts à jouer ensemble.
 
-Le lendemain, ils demandèrent à l’entraîneur de remettre l’astronaute dans les buts et Messi en attaque. Il accepta, à condition qu’ils suivent sa tactique. Les joueurs échangèrent un regard : sur le terrain, ils avaient bien l’intention de jouer comme ils s’étaient entraînés en secret.&lt;div class=&quot;separateur&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;elan&quot;&gt;[[Poursuis au chapitre 8-&gt;Chapitre 8]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="13" name="Chapitre 8" tags="" position="1950,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 8&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Le tournoi commence&lt;/span&gt;&lt;/h1&gt;Le jour du premier match, les joueurs du Real de Lego City entrèrent sur le terrain derrière Kylian, vêtus des maillots préparés par la ville. En face, l’équipe de Brickpoule s’échauffait déjà. Dans les tribunes, les supporters avaient assemblé une grande banderole en briques : « ALLEZ LE REAL ! » Le blanchisseur agitait une écharpe aux couleurs de la ville. Derrière le mur du stade, un pompier avait grimpé sur son camion pour voir le terrain.
+Le lendemain, ils demandèrent à l’entraîneur de remettre l’astronaute dans les buts et Messi en attaque. Il accepta, à condition qu’ils suivent sa tactique. Les joueurs échangèrent un regard : sur le terrain, ils avaient bien l’intention de jouer comme ils s’étaient entraînés en secret.&lt;div class=&quot;separateur&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;elan&quot;&gt;[[Poursuis au chapitre 8-&gt;Chapitre 8]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="13" name="Chapitre 8" tags="" position="1950,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot; aria-label=&quot;Chapitre 8&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Le tournoi commence&lt;/span&gt;&lt;/h1&gt;Le jour du premier match, les joueurs du Real de Lego City entrèrent sur le terrain derrière Kylian, vêtus des maillots préparés par la ville. En face, l’équipe de Brickpoule s’échauffait déjà. Dans les tribunes, les supporters avaient assemblé une grande banderole en briques : « ALLEZ LE REAL ! » Le blanchisseur agitait une écharpe aux couleurs de la ville. Derrière le mur du stade, un pompier avait grimpé sur son camion pour voir le terrain.
 
 Au coup d’envoi, un immense « ALLEZ ! » s’éleva des gradins. Un supporter sauta si fort que sa perruque se détacha et atterrit sur la tête de son voisin. Celui-ci la lui rendit, sans quitter le ballon des yeux.
 
@@ -680,31 +664,31 @@ En huitième de finale, le Paris Saint-Brick prit l’avantage. Les supporters d
 
 Au coup de sifflet final, un petit groupe souleva la banderole réparée. Une lettre était montée à l’envers, mais tout le monde chantait si fort que personne ne sembla le remarquer.
 
-En quart de finale, le Real affronta Manchester Démonté. À quelques minutes de la fin, les deux équipes étaient à égalité. Dans les tribunes, les supporters de Lego City n’osaient plus s’asseoir.&lt;div class=&quot;de&quot;&gt;&lt;div class=&quot;de-texte&quot;&gt;&lt;span class=&quot;consigne&quot;&gt;Lance le dé pour découvrir comment se termine le quart de finale :&lt;/span&gt;&lt;div class=&quot;choix&quot;&gt;&lt;span class=&quot;tirage&quot;&gt;&lt;b&gt;1, 2 ou 3&lt;/b&gt;&lt;span&gt;[[Poursuis au chapitre 9-&gt;Chapitre 9]]&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;tirage&quot;&gt;&lt;b&gt;4, 5 ou 6&lt;/b&gt;&lt;span&gt;[[Poursuis au chapitre 10-&gt;Chapitre 10]]&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;lancer&quot;&gt;&lt;button class=&quot;brique&quot; type=&quot;button&quot; aria-label=&quot;Toucher la brique pour lancer le dé&quot;&gt;&lt;span class=&quot;corps&quot;&gt;&lt;/span&gt;&lt;span class=&quot;face&quot;&gt;&lt;/span&gt;&lt;/button&gt;&lt;span class=&quot;aide&quot;&gt;touche la brique&lt;/span&gt;&lt;span class=&quot;resultat&quot; aria-live=&quot;polite&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="14" name="Chapitre 9" tags="" position="2100,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 9&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Le sauvetage sur la ligne&lt;/span&gt;&lt;/h1&gt;Manchester Démonté attaqua jusqu’aux dernières minutes. L’astronaute arrêta un tir, mais le ballon lui échappa et roula vers la ligne. Le pompier arriva juste à temps pour le dégager.
+En quart de finale, le Real affronta Manchester Démonté. À quelques minutes de la fin, les deux équipes étaient à égalité. Dans les tribunes, les supporters de Lego City n’osaient plus s’asseoir.&lt;div class=&quot;de&quot;&gt;&lt;div class=&quot;de-texte&quot;&gt;&lt;span class=&quot;consigne&quot;&gt;Lance le dé pour découvrir comment se termine le quart de finale :&lt;/span&gt;&lt;div class=&quot;choix&quot;&gt;&lt;span class=&quot;tirage&quot;&gt;&lt;b&gt;1, 2 ou 3&lt;/b&gt;&lt;span&gt;[[Poursuis au chapitre 9-&gt;Chapitre 9]]&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;tirage&quot;&gt;&lt;b&gt;4, 5 ou 6&lt;/b&gt;&lt;span&gt;[[Poursuis au chapitre 10-&gt;Chapitre 10]]&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;lancer&quot;&gt;&lt;button class=&quot;brique&quot; type=&quot;button&quot; aria-label=&quot;Toucher la brique pour lancer le dé&quot;&gt;&lt;span class=&quot;corps&quot;&gt;&lt;/span&gt;&lt;span class=&quot;face&quot;&gt;&lt;/span&gt;&lt;/button&gt;&lt;span class=&quot;aide&quot;&gt;touche la brique&lt;/span&gt;&lt;span class=&quot;resultat&quot; aria-live=&quot;polite&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="14" name="Chapitre 9" tags="" position="2100,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot; aria-label=&quot;Chapitre 9&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Le sauvetage sur la ligne&lt;/span&gt;&lt;/h1&gt;Manchester Démonté attaqua jusqu’aux dernières minutes. L’astronaute arrêta un tir, mais le ballon lui échappa et roula vers la ligne. Le pompier arriva juste à temps pour le dégager.
 
-La boulangère récupéra le ballon et fila sur l’aile. Elle centra vers Kylian, qui tira : but ! Le Real prit l’avantage et le conserva jusqu’au coup de sifflet final.&lt;div class=&quot;separateur&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;elan&quot;&gt;[[Poursuis au chapitre 11-&gt;Chapitre 11]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="15" name="Chapitre 10" tags="" position="2250,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 10&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;L’acrobatie de Ronaldo&lt;/span&gt;&lt;/h1&gt;Ronaldo reçut le ballon près du but. Il le souleva du pied et s’élança pour tenter un retourné, mais un défenseur de Manchester Démonté le tacla. Ronaldo tomba avant d’avoir pu frapper. L’arbitre siffla un penalty !
+La boulangère récupéra le ballon et fila sur l’aile. Elle centra vers Kylian, qui tira : but ! Le Real prit l’avantage et le conserva jusqu’au coup de sifflet final.&lt;div class=&quot;separateur&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;elan&quot;&gt;[[Poursuis au chapitre 11-&gt;Chapitre 11]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="15" name="Chapitre 10" tags="" position="2250,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot; aria-label=&quot;Chapitre 10&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;L’acrobatie de Ronaldo&lt;/span&gt;&lt;/h1&gt;Ronaldo reçut le ballon près du but. Il le souleva du pied et s’élança pour tenter un retourné, mais un défenseur de Manchester Démonté le tacla. Ronaldo tomba avant d’avoir pu frapper. L’arbitre siffla un penalty !
 
-Ronaldo se releva, posa le ballon sur le point de penalty et prit son élan. Il tira si fort que le gardien plongea sans pouvoir l’atteindre. Le Real prit l’avantage et tint jusqu’au coup de sifflet final.&lt;div class=&quot;separateur&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;elan&quot;&gt;[[Poursuis au chapitre 11-&gt;Chapitre 11]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="16" name="Chapitre 11" tags="" position="2400,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 11&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Un arrêt pour la finale&lt;/span&gt;&lt;/h1&gt;En demi-finale, le Brickern Munich attendait le Real. Les deux équipes marquèrent, puis aucune ne parvint à reprendre l’avantage. Il fallut aller aux tirs au but. Le Real venait de marquer : si l’astronaute arrêtait le prochain tir, son équipe irait en finale. Le dernier joueur du Brickern s’avança. L’astronaute se plaça au milieu de ses cages, plongea, attrapa le ballon et le serra contre lui.
+Ronaldo se releva, posa le ballon sur le point de penalty et prit son élan. Il tira si fort que le gardien plongea sans pouvoir l’atteindre. Le Real prit l’avantage et tint jusqu’au coup de sifflet final.&lt;div class=&quot;separateur&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;elan&quot;&gt;[[Poursuis au chapitre 11-&gt;Chapitre 11]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="16" name="Chapitre 11" tags="" position="2400,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot; aria-label=&quot;Chapitre 11&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Un arrêt pour la finale&lt;/span&gt;&lt;/h1&gt;En demi-finale, le Brickern Munich attendait le Real. Les deux équipes marquèrent, puis aucune ne parvint à reprendre l’avantage. Il fallut aller aux tirs au but. Le Real venait de marquer : si l’astronaute arrêtait le prochain tir, son équipe irait en finale. Le dernier joueur du Brickern s’avança. L’astronaute se plaça au milieu de ses cages, plongea, attrapa le ballon et le serra contre lui.
 
 Ses coéquipiers coururent vers lui. Même quand ils le soulevèrent, il ne lâcha pas le ballon. Dans les tribunes, les supporters tapaient des pieds : leurs petites chaussures de plastique faisaient un bruit de grêle sur les gradins. Le blanchisseur agita son écharpe, et le camion de pompiers répondit d’un long coup de klaxon.
 
-Le Real de Lego City était en finale !&lt;div class=&quot;separateur&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;elan&quot;&gt;[[Poursuis au chapitre 12-&gt;Chapitre 12]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="17" name="Chapitre 12" tags="" position="2550,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 12&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Des ombres dans le stade&lt;/span&gt;&lt;/h1&gt;Toute la ville préparait la finale. Les camions de pompiers klaxonnaient, des drapeaux pendaient aux fenêtres et la boulangère avait confectionné des brioches en forme de ballon. Elle en gardait une pour chaque joueur, à condition qu’ils arrivent avant les clients.
+Le Real de Lego City était en finale !&lt;div class=&quot;separateur&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;elan&quot;&gt;[[Poursuis au chapitre 12-&gt;Chapitre 12]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="17" name="Chapitre 12" tags="" position="2550,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot; aria-label=&quot;Chapitre 12&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Des ombres dans le stade&lt;/span&gt;&lt;/h1&gt;Toute la ville préparait la finale. Les camions de pompiers klaxonnaient, des drapeaux pendaient aux fenêtres et la boulangère avait confectionné des brioches en forme de ballon. Elle en gardait une pour chaque joueur, à condition qu’ils arrivent avant les clients.
 
 À la mairie, la coupe de Lego City était exposée dans une vitrine. Kylian resta un moment devant elle. Au musée, une autre vitrine attendait cette coupe depuis longtemps. Comment pouvait-elle se trouver ici et manquer là-bas ? Il aurait bien demandé au maire, mais celui-ci était occupé à installer des drapeaux sur la façade.
 
 La veille du match, Kylian n’arrivait pas à dormir. Il alla marcher dans le stade désert. Les tribunes étaient vides ; sur le terrain, un employé vérifiait une dernière fois les filets.
 
-En passant près des vestiaires, Kylian entendit des pas précipités, puis un ricanement. Deux silhouettes s’échappèrent par la porte de derrière avec un grand sac.&lt;div class=&quot;de&quot;&gt;&lt;div class=&quot;de-texte&quot;&gt;&lt;span class=&quot;consigne&quot;&gt;Lance le dé pour découvrir ce que fait Kylian :&lt;/span&gt;&lt;div class=&quot;choix&quot;&gt;&lt;span class=&quot;tirage&quot;&gt;&lt;b&gt;Pair&lt;/b&gt;&lt;span&gt;[[Poursuis au chapitre 13-&gt;Chapitre 13]]&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;tirage&quot;&gt;&lt;b&gt;Impair&lt;/b&gt;&lt;span&gt;[[Poursuis au chapitre 14-&gt;Chapitre 14]]&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;lancer&quot;&gt;&lt;button class=&quot;brique&quot; type=&quot;button&quot; aria-label=&quot;Toucher la brique pour lancer le dé&quot;&gt;&lt;span class=&quot;corps&quot;&gt;&lt;/span&gt;&lt;span class=&quot;face&quot;&gt;&lt;/span&gt;&lt;/button&gt;&lt;span class=&quot;aide&quot;&gt;touche la brique&lt;/span&gt;&lt;span class=&quot;resultat&quot; aria-live=&quot;polite&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="18" name="Chapitre 13" tags="" position="2700,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 13&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;À leur poursuite !&lt;/span&gt;&lt;/h1&gt;Kylian se lança derrière les deux silhouettes. Ses jambes raides le ralentirent au premier virage et, quand il atteignit la rue, les deux joueurs avaient disparu.
+En passant près des vestiaires, Kylian entendit des pas précipités, puis un ricanement. Deux silhouettes s’échappèrent par la porte de derrière avec un grand sac.&lt;div class=&quot;de&quot;&gt;&lt;div class=&quot;de-texte&quot;&gt;&lt;span class=&quot;consigne&quot;&gt;Lance le dé pour découvrir ce que fait Kylian :&lt;/span&gt;&lt;div class=&quot;choix&quot;&gt;&lt;span class=&quot;tirage&quot;&gt;&lt;b&gt;Pair&lt;/b&gt;&lt;span&gt;[[Poursuis au chapitre 13-&gt;Chapitre 13]]&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;tirage&quot;&gt;&lt;b&gt;Impair&lt;/b&gt;&lt;span&gt;[[Poursuis au chapitre 14-&gt;Chapitre 14]]&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;lancer&quot;&gt;&lt;button class=&quot;brique&quot; type=&quot;button&quot; aria-label=&quot;Toucher la brique pour lancer le dé&quot;&gt;&lt;span class=&quot;corps&quot;&gt;&lt;/span&gt;&lt;span class=&quot;face&quot;&gt;&lt;/span&gt;&lt;/button&gt;&lt;span class=&quot;aide&quot;&gt;touche la brique&lt;/span&gt;&lt;span class=&quot;resultat&quot; aria-live=&quot;polite&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="18" name="Chapitre 13" tags="" position="2700,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot; aria-label=&quot;Chapitre 13&quot;&gt;13&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;À leur poursuite !&lt;/span&gt;&lt;/h1&gt;Kylian se lança derrière les deux silhouettes. Ses jambes raides le ralentirent au premier virage et, quand il atteignit la rue, les deux joueurs avaient disparu.
 
 Il n’avait pas vu leurs visages. En revanche, il avait reconnu leurs maillots : c’étaient ceux de l’équipe qu’ils allaient affronter en finale.
 
-Kylian rejoignit ses coéquipiers et leur raconta ce qu’il avait vu. Ils revinrent au stade, mais le vestiaire était fermé et l’employé était déjà parti. Ils décidèrent de le vérifier dès le lendemain matin, avant le match.&lt;div class=&quot;de&quot;&gt;&lt;div class=&quot;de-texte&quot;&gt;&lt;span class=&quot;consigne&quot;&gt;Lance le dé pour découvrir ce qui se passe le jour de la finale :&lt;/span&gt;&lt;div class=&quot;choix&quot;&gt;&lt;span class=&quot;tirage&quot;&gt;&lt;b&gt;Pair&lt;/b&gt;&lt;span&gt;[[Poursuis au chapitre 15-&gt;Chapitre 15]]&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;tirage&quot;&gt;&lt;b&gt;Impair&lt;/b&gt;&lt;span&gt;[[Poursuis au chapitre 16-&gt;Chapitre 16]]&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;lancer&quot;&gt;&lt;button class=&quot;brique&quot; type=&quot;button&quot; aria-label=&quot;Toucher la brique pour lancer le dé&quot;&gt;&lt;span class=&quot;corps&quot;&gt;&lt;/span&gt;&lt;span class=&quot;face&quot;&gt;&lt;/span&gt;&lt;/button&gt;&lt;span class=&quot;aide&quot;&gt;touche la brique&lt;/span&gt;&lt;span class=&quot;resultat&quot; aria-live=&quot;polite&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="19" name="Chapitre 14" tags="" position="2850,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 14&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;L’alerte&lt;/span&gt;&lt;/h1&gt;Plutôt que de courir seul derrière les silhouettes, Kylian alla prévenir ses coéquipiers. Près du stade, il croisa Ronaldo et Messi qui, eux non plus, n’arrivaient pas à dormir et rentraient d’une promenade. Il leur raconta ce qu’il avait aperçu.
+Kylian rejoignit ses coéquipiers et leur raconta ce qu’il avait vu. Ils revinrent au stade, mais le vestiaire était fermé et l’employé était déjà parti. Ils décidèrent de le vérifier dès le lendemain matin, avant le match.&lt;div class=&quot;de&quot;&gt;&lt;div class=&quot;de-texte&quot;&gt;&lt;span class=&quot;consigne&quot;&gt;Lance le dé pour découvrir ce qui se passe le jour de la finale :&lt;/span&gt;&lt;div class=&quot;choix&quot;&gt;&lt;span class=&quot;tirage&quot;&gt;&lt;b&gt;Pair&lt;/b&gt;&lt;span&gt;[[Poursuis au chapitre 15-&gt;Chapitre 15]]&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;tirage&quot;&gt;&lt;b&gt;Impair&lt;/b&gt;&lt;span&gt;[[Poursuis au chapitre 16-&gt;Chapitre 16]]&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;lancer&quot;&gt;&lt;button class=&quot;brique&quot; type=&quot;button&quot; aria-label=&quot;Toucher la brique pour lancer le dé&quot;&gt;&lt;span class=&quot;corps&quot;&gt;&lt;/span&gt;&lt;span class=&quot;face&quot;&gt;&lt;/span&gt;&lt;/button&gt;&lt;span class=&quot;aide&quot;&gt;touche la brique&lt;/span&gt;&lt;span class=&quot;resultat&quot; aria-live=&quot;polite&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="19" name="Chapitre 14" tags="" position="2850,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot; aria-label=&quot;Chapitre 14&quot;&gt;14&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;L’alerte&lt;/span&gt;&lt;/h1&gt;Plutôt que de courir seul derrière les silhouettes, Kylian alla prévenir ses coéquipiers. Près du stade, il croisa Ronaldo et Messi qui, eux non plus, n’arrivaient pas à dormir et rentraient d’une promenade. Il leur raconta ce qu’il avait aperçu.
 
 Ils revinrent aussitôt avec lui. Les silhouettes avaient disparu et le vestiaire était fermé à clé : l’employé du stade était déjà parti. Kylian n’avait pas eu le temps de reconnaître leurs maillots.
 
 Ronaldo remarqua que la porte extérieure à l’arrière du stade était mal fermée. Ensemble, ils la poussèrent jusqu’à ce qu’elle s’emboîte avec un clic.
 
-« Comme ça, personne d’autre ne pourra entrer cette nuit, dit Messi. Demain, on regardera tous ensemble dans le vestiaire avant le match. »&lt;div class=&quot;de&quot;&gt;&lt;div class=&quot;de-texte&quot;&gt;&lt;span class=&quot;consigne&quot;&gt;Lance le dé pour découvrir ce qui se passe le jour de la finale :&lt;/span&gt;&lt;div class=&quot;choix&quot;&gt;&lt;span class=&quot;tirage&quot;&gt;&lt;b&gt;Pair&lt;/b&gt;&lt;span&gt;[[Poursuis au chapitre 15-&gt;Chapitre 15]]&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;tirage&quot;&gt;&lt;b&gt;Impair&lt;/b&gt;&lt;span&gt;[[Poursuis au chapitre 16-&gt;Chapitre 16]]&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;lancer&quot;&gt;&lt;button class=&quot;brique&quot; type=&quot;button&quot; aria-label=&quot;Toucher la brique pour lancer le dé&quot;&gt;&lt;span class=&quot;corps&quot;&gt;&lt;/span&gt;&lt;span class=&quot;face&quot;&gt;&lt;/span&gt;&lt;/button&gt;&lt;span class=&quot;aide&quot;&gt;touche la brique&lt;/span&gt;&lt;span class=&quot;resultat&quot; aria-live=&quot;polite&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="20" name="Chapitre 15" tags="" position="3000,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 15&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;L’attaque des chaussettes&lt;/span&gt;&lt;/h1&gt;C’était le jour de la finale. Le Real allait affronter le FC Brickcelona. Avant le match, les joueurs du Real entrèrent ensemble dans le vestiaire.
+« Comme ça, personne d’autre ne pourra entrer cette nuit, dit Messi. Demain, on regardera tous ensemble dans le vestiaire avant le match. »&lt;div class=&quot;de&quot;&gt;&lt;div class=&quot;de-texte&quot;&gt;&lt;span class=&quot;consigne&quot;&gt;Lance le dé pour découvrir ce qui se passe le jour de la finale :&lt;/span&gt;&lt;div class=&quot;choix&quot;&gt;&lt;span class=&quot;tirage&quot;&gt;&lt;b&gt;Pair&lt;/b&gt;&lt;span&gt;[[Poursuis au chapitre 15-&gt;Chapitre 15]]&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;tirage&quot;&gt;&lt;b&gt;Impair&lt;/b&gt;&lt;span&gt;[[Poursuis au chapitre 16-&gt;Chapitre 16]]&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;lancer&quot;&gt;&lt;button class=&quot;brique&quot; type=&quot;button&quot; aria-label=&quot;Toucher la brique pour lancer le dé&quot;&gt;&lt;span class=&quot;corps&quot;&gt;&lt;/span&gt;&lt;span class=&quot;face&quot;&gt;&lt;/span&gt;&lt;/button&gt;&lt;span class=&quot;aide&quot;&gt;touche la brique&lt;/span&gt;&lt;span class=&quot;resultat&quot; aria-live=&quot;polite&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="20" name="Chapitre 15" tags="" position="3000,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot; aria-label=&quot;Chapitre 15&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;L’attaque des chaussettes&lt;/span&gt;&lt;/h1&gt;C’était le jour de la finale. Le Real allait affronter le FC Brickcelona. Avant le match, les joueurs du Real entrèrent ensemble dans le vestiaire.
 
 Le pompier ouvrit son casier et referma aussitôt la porte. La boulangère ouvrit le sien. Même réaction.
 
@@ -722,7 +706,7 @@ Il repartit chercher son matériel. Les joueurs sortirent les chaussettes des ca
 
 Une heure plus tard, tout était propre. Même les chaussettes avaient été lavées, repassées et pliées en carrés ; elles sentaient la lavande. Le pirate, revenu à lui, accepta de les porter jusqu’à la porte avec une pince.
 
-Les joueurs purent récupérer leurs affaires et entrer sur le terrain à l’heure.&lt;div class=&quot;separateur&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;elan&quot;&gt;[[Poursuis au chapitre 17-&gt;Chapitre 17]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="21" name="Chapitre 16" tags="" position="3150,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 16&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Un déo qui ne manque pas d’air&lt;/span&gt;&lt;/h1&gt;C’était le jour de la finale. Le Real allait affronter le Bricksenal FC. Avant le match, Kylian fut le premier à pousser la porte du vestiaire. Un nuage jaune s’échappa dans le couloir. Derrière lui, Ronaldo se mit à tousser.
+Les joueurs purent récupérer leurs affaires et entrer sur le terrain à l’heure.&lt;div class=&quot;separateur&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;elan&quot;&gt;[[Poursuis au chapitre 17-&gt;Chapitre 17]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="21" name="Chapitre 16" tags="" position="3150,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot; aria-label=&quot;Chapitre 16&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Un déo qui ne manque pas d’air&lt;/span&gt;&lt;/h1&gt;C’était le jour de la finale. Le Real allait affronter le Bricksenal FC. Avant le match, Kylian fut le premier à pousser la porte du vestiaire. Un nuage jaune s’échappa dans le couloir. Derrière lui, Ronaldo se mit à tousser.
 
 Des dizaines de bombes de déodorant vides jonchaient le sol. Sur les étiquettes, on pouvait lire : « FRAÎCHEUR EXTRÊME ». C’était le genre de déo pour ados qu’on sent arriver avant celui qui le porte. Avec toutes ces bombes vidées dans la pièce, le parfum sucré et épicé était devenu insupportable. Kylian ressortit en laissant la porte ouverte, mais cela ne suffisait pas : l’odeur collait aux maillots, aux crampons et aux serviettes.
 
@@ -738,7 +722,7 @@ Quelques minutes plus tard, le pompier était dehors, en haut de l’échelle. I
 
 L’eau emporta les bombes vides et rinça la pièce du sol au plafond. Une cascade jaillit par la fenêtre et éclaboussa le car du Bricksenal FC, garé juste en dessous. Un joueur adverse sortit la tête par la porte et regarda le ciel. Une nouvelle giclée lui tomba en pleine figure. Il rentra aussitôt dans le car, trempé de la tête aux pieds.
 
-Le Real récupéra ses affaires. Elles étaient trempées, mais l’odeur avait disparu. L’équipe entra sur le terrain à l’heure, en laissant une petite traînée d’eau derrière elle.&lt;div class=&quot;separateur&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;elan&quot;&gt;[[Poursuis au chapitre 17-&gt;Chapitre 17]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="22" name="Chapitre 17" tags="" position="3300,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 17&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Quatre-vingt-dix minutes pour une coupe&lt;/span&gt;&lt;/h1&gt;Le stade était plein à craquer. Dans les tribunes, les habitants de Lego City agitaient des écharpes et des drapeaux. Kylian aperçut même une brioche en forme de ballon, brandie au-dessus des spectateurs.
+Le Real récupéra ses affaires. Elles étaient trempées, mais l’odeur avait disparu. L’équipe entra sur le terrain à l’heure, en laissant une petite traînée d’eau derrière elle.&lt;div class=&quot;separateur&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;elan&quot;&gt;[[Poursuis au chapitre 17-&gt;Chapitre 17]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="22" name="Chapitre 17" tags="" position="3300,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot; aria-label=&quot;Chapitre 17&quot;&gt;17&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Quatre-vingt-dix minutes pour une coupe&lt;/span&gt;&lt;/h1&gt;Le stade était plein à craquer. Dans les tribunes, les habitants de Lego City agitaient des écharpes et des drapeaux. Kylian aperçut même une brioche en forme de ballon, brandie au-dessus des spectateurs.
 
 Le coup d’envoi fut donné. Dès la première minute, l’adversaire s’échappa sur l’aile et marqua. Le Real chercha à égaliser, mais chacun voulait aller trop vite. Kylian tenta de changer brusquement de direction ; ses jambes raides l’emportèrent tout droit et il dut faire demi-tour pour retrouver le ballon. Juste avant la mi-temps, un deuxième tir passa entre les pinces de l’astronaute.
 
@@ -756,7 +740,7 @@ Elle hocha la tête. L’astronaute posa son casque sur le banc et se leva. Les 
 
 Dans les dernières minutes, le pompier repoussa une attaque. Le ballon revint à Kylian, qui s’élança vers le but. Un défenseur lui barra le passage ; Kylian tomba et l’arbitre siffla un penalty.
 
-Tous se tournèrent vers Kylian. Il ramassa le ballon, puis regarda Messi. Il l’avait vu s’entraîner encore et encore devant le but. Mais lui aussi avait envie de tenter sa chance.&lt;div class=&quot;de&quot;&gt;&lt;div class=&quot;de-texte&quot;&gt;&lt;span class=&quot;consigne&quot;&gt;Lance le dé pour découvrir la suite :&lt;/span&gt;&lt;div class=&quot;choix&quot;&gt;&lt;span class=&quot;tirage&quot;&gt;&lt;b&gt;Pair&lt;/b&gt;&lt;span&gt;[[Poursuis au chapitre 18-&gt;Chapitre 18]]&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;tirage&quot;&gt;&lt;b&gt;Impair&lt;/b&gt;&lt;span&gt;[[Poursuis au chapitre 19-&gt;Chapitre 19]]&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;lancer&quot;&gt;&lt;button class=&quot;brique&quot; type=&quot;button&quot; aria-label=&quot;Toucher la brique pour lancer le dé&quot;&gt;&lt;span class=&quot;corps&quot;&gt;&lt;/span&gt;&lt;span class=&quot;face&quot;&gt;&lt;/span&gt;&lt;/button&gt;&lt;span class=&quot;aide&quot;&gt;touche la brique&lt;/span&gt;&lt;span class=&quot;resultat&quot; aria-live=&quot;polite&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="23" name="Chapitre 18" tags="" position="3450,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 18&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Le tir de Kylian&lt;/span&gt;&lt;/h1&gt;Kylian posa le ballon sur le point de penalty. Messi lui donna une petite tape sur l’épaule.
+Tous se tournèrent vers Kylian. Il ramassa le ballon, puis regarda Messi. Il l’avait vu s’entraîner encore et encore devant le but. Mais lui aussi avait envie de tenter sa chance.&lt;div class=&quot;de&quot;&gt;&lt;div class=&quot;de-texte&quot;&gt;&lt;span class=&quot;consigne&quot;&gt;Lance le dé pour découvrir la suite :&lt;/span&gt;&lt;div class=&quot;choix&quot;&gt;&lt;span class=&quot;tirage&quot;&gt;&lt;b&gt;Pair&lt;/b&gt;&lt;span&gt;[[Poursuis au chapitre 18-&gt;Chapitre 18]]&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;tirage&quot;&gt;&lt;b&gt;Impair&lt;/b&gt;&lt;span&gt;[[Poursuis au chapitre 19-&gt;Chapitre 19]]&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;lancer&quot;&gt;&lt;button class=&quot;brique&quot; type=&quot;button&quot; aria-label=&quot;Toucher la brique pour lancer le dé&quot;&gt;&lt;span class=&quot;corps&quot;&gt;&lt;/span&gt;&lt;span class=&quot;face&quot;&gt;&lt;/span&gt;&lt;/button&gt;&lt;span class=&quot;aide&quot;&gt;touche la brique&lt;/span&gt;&lt;span class=&quot;resultat&quot; aria-live=&quot;polite&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="23" name="Chapitre 18" tags="" position="3450,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot; aria-label=&quot;Chapitre 18&quot;&gt;18&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Le tir de Kylian&lt;/span&gt;&lt;/h1&gt;Kylian posa le ballon sur le point de penalty. Messi lui donna une petite tape sur l’épaule.
 
 « Vas-y, on est avec toi. »
 
@@ -764,21 +748,21 @@ Derrière le but, les supporters retenaient leur souffle. Kylian recula de quelq
 
 Il s’élança. Sa jambe partit d’un seul bloc, mais cette fois il avait bien visé. Le ballon frôla le poteau et secoua le filet !
 
-Kylian leva les bras. Il voulut courir vers ses coéquipiers, mais Ronaldo fut le premier à l’attraper. Tous se retrouvèrent bientôt en tas sur la pelouse.&lt;div class=&quot;separateur&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;elan&quot;&gt;[[Poursuis au chapitre 20-&gt;Chapitre 20]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="24" name="Chapitre 19" tags="" position="3600,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 19&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Le tir de Messi&lt;/span&gt;&lt;/h1&gt;Kylian tendit le ballon à Messi.
+Kylian leva les bras. Il voulut courir vers ses coéquipiers, mais Ronaldo fut le premier à l’attraper. Tous se retrouvèrent bientôt en tas sur la pelouse.&lt;div class=&quot;separateur&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;elan&quot;&gt;[[Poursuis au chapitre 20-&gt;Chapitre 20]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="24" name="Chapitre 19" tags="" position="3600,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot; aria-label=&quot;Chapitre 19&quot;&gt;19&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Le tir de Messi&lt;/span&gt;&lt;/h1&gt;Kylian tendit le ballon à Messi.
 
 « Prends-le. »
 
 Messi le posa sur le point de penalty. Le stade se tut. Derrière lui, Kylian serrait les pinces. Messi attendit le coup de sifflet, puis prit son élan et frappa près du poteau. Le gardien plongea ; un instant, Kylian crut qu’il allait toucher le ballon. Mais celui-ci entra dans le filet.
 
-Messi se retourna vers Kylian. Leurs coéquipiers coururent les rejoindre avant qu’ils aient eu le temps de se dire un mot.&lt;div class=&quot;separateur&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;elan&quot;&gt;[[Poursuis au chapitre 20-&gt;Chapitre 20]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="25" name="Chapitre 20" tags="" position="3750,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 20&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Champions !&lt;/span&gt;&lt;/h1&gt;Au coup de sifflet final, les habitants envahirent le terrain. Le maire apporta la coupe et les joueurs la soulevèrent ensemble. Une brioche vola depuis les tribunes. La boulangère tendit la main pour l’attraper ; le pompier retint la coupe avant qu’elle ne penche.
+Messi se retourna vers Kylian. Leurs coéquipiers coururent les rejoindre avant qu’ils aient eu le temps de se dire un mot.&lt;div class=&quot;separateur&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;elan&quot;&gt;[[Poursuis au chapitre 20-&gt;Chapitre 20]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="25" name="Chapitre 20" tags="" position="3750,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot; aria-label=&quot;Chapitre 20&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Champions !&lt;/span&gt;&lt;/h1&gt;Au coup de sifflet final, les habitants envahirent le terrain. Le maire apporta la coupe et les joueurs la soulevèrent ensemble. Une brioche vola depuis les tribunes. La boulangère tendit la main pour l’attraper ; le pompier retint la coupe avant qu’elle ne penche.
 
 Quand Kylian posa sa pince sur une anse, une minuscule lumière dorée y brilla. Il cligna des yeux : elle avait déjà disparu.
 
-Le soir venu, la fête battait son plein. Kylian regarda ses coéquipiers, puis le ciel au-dessus du stade. Il voulait profiter de cette victoire, mais il se demandait toujours comment rentrer chez lui.&lt;div class=&quot;de&quot;&gt;&lt;div class=&quot;de-texte&quot;&gt;&lt;span class=&quot;consigne&quot;&gt;Lance le dé pour découvrir la suite de l’aventure :&lt;/span&gt;&lt;div class=&quot;choix&quot;&gt;&lt;span class=&quot;tirage&quot;&gt;&lt;b&gt;Pair&lt;/b&gt;&lt;span&gt;[[Poursuis au chapitre 21-&gt;Chapitre 21]]&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;tirage&quot;&gt;&lt;b&gt;Impair&lt;/b&gt;&lt;span&gt;[[Poursuis au chapitre 22-&gt;Chapitre 22]]&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;lancer&quot;&gt;&lt;button class=&quot;brique&quot; type=&quot;button&quot; aria-label=&quot;Toucher la brique pour lancer le dé&quot;&gt;&lt;span class=&quot;corps&quot;&gt;&lt;/span&gt;&lt;span class=&quot;face&quot;&gt;&lt;/span&gt;&lt;/button&gt;&lt;span class=&quot;aide&quot;&gt;touche la brique&lt;/span&gt;&lt;span class=&quot;resultat&quot; aria-live=&quot;polite&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="26" name="Chapitre 21" tags="" position="3900,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 21&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;La fête des champions&lt;/span&gt;&lt;/h1&gt;Kylian rejoignit ses coéquipiers. Le pirate avait construit une petite estrade en briques et dirigeait les chants des supporters. Il voulut saluer la foule en levant les deux bras ; son chapeau tomba, et l’astronaute le rattrapa avant qu’il ne disparaisse parmi les danseurs.
+Le soir venu, la fête battait son plein. Kylian regarda ses coéquipiers, puis le ciel au-dessus du stade. Il voulait profiter de cette victoire, mais il se demandait toujours comment rentrer chez lui.&lt;div class=&quot;de&quot;&gt;&lt;div class=&quot;de-texte&quot;&gt;&lt;span class=&quot;consigne&quot;&gt;Lance le dé pour découvrir la suite de l’aventure :&lt;/span&gt;&lt;div class=&quot;choix&quot;&gt;&lt;span class=&quot;tirage&quot;&gt;&lt;b&gt;Pair&lt;/b&gt;&lt;span&gt;[[Poursuis au chapitre 21-&gt;Chapitre 21]]&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;tirage&quot;&gt;&lt;b&gt;Impair&lt;/b&gt;&lt;span&gt;[[Poursuis au chapitre 22-&gt;Chapitre 22]]&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;lancer&quot;&gt;&lt;button class=&quot;brique&quot; type=&quot;button&quot; aria-label=&quot;Toucher la brique pour lancer le dé&quot;&gt;&lt;span class=&quot;corps&quot;&gt;&lt;/span&gt;&lt;span class=&quot;face&quot;&gt;&lt;/span&gt;&lt;/button&gt;&lt;span class=&quot;aide&quot;&gt;touche la brique&lt;/span&gt;&lt;span class=&quot;resultat&quot; aria-live=&quot;polite&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="26" name="Chapitre 21" tags="" position="3900,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot; aria-label=&quot;Chapitre 21&quot;&gt;21&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;La fête des champions&lt;/span&gt;&lt;/h1&gt;Kylian rejoignit ses coéquipiers. Le pirate avait construit une petite estrade en briques et dirigeait les chants des supporters. Il voulut saluer la foule en levant les deux bras ; son chapeau tomba, et l’astronaute le rattrapa avant qu’il ne disparaisse parmi les danseurs.
 
-Plus tard, Kylian s’assit un moment sur la pelouse. Il entendait encore ses coéquipiers rire près du but. Il ferma les yeux, juste une seconde.&lt;div class=&quot;separateur&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;elan&quot;&gt;[[Poursuis au chapitre 23-&gt;Chapitre 23]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="27" name="Chapitre 22" tags="" position="4050,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 22&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;À la recherche du passage&lt;/span&gt;&lt;/h1&gt;Kylian quitta la fête et leva les yeux vers le ciel. Il était arrivé par là, mais aucune trappe n’était visible au-dessus des toits. Il demanda à un habitant s’il connaissait un passage vers le musée ; celui-ci secoua la tête.
+Plus tard, Kylian s’assit un moment sur la pelouse. Il entendait encore ses coéquipiers rire près du but. Il ferma les yeux, juste une seconde.&lt;div class=&quot;separateur&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;elan&quot;&gt;[[Poursuis au chapitre 23-&gt;Chapitre 23]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="27" name="Chapitre 22" tags="" position="4050,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot; aria-label=&quot;Chapitre 22&quot;&gt;22&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;À la recherche du passage&lt;/span&gt;&lt;/h1&gt;Kylian quitta la fête et leva les yeux vers le ciel. Il était arrivé par là, mais aucune trappe n’était visible au-dessus des toits. Il demanda à un habitant s’il connaissait un passage vers le musée ; celui-ci secoua la tête.
 
-Kylian revint s’asseoir au bord du terrain. Derrière lui, la fête continuait. Il aurait aimé trouver la sortie avec Messi et Ronaldo, puis dire au revoir à tout le monde avant de partir. En attendant, il regarda les lumières du stade et ferma les yeux un instant.&lt;div class=&quot;separateur&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;elan&quot;&gt;[[Poursuis au chapitre 23-&gt;Chapitre 23]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="28" name="Chapitre 23" tags="" position="4200,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 23&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Retour au musée&lt;/span&gt;&lt;/h1&gt;Quand Kylian rouvrit les yeux, il était allongé sur le plancher du musée, devant la vitrine vide. Un gardien le secouait doucement par l’épaule.
+Kylian revint s’asseoir au bord du terrain. Derrière lui, la fête continuait. Il aurait aimé trouver la sortie avec Messi et Ronaldo, puis dire au revoir à tout le monde avant de partir. En attendant, il regarda les lumières du stade et ferma les yeux un instant.&lt;div class=&quot;separateur&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;elan&quot;&gt;[[Poursuis au chapitre 23-&gt;Chapitre 23]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="28" name="Chapitre 23" tags="" position="4200,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot; aria-label=&quot;Chapitre 23&quot;&gt;23&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Retour au musée&lt;/span&gt;&lt;/h1&gt;Quand Kylian rouvrit les yeux, il était allongé sur le plancher du musée, devant la vitrine vide. Un gardien le secouait doucement par l’épaule.
 
 Kylian se releva. Ses mains avaient retrouvé leurs doigts. Il les regarda, puis jeta un coup d’œil à la vitrine vide. Lego City, ses coéquipiers, la finale… Avait-il rêvé tout ça ?
 

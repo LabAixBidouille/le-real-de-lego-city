@@ -4,10 +4,10 @@
 Le moteur Harlowe est conservé tel quel dans index.html : seules les pages et la feuille de style du livre
 sont régénérées.
 
-Mise en page propre au livre d'Ernest et d'Abel, tirée des images de Manon : le papier crème des
-illustrations, leur cadre de plaques grises à tétons, les couleurs franches des briques (rouge, jaune, bleu,
-vert) et les petits objets dessinés au crayon. Le dé est une brique rouge 2 × 2 ; les étiquettes, les cases
-et le séparateur sont faits de briques.
+Mise en page propre au livre d'Ernest et d'Abel, choisie par Manon : sobre comme une notice de montage
+(page blanche, gris-bleu clair, numéro de chapitre en gros chiffre encadré comme une étape), les couleurs
+franches des briques en accent. La case du dé est cerclée de bleu, ses faces posées sur des briques jaunes ;
+le dé est une brique rouge 2 × 2 ; le séparateur, trois briques rouge, jaune et bleue. Police : Jost.
 
 Les illustrations sont facultatives : un chapitre sans image dans images/chapitres/ s'ouvre sur son titre.
 
@@ -95,12 +95,13 @@ BRIQUE_DE = svg(
     '</svg>')
 
 CSS = """
-@font-face { font-family: "Fredoka"; font-weight: 300 700; font-display: swap; src: url("fonts/Fredoka.woff2") format("woff2"); }
-@font-face { font-family: "Lexend"; font-weight: 300 700; font-display: swap; src: url("fonts/Lexend.woff2") format("woff2"); }
+@font-face { font-family: "Jost"; font-weight: 300 800; font-display: swap; src: url("fonts/Jost.woff2") format("woff2"); }
 
 /* Couleurs prises aux images : le crème du papier, le gris des plaques à tétons, les briques */
 :root {
-  --papier: #f8f4ea;
+  --papier: #ffffff;
+  --notice: #e8eef6;
+  --notice-trait: #cfd8e3;
   --encre: #22252b;
   --encre-douce: #5b5f68;
   --plaque: #c9c6bf;
@@ -115,8 +116,8 @@ CSS = """
 html, body, tw-story { background-color: var(--papier); color: var(--encre); }
 
 tw-story {
-  font-family: "Lexend", "Trebuchet MS", sans-serif;
-  font-weight: 350;
+  font-family: "Jost", "Trebuchet MS", sans-serif;
+  font-weight: 400;
   font-size: 1.08em;
   line-height: 1.7;
   padding: 0.8em 1.2em 3em;
@@ -136,51 +137,42 @@ tw-story { overflow: clip; }
 .cote img { display: block; width: 100%; height: auto; }
 .page:not(:has(.cote)) .texte { padding-top: 2.2em; }
 
-/* Le numéro du chapitre : une plaque jaune 1 × 6, ses tétons au-dessus */
+/* Le numéro du chapitre : un gros chiffre encadré, comme une étape de notice de montage */
 .chapitre { text-align: center; margin: 0 0 1.2em; font-weight: 400; font-size: 1em; line-height: 1.1; }
 .chapitre .numero {
-  position: relative;
-  display: inline-block;
-  margin: 10px 0 0.7em;
-  padding: 0.28em 1.1em 0.22em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.7em;
+  height: 1.7em;
+  padding: 0 0.2em;
+  margin-bottom: 0.35em;
+  border: 3px solid var(--encre);
   border-radius: 5px;
-  background: var(--jaune);
-  box-shadow: inset 0 -3px 0 rgba(0,0,0,0.16);
-  font-family: "Fredoka", sans-serif;
-  font-weight: 600;
-  font-size: 0.85em;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  background: #fff;
+  font-family: "Jost", sans-serif;
+  font-weight: 800;
+  font-size: 1.6em;
   color: var(--encre);
-}
-.chapitre .numero::before {
-  content: "";
-  position: absolute;
-  left: 10px; right: 10px; top: -7px; height: 8px;
-  color: var(--jaune);
-  background-image: radial-gradient(ellipse 5px 4px at 50% 100%, #d6a90c 0 98%, transparent 100%),
-                    radial-gradient(ellipse 5px 4px at 50% 60%, var(--jaune) 0 98%, transparent 100%);
-  background-size: 16px 8px;
-  background-position: center;
-  background-repeat: repeat-x;
 }
 .chapitre .titre {
   display: block;
-  font-family: "Fredoka", sans-serif;
-  font-weight: 600;
-  font-size: 2.3em;
+  font-family: "Jost", sans-serif;
+  font-weight: 700;
+  font-size: 2.2em;
   line-height: 1.12;
   color: var(--encre);
 }
 
-/* Séparateur : trois briques 1 × 1, rouge, jaune et bleue, entre deux traits de crayon */
-.separateur { display: flex; align-items: flex-end; justify-content: center; gap: 0.35em; margin: 1.8em 0 1.4em; }
-.separateur::before, .separateur::after { content: ""; width: 4em; height: 1.5px; margin: 0 0.6em 0.35em;
-  background: var(--plaque-fonce); border-radius: 1px; }
-.separateur i { position: relative; display: block; width: 0.9em; height: 0.75em; border-radius: 2px;
-  box-shadow: inset 0 -2px 0 rgba(0,0,0,0.2); }
-.separateur i::before { content: ""; position: absolute; left: 50%; top: -0.22em; width: 0.5em; height: 0.26em;
-  transform: translateX(-50%); border-radius: 2px 2px 0 0; background: inherit; }
+/* Séparateur : trois briques 2 × 1, rouge, jaune et bleue, chacune avec ses deux tétons */
+.separateur { display: flex; align-items: flex-end; justify-content: center; gap: 0.45em; margin: 2em 0 1.4em; }
+.separateur::before, .separateur::after { content: ""; width: 4em; height: 2px; margin: 0 0.7em 0.45em; background: var(--notice-trait); }
+.separateur i { position: relative; display: block; width: 1.9em; height: 0.95em; border-radius: 3px;
+  box-shadow: inset 0 -3px 0 rgba(0,0,0,0.22); }
+.separateur i::before, .separateur i::after { content: ""; position: absolute; top: -0.3em; width: 0.55em; height: 0.34em;
+  border-radius: 2px 2px 0 0; background: inherit; box-shadow: inset 0 -1px 0 rgba(0,0,0,0.15); }
+.separateur i::before { left: 0.22em; }
+.separateur i::after { right: 0.22em; }
 .separateur i:nth-child(1) { background: var(--rouge); }
 .separateur i:nth-child(2) { background: var(--jaune); }
 .separateur i:nth-child(3) { background: var(--bleu); }
@@ -188,7 +180,7 @@ tw-story { overflow: clip; }
 /* Lien Couverture */
 .retour { max-width: 1120px; margin: 0 auto 0.6em; text-align: left; }
 .retour tw-link, .retour .enchantment-link, .lien-retour tw-link, .lien-retour .enchantment-link {
-  font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.95em; color: var(--encre-douce);
+  font-family: "Jost", sans-serif; font-weight: 500; font-size: 0.95em; color: var(--encre-douce);
 }
 .retour tw-link::before, .lien-retour tw-link::before { content: "← "; }
 .retour tw-link:hover, .lien-retour tw-link:hover { color: var(--bleu); }
@@ -199,58 +191,47 @@ tw-link:hover, .enchantment-link:hover { color: var(--bleu); }
 /* Poursuis : en rouge, la flèche avance au survol */
 .elan { text-align: center; margin-top: 0.4em; }
 .elan tw-link, .elan .enchantment-link {
-  font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.3em; color: var(--rouge);
+  font-family: "Jost", sans-serif; font-weight: 600; font-size: 1.3em; color: var(--bleu);
   text-decoration: none; transition: color 0.2s ease;
 }
 .elan tw-link::after, .elan .enchantment-link::after { content: "→"; display: inline-block; margin-left: 0.35em;
-  color: var(--bleu); transition: transform 0.2s ease; }
+  color: var(--rouge); transition: transform 0.2s ease; }
 .elan tw-link:hover::after { transform: translateX(5px); }
-.elan tw-link:hover { color: var(--rouge-fonce); }
+.elan tw-link:hover { color: var(--bleu-fonce); }
 
-/* La case du dé : une plaque blanche cerclée de gris, comme le cadre des images, ses tétons sur le bord haut */
+/* La case du dé : un cadre bleu aux coins arrondis, les faces du dé sur de petites briques jaunes */
 .de {
-  position: relative;
   display: flex;
   align-items: center;
   gap: 1.2em;
-  margin-top: 2em;
+  margin-top: 1.8em;
   padding: 1em 1.3em 0.9em;
-  border: 3px solid var(--plaque);
+  border: 3px solid var(--bleu);
   border-radius: 10px;
   background: #fff;
-  box-shadow: 0 4px 0 var(--plaque-fonce);
-}
-.de::before {
-  content: "";
-  position: absolute;
-  left: 14px; right: 14px; top: -10px; height: 9px;
-  background-image: radial-gradient(ellipse 5.5px 4.5px at 50% 100%, var(--plaque-fonce) 0 98%, transparent 100%),
-                    radial-gradient(ellipse 5.5px 4.5px at 50% 65%, var(--plaque) 0 98%, transparent 100%);
-  background-size: 22px 9px;
-  background-repeat: repeat-x;
 }
 .de-texte { flex: 1; min-width: 0; }
-.de .consigne { display: block; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.08em;
+.de .consigne { display: block; font-family: "Jost", sans-serif; font-weight: 600; font-size: 1.08em;
   color: var(--encre); margin-bottom: 0.5em; }
 .choix { display: flex; flex-direction: column; align-items: flex-start; gap: 0.45em; }
 .tirage { display: inline-flex; align-items: center; gap: 0.8em; }
-/* Les faces du dé, sur une petite brique rouge 1 × 2 */
+/* Les faces du dé, sur une petite brique jaune */
 .tirage b {
   flex: none;
   min-width: 5.6em;
   padding: 0.12em 0.7em 0.08em;
   border-radius: 4px;
-  background: var(--rouge);
-  box-shadow: inset 0 -3px 0 rgba(0,0,0,0.2);
-  font-family: "Fredoka", sans-serif;
+  background: var(--jaune);
+  box-shadow: inset 0 -3px 0 rgba(0,0,0,0.15);
+  font-family: "Jost", sans-serif;
   font-weight: 600;
   font-size: 0.88em;
   text-align: center;
   white-space: nowrap;
-  color: #fff;
+  color: var(--encre);
 }
 .de .choix tw-link, .de .choix .enchantment-link {
-  font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.05em; color: var(--bleu);
+  font-family: "Jost", sans-serif; font-weight: 600; font-size: 1.05em; color: var(--bleu);
   white-space: nowrap; transition: color 0.2s ease;
 }
 .de .choix tw-link:hover { color: var(--bleu-fonce); }
@@ -265,72 +246,73 @@ tw-link:hover, .enchantment-link:hover { color: var(--bleu); }
 .brique.roule .corps { animation: tourne 0.9s cubic-bezier(.4, 0, .2, 1); }
 @keyframes tourne { 0% { transform: rotate(0) translateY(0); } 50% { transform: rotate(200deg) translateY(-10px); } 100% { transform: rotate(360deg) translateY(0); } }
 .brique .face { position: absolute; left: 0; right: 0; top: 18%; bottom: 6%; display: flex; align-items: center;
-  justify-content: center; font-family: "Fredoka", sans-serif; font-weight: 700; font-size: 2.5em; color: #fff;
+  justify-content: center; font-family: "Jost", sans-serif; font-weight: 700; font-size: 2.5em; color: #fff;
   opacity: 0; transition: opacity 0.3s ease 0.1s; }
 .brique.montre .face { opacity: 1; }
-.lancer .aide { font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 0.82em; color: var(--encre-douce); }
+.lancer .aide { font-family: "Jost", sans-serif; font-weight: 500; font-size: 0.82em; color: var(--encre-douce); }
 .resultat { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
 /* Fin */
 .fin { text-align: center; margin-top: 0.4em; }
-.fin .mot-fin { display: block; font-family: "Fredoka", sans-serif; font-weight: 700; font-size: 3.4em; line-height: 1;
+.fin .mot-fin { display: block; font-family: "Jost", sans-serif; font-weight: 700; font-size: 3.4em; line-height: 1;
   color: var(--rouge); margin-bottom: 0.4em; }
 .secondaires { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5em 1.6em; }
-.secondaires tw-link, .secondaires .enchantment-link { font-family: "Fredoka", sans-serif; font-weight: 600;
-  font-size: 1.05em; color: var(--bleu); text-decoration: underline 2px var(--jaune); text-underline-offset: 0.3em; }
+.secondaires tw-link, .secondaires .enchantment-link { font-family: "Jost", sans-serif; font-weight: 600;
+  font-size: 1.05em; color: var(--bleu); text-decoration: underline 2px var(--notice-trait); text-underline-offset: 0.3em; }
 
-/* Couverture, sans défilement : le titre en briques, le résumé, les boutons ; la mention en bas de page */
+/* Couverture, sans défilement : le titre dans un encadré de notice, le résumé, le bouton bleu */
 tw-story:has(.garde) { padding-top: 0; padding-bottom: 0; }
-.garde { position: relative; min-height: 100vh; box-sizing: border-box; padding: 5vh 0 9vh;
+.garde { position: relative; min-height: 100vh; box-sizing: border-box; padding: 4vh 0 9vh;
   display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
-  gap: clamp(0.8em, 2.4vh, 1.4em); }
-.garde .surtitre { font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.9em; letter-spacing: 0.18em;
-  text-transform: uppercase; color: var(--bleu); }
-.garde .grand-titre { font-family: "Fredoka", sans-serif; font-weight: 700; font-size: clamp(2.8em, 10vh, 5em);
-  line-height: 0.98; color: var(--rouge); }
-.garde .grand-titre span { display: block; font-size: 0.62em; color: var(--bleu); }
-.garde .nom-auteur { font-family: "Fredoka", sans-serif; font-weight: 500; font-size: 1.2em; color: var(--encre-douce); }
-.garde .synopsis { max-width: 34em; font-size: clamp(0.9em, 2.1vh, 1.02em); line-height: 1.65; }
+  gap: clamp(0.8em, 2.4vh, 1.3em); }
+.garde .encadre { display: flex; flex-direction: column; align-items: center; gap: 0.5em; padding: 1.6em 3em 1.5em;
+  border: 2px solid var(--notice-trait); border-radius: 5px; }
+.garde .surtitre { font-family: "Jost", sans-serif; font-weight: 600; font-size: 0.85em; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--encre-douce); }
+.garde .grand-titre { font-family: "Jost", sans-serif; font-weight: 800; font-size: clamp(2.8em, 9.5vh, 4.8em);
+  line-height: 1; color: var(--encre); }
+.garde .grand-titre span { display: block; font-size: 0.6em; color: var(--bleu); }
+.garde .nom-auteur { font-family: "Jost", sans-serif; font-weight: 500; font-size: 1.15em; color: var(--encre-douce); }
+.garde .synopsis { max-width: 34em; font-size: clamp(0.92em, 2.1vh, 1.05em); line-height: 1.65; }
 .garde .synopsis p { margin: 0.5em 0; }
 .garde .commencer tw-link, .garde .commencer .enchantment-link {
-  display: inline-block; padding: 0.35em 1.3em 0.3em; border-radius: 8px; background: var(--rouge);
-  box-shadow: inset 0 -5px 0 rgba(0,0,0,0.2); font-family: "Fredoka", sans-serif; font-weight: 700; font-size: 1.6em;
-  color: #fff; transition: transform 0.15s ease;
+  display: inline-block; padding: 0.35em 1.4em 0.32em; border-radius: 4px; background: var(--bleu);
+  font-family: "Jost", sans-serif; font-weight: 700; font-size: 1.5em; color: #fff; transition: background 0.15s ease;
 }
-.garde .commencer tw-link:hover { transform: translateY(-2px); color: #fff; }
+.garde .commencer tw-link:hover { background: var(--bleu-fonce); color: #fff; }
 .garde .secondaires { gap: 0; font-size: 0.95em; }
 .garde .secondaires tw-link, .garde .secondaires .enchantment-link { text-decoration: none; color: var(--encre-douce); }
 .garde .secondaires tw-link:hover { color: var(--bleu); }
-.garde .secondaires .point { margin: 0 0.8em; color: var(--rouge); }
-.garde .mention { position: absolute; left: 0; right: 0; bottom: 1.5vh; font-size: 0.78em; font-style: italic;
+.garde .secondaires .point { margin: 0 0.8em; color: var(--notice-trait); }
+.garde .mention { position: absolute; left: 0; right: 0; bottom: 1.5vh; font-size: 0.8em; font-style: italic;
   color: var(--encre-douce); }
 
 /* Page de l'arbre */
 .arbre .lien-retour { display: block; font-size: 0.9em; }
 .arbre-tete { text-align: center; margin: 0.5em 0 1.5em; }
-.arbre h1 { margin: 0; font-family: "Fredoka", sans-serif; font-weight: 700; font-size: 2.3em; color: var(--rouge); }
+.arbre h1 { margin: 0; font-family: "Jost", sans-serif; font-weight: 800; font-size: 2.3em; color: var(--encre); }
 .arbre .arbre-sous-titre { display: block; color: var(--encre-douce); margin-top: 0.3em; }
 .arbre img { display: block; width: 100%; max-width: 900px; height: auto; margin: 0 auto; }
 
 /* Page « Comment est née cette histoire » */
 .contexte { max-width: 40em; margin: 1em auto 0; text-align: center; }
 .contexte .lien-retour { display: block; text-align: left; margin-bottom: 1em; }
-.contexte h1 { font-family: "Fredoka", sans-serif; font-weight: 700; font-size: 2.2em; line-height: 1.15; color: var(--encre); margin: 1em 0 0; }
+.contexte h1 { font-family: "Jost", sans-serif; font-weight: 700; font-size: 2.2em; line-height: 1.15; color: var(--encre); margin: 1em 0 0; }
 .contexte-texte { text-align: left; }
-.citation { margin: 1.8em auto; max-width: 28em; text-align: center; font-family: "Fredoka", sans-serif; font-weight: 500;
+.citation { margin: 1.8em auto; max-width: 28em; text-align: center; font-family: "Jost", sans-serif; font-weight: 500;
   font-size: 1.3em; line-height: 1.4; color: var(--bleu-fonce); }
 .citation .source { display: block; margin-top: 0.5em; font-size: 0.6em; letter-spacing: 0.12em; text-transform: uppercase; color: var(--encre-douce); }
 .dessins { display: flex; justify-content: center; align-items: flex-end; gap: 2.5em; margin: 0.6em auto 0.4em; }
 .dessins figure { margin: 0; }
 .dessins img { display: block; height: 8em; width: auto; margin: 0 auto; }
-.dessins figcaption { margin-top: 0.4em; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 0.9em; color: var(--bleu-fonce); }
+.dessins figcaption { margin-top: 0.4em; font-family: "Jost", sans-serif; font-weight: 600; font-size: 0.9em; color: var(--bleu-fonce); }
 .table-fiches { margin: 2.6em auto 0; }
-.table-fiches .titre-table { display: block; font-family: "Fredoka", sans-serif; font-weight: 600; font-size: 1.3em; margin-bottom: 1.2em; }
+.table-fiches .titre-table { display: block; font-family: "Jost", sans-serif; font-weight: 600; font-size: 1.3em; margin-bottom: 1.2em; }
 .miniatures { display: flex; justify-content: center; align-items: flex-start; flex-wrap: wrap; gap: 1.6em; }
 .miniatures figure { margin: 0; }
 .miniatures figcaption { margin-top: 0.7em; color: var(--encre-douce); }
 .miniature { display: block; padding: 0; border: none; background: none; cursor: zoom-in; }
-.miniature img { display: block; height: 13em; width: auto; border: 3px solid var(--plaque); border-radius: 6px; transition: transform 0.2s ease; }
+.miniature img { display: block; height: 13em; width: auto; border: 2px solid var(--notice-trait); border-radius: 6px; transition: transform 0.2s ease; }
 .miniature:hover img { transform: scale(1.04); }
 .contexte .credits { display: block; margin-top: 2em; font-size: 0.9em; color: var(--encre-douce); }
 .contexte .avertissement { display: block; margin-top: 0.8em; font-size: 0.82em; font-style: italic; color: var(--encre-douce); }
@@ -475,7 +457,8 @@ def passage_chapitre(ch):
         suite.append('<div class="fin"><span class="mot-fin">Fin</span>'
                      f'<div class="secondaires">{lien("Comment est née cette histoire", "Comment est née cette histoire")}'
                      f'{lien("Relire depuis le début", "Prologue")}</div></div>')
-    numero = "" if ch["nom"] == "Prologue" else f'<span class="numero">{ch["numero"]}</span>'
+    numero = ("" if ch["nom"] == "Prologue"
+              else f'<span class="numero" aria-label="{ch["numero"]}">{ch["numero"].split()[-1]}</span>')
     texte = (f'<div class="texte"><h1 class="chapitre">{numero}<span class="titre">{ch["titre"]}</span></h1>'
              + "\n\n".join(corps) + "".join(suite) + "</div>")
     return f'<div class="page">{cote}{texte}</div>'
@@ -485,9 +468,9 @@ def passage_garde():
     resume = "".join(f"<p>{p}</p>" for p in SYNOPSIS.split("\n\n"))
     return (
         '<div class="garde">'
-        '<span class="surtitre">Une histoire dont le lecteur est le héros</span>'
+        '<div class="encadre"><span class="surtitre">Une histoire dont le lecteur est le héros</span>'
         '<span class="grand-titre">Le Real<span>de Lego City</span></span>'
-        f'<span class="nom-auteur">une histoire par {AUTEURS}</span>'
+        f'<span class="nom-auteur">une histoire par {AUTEURS}</span></div>'
         f'{SEPARATEUR}<div class="synopsis">{resume}</div>'
         f'<div class="commencer">{lien("Commencer l’histoire", "Prologue")}</div>'
         f'<div class="secondaires">{lien("Comment est née cette histoire", "Comment est née cette histoire")}'

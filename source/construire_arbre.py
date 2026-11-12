@@ -66,7 +66,7 @@ def brique(x, y, nom, couleur):
             + f'<rect x="{x - l / 2}" y="{y - h / 2}" width="{l}" height="{h}" rx="5" fill="{couleur}" '
               f'stroke="{FONCE[couleur]}" stroke-width="2"/>'
             + f'<rect x="{x - l / 2 + 2}" y="{y + h / 2 - 7}" width="{l - 4}" height="5" fill="{FONCE[couleur]}" opacity="0.35"/>'
-            + f'<text x="{x}" y="{y + taille * 0.36}" text-anchor="middle" font-family="Fredoka" font-weight="700" '
+            + f'<text x="{x}" y="{y + taille * 0.36}" text-anchor="middle" font-family="Jost" font-weight="700" '
               f'font-size="{taille}" fill="{chiffre}">{texte}</text>')
 
 
@@ -83,14 +83,14 @@ def lignes(titre, largeur=26):
 
 def titre_svg(x, y, titre):
     tspans = "".join(f'<tspan x="{x}" dy="{0 if i == 0 else 18}">{l}</tspan>' for i, l in enumerate(lignes(titre)))
-    return (f'<text x="{x}" y="{y + 42}" text-anchor="middle" font-family="Lexend" font-weight="500" '
+    return (f'<text x="{x}" y="{y + 42}" text-anchor="middle" font-family="Jost" font-weight="500" '
             f'font-size="15" fill="{ENCRE}">{tspans}</text>')
 
 
 def pastille(x, y, texte):
     largeur = 22 + len(texte) * 8.6
     return (f'<rect x="{x - largeur / 2}" y="{y - 12}" width="{largeur}" height="24" rx="4" fill="{ROUGE}"/>'
-            f'<text x="{x}" y="{y + 5.5}" text-anchor="middle" font-family="Fredoka" font-weight="600" '
+            f'<text x="{x}" y="{y + 5.5}" text-anchor="middle" font-family="Jost" font-weight="600" '
             f'font-size="15" fill="#fff">{texte}</text>')
 
 
@@ -133,13 +133,13 @@ def construire():
         bas = debuts[i + 1] - 12 if i + 1 < len(PARTIES) else pos[dernier][1] + SOUS_TITRE + 10
         milieu = (haut + bas) / 2
         marge.append(f'<rect x="40" y="{haut}" width="34" height="{bas - haut}" rx="5" fill="{couleur}"/>'
-                     f'<text transform="translate(63,{milieu}) rotate(-90)" text-anchor="middle" font-family="Fredoka" '
+                     f'<text transform="translate(63,{milieu}) rotate(-90)" text-anchor="middle" font-family="Jost" '
                      f'font-weight="700" font-size="18" letter-spacing="2" fill="{ENCRE if couleur == JAUNE else "#fff"}">{texte}</text>')
 
     noeuds = "".join(brique(*pos[n], n, partie(n, pos)) + titre_svg(*pos[n], titres[n]) for n in pos)
     svg = (
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {LARGEUR} {hauteur}" width="{LARGEUR}" height="{hauteur}">'
-        "<style>" + police("Fredoka.woff2", "Fredoka") + police("Lexend.woff2", "Lexend") + "</style>"
+        "<style>" + police("Jost.woff2", "Jost") + "</style>"
         + "".join(marge)
         + f'<g fill="none" stroke="{BLEU}" stroke-width="3" stroke-linejoin="miter">{"".join(traits)}</g>'
         + f'<g fill="{BLEU}">{fleches}</g>'
