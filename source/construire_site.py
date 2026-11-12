@@ -328,8 +328,9 @@ tw-passage:has(.garde) { max-width: none; }
 .dos .nom-auteur { font-size: 1em !important; }
 .dos .synopsis { font-size: 1.2em !important; line-height: 1.45 !important; text-align: left; max-width: none !important; }
 .dos .synopsis p { margin: 0.35em 0 !important; }
-.dos .contenu { align-self: stretch; padding: 0.5em 0.8em 0.4em; border-radius: 10px; background: var(--notice); }
+.dos .contenu { align-self: stretch; padding: 0.4em 0.8em 0.4em; }
 .dos .titre-contenu { display: block; font-weight: 600; font-size: 0.7em; letter-spacing: 0.12em; text-transform: uppercase; color: var(--encre-douce); }
+.dos .equipe { display: block; width: 100%; height: auto; max-height: 30vh; object-fit: contain; margin: 0.3em 0 0.2em; }
 .dos .figs { display: flex; justify-content: space-between; align-items: flex-end; margin: 0.35em 0; gap: 0.3em; }
 .dos .figs img { height: 4.8em; width: auto; min-width: 0; }
 .dos .chiffres { font-size: 0.8em; color: var(--encre-douce); }
@@ -670,7 +671,7 @@ def passage_garde():
         f'<span class="nom-auteur">par {AUTEURS}</span></div>'
         f'<div class="synopsis">{resume}</div>'
         '<div class="contenu"><span class="titre-contenu">Dans la boîte</span>'
-        '<div class="figs"><img src="images/pieces/kylian.png" alt=""><img src="images/pieces/messi.png" alt=""><img src="images/pieces/ronaldo.png" alt=""><img src="images/pieces/zidane.png" alt=""><img src="images/pieces/pompier.png" alt=""><img src="images/pieces/policiere.png" alt=""><img src="images/pieces/boulangere.png" alt=""><img src="images/pieces/pirate.png" alt=""><img src="images/pieces/astronaute.png" alt=""><img src="images/pieces/blanchisseur.png" alt=""><img src="images/pieces/maire.png" alt=""><img src="images/pieces/entraineur-de-l-om.png" alt=""><img src="images/pieces/petit-chien.png" alt=""><img src="images/pieces/joueur-adverse.png" alt=""></div>'
+        '<img class="equipe" src="images/equipe.jpg" alt="L’équipe du Real de Lego City en maillots blancs : Kylian, Messi, Ronaldo, la boulangère, le pompier, l’astronaute, la policière, le pirate et leurs coéquipiers">'
         f'<div class="chiffres"><b>{etapes}</b> étapes · <b>{len(SACHETS)}</b> sachets · <b>56</b> pièces · '
         f'<b>{minutes}</b> minutes de lecture</div></div>'
         f'<div class="commencer">{lien("Ouvrir le premier sachet", "Prologue")}</div>'
