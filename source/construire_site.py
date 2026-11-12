@@ -336,7 +336,7 @@ tw-passage:has(.garde) { max-width: none; }
 .dos .chiffres { font-size: 0.8em; color: var(--encre-douce); }
 .dos .chiffres b { color: var(--encre); font-weight: 800; }
 .dos .commencer { align-self: stretch; }
-.dos .commencer tw-link, .dos .commencer .enchantment-link { display: flex !important; flex-direction: column; align-items: center;
+.dos .commencer tw-link, .dos .commencer .enchantment-link { display: flex !important; flex-direction: row; align-items: baseline; justify-content: center;
   box-sizing: border-box; width: 100%; font-size: 1.3em !important; }
 .dos .secondaires { font-size: 0.85em !important; }
 .invisible { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
@@ -365,7 +365,7 @@ tw-passage:has(.garde) { max-width: none; }
 }
 .garde .commencer tw-link:hover { background: var(--bleu-fonce); color: #fff; }
 /* Sous le bouton, en petit dans le bouton : « commencer l'histoire » */
-.garde .commencer tw-link::after, .garde .commencer .enchantment-link::after { content: "commencer l’histoire"; display: block;
+.garde .commencer tw-link::after, .garde .commencer .enchantment-link::after { content: "· commencer l’histoire"; display: inline; margin-left: 0.5em;
   margin-top: 0.1em; font-weight: 500; font-size: 0.52em; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.85; }
 .garde .secondaires { gap: 0; font-size: 0.95em; }
 .garde .secondaires tw-link, .garde .secondaires .enchantment-link { text-decoration: none; color: var(--encre-douce); }
@@ -624,7 +624,7 @@ def passage_chapitre(ch):
         if renvoi:
             suite.append(f'<div class="elan">{poursuis(renvoi)}</div>')
     if fin:
-        suite.append('<div class="fin"><span class="mot-fin">Fin</span><span class="bravo">Ton modèle est terminé.</span>'
+        suite.append('<div class="fin"><span class="mot-fin">Fin</span>'
                      f'<div class="secondaires">{lien("Comment est née cette histoire", "Comment est née cette histoire")}'
                      f'{lien("Relire depuis le début", "Prologue")}</div></div>')
     cle = 0 if ch["nom"] == "Prologue" else int(ch["nom"].split()[-1])

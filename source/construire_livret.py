@@ -65,6 +65,8 @@ p {{ margin: 0 0 0.5em; orphans: 2; widows: 2; }}
 .couverture .surtitre {{ font-weight: 600; font-size: 6pt; letter-spacing: 1.2pt; text-transform: uppercase; color: {DOUCE}; }}
 .couverture h1 {{ margin: 1mm 0 0; font-weight: 800; font-size: 22pt; line-height: 1.05; color: {ENCRE}; }}
 .couverture .par {{ margin-top: 1mm; font-weight: 600; font-size: 10pt; color: {DOUCE}; }}
+.couverture .equipe-couv {{ display: block; width: 100%; height: auto; margin-top: 2.5mm; }}
+.couverture h1 {{ font-size: 25pt !important; }}
 /* Page 2 : l'équipe sous le résumé */
 .dos .equipe {{ display: block; width: 100%; height: auto; }}
 /* Rangée de briques en bas de la boîte */
@@ -109,7 +111,7 @@ p {{ margin: 0 0 0.5em; orphans: 2; widows: 2; }}
 .pieces b {{ font-size: 6.5pt; color: {BLEU}; }}
 .pola {{ float: left; width: 52%; margin: 0.5mm 4mm 2mm 0; }}
 .suite, .montage, .de {{ clear: both; }}
-.scene {{ display: block; height: 70mm; width: auto; margin: 2mm auto 3mm; }}
+.scene {{ float: left; width: 46%; height: auto; margin: 0.5mm 4mm 2mm 0; }}
 .ouvre {{ padding-top: 2mm; }}
 
 /* Fin de chapitre */
@@ -140,10 +142,12 @@ p {{ margin: 0 0 0.5em; orphans: 2; widows: 2; }}
 .fin span {{ display: block; font-weight: 600; font-size: 10pt; color: {DOUCE}; }}
 
 /* Chapitres resserrés pour éviter les pages presque vides */
-.serre {{ font-size: 10.4pt; line-height: 1.38; }}
-.serre .pola {{ width: 48%; }}
-.serre2 {{ font-size: 9.9pt; line-height: 1.33; }}
-.serre2 .pola {{ width: 44%; }}
+.serre {{ line-height: 1.4; }}
+.serre p {{ margin-bottom: 0.4em; }}
+.serre .pola, .serre .scene {{ width: 44% !important; }}
+.serre2 {{ line-height: 1.36; }}
+.serre2 p {{ margin-bottom: 0.3em; }}
+.serre2 .pola, .serre2 .scene {{ width: 38% !important; }}
 
 /* Contexte, arbre, dos */
 .contexte h2 {{ font-weight: 800; font-size: 15pt; text-align: center; margin: 0 0 3mm; }}
@@ -214,12 +218,13 @@ def chapitre(ch, suivant, pages):
     suite = []
     if tirages:
         suite.append(f'<div class="de"><p class="consigne">{e(consigne)}</p>' + "".join(
-            f'<div class="tirage"><b>{e(f)}</b><span class="renvoi">{e(renvoi(n, pages))}</span></div>'
+            f'<div class="tirage"><b>{e(f)}</b><span class="renvoi">'
+            f'{"Tourne la page" if suivant is not None and int(n) == suivant else e(renvoi(n, pages))}</span></div>'
             for f, n in tirages) + "</div>")
     elif cible and not (suivant is not None and int(cible) == suivant):
         suite += [SEPARATEUR, f'<p class="elan">{e(renvoi(cible, pages))}</p>']
     if fin:
-        suite += [SEPARATEUR, '<div class="fin">Fin<span>Ton modèle est terminé.</span></div>']
+        suite += [SEPARATEUR, '<div class="fin">Fin</div>']
     montage = ('<div class="montage">' + '<span class="fl">→</span>'.join(
         f'<img src="{x.as_uri()}" alt="">' for x in etapes) + '</div>') if etapes else ""
     if montage and cle in MONTAGE_HAUT:
@@ -251,7 +256,8 @@ def document(pages, blanches=0):
         '<div class="encadre"><div class="coins"><span class="set">2810</span><span class="age">6+</span></div>'
         '<div class="surtitre">Une histoire dont le lecteur est le héros</div>'
         f'<h1>{e(TITRE)}</h1>'
-        f'<div class="par">par {e(AUTEURS)}</div></div></section>'
+        f'<div class="par">par {e(AUTEURS)}</div>'
+        f'<img class="equipe-couv" src="{(RACINE / "images" / "equipe.jpg").as_uri()}" alt=""></div></section>'
         '<section class="page-seule sans-numero"><div class="dos">'
         f'<div class="resume">{e(SYNOPSIS)}</div>'
         f'<img class="equipe" src="{(RACINE / "images" / "equipe.jpg").as_uri()}" alt="">'
