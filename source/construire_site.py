@@ -37,14 +37,15 @@ SYNOPSIS = (
     "matchs et des surprises, une question le poursuit : retrouvera-t-il un jour le chemin de chez lui ?"
 )
 
-AVERTISSEMENT_COURT = ("Fan fiction librement inspirée du football et des jouets LEGO®. La boîte est une image : "
-                       "ce livre n’est pas un produit LEGO.")
+AVERTISSEMENT_COURT = (
+    "Fan fiction librement inspirée du football et des jouets LEGO®. Les pièces et les montages sont une façon de raconter l’histoire : ce livre n’est pas un produit LEGO."
+)
 AVERTISSEMENT = (
     "Une fan fiction humoristique, librement inspirée du monde du football et de l’univers des jouets LEGO®. "
     "Les joueurs, l’entraîneur et les clubs qui existent réellement n’y apparaissent que comme des personnages "
     "de fiction : les situations et les paroles qu’on leur prête sont entièrement imaginaires. Ce livre n’est "
     "ni approuvé ni soutenu par eux, par leurs clubs ou par le groupe LEGO. LEGO est une marque déposée de son "
-    "propriétaire. La boîte, les sachets, les pièces et les étapes de montage sont une manière de présenter l’histoire "
+    "propriétaire. Les pièces et les étapes de montage sont une manière de présenter l’histoire "
     "comme une notice : il ne s’agit pas d’un vrai produit LEGO et aucun jeu de construction n’accompagne ce livre."
 )
 
@@ -635,7 +636,7 @@ def passage_chapitre(ch):
               else f'<span class="num" aria-label="{ch["numero"]}">{ch["numero"].split()[-1]}</span>')
     entete = (f'<div class="etape"><div class="bande">{numero}<div class="bande-texte">'
               + ('<span class="sachet">Prologue</span>' if ch["nom"] == "Prologue"
-                 else f'<span class="sachet">Sachet {n_sachet} · {nom_sachet}</span>')
+                 else f'<span class="sachet">{ch["numero"]}</span>')
               +
               f'<h1 class="chapitre"><span class="titre">{ch["titre"]}</span></h1></div>'
               + (f'<ul class="pieces">{liste}</ul>' if liste else "") + '</div></div>')
@@ -671,7 +672,7 @@ def passage_garde():
         f'<span class="nom-auteur">par {AUTEURS}</span></div>'
         f'<div class="synopsis">{resume}</div>'
         '<img class="equipe" src="images/equipe.jpg" alt="L’équipe du Real de Lego City en maillots blancs : Kylian, Messi, Ronaldo, la boulangère, le pompier, l’astronaute, la policière, le pirate et leurs coéquipiers">'
-        f'<div class="commencer">{lien("Ouvrir le premier sachet", "Prologue")}</div>'
+        f'<div class="commencer">{lien("Ouvrir le premier chapitre", "Prologue")}</div>'
         f'<div class="secondaires">{lien("Comment est née cette histoire", "Comment est née cette histoire")}'
         f'<span class="point">·</span>{lien("L’arbre de l’histoire", "L’arbre de l’histoire")}</div></div>'
         f'<span class="mention">{AVERTISSEMENT_COURT}</span></div>'

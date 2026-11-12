@@ -22,7 +22,7 @@ from pathlib import Path
 from pypdf import PageObject, PdfReader, PdfWriter, Transformation
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from construire_site import (AUTEURS, AVERTISSEMENT, CITATION, CONTEXTE, PIECES, SYNOPSIS, TITRE,  # noqa: E402
+from construire_site import (AUTEURS, AVERTISSEMENT, AVERTISSEMENT_COURT, CITATION, CONTEXTE, PIECES, SYNOPSIS, TITRE,  # noqa: E402
                              fichier_piece, illustration, lire_chapitres, lire_choix, minutes_de_lecture, sachet)
 
 RACINE = Path(__file__).resolve().parent.parent
@@ -261,8 +261,7 @@ def document(pages, blanches=0):
         '<section class="page-seule sans-numero"><div class="dos">'
         f'<div class="resume">{e(SYNOPSIS)}</div>'
         f'<img class="equipe" src="{(RACINE / "images" / "equipe.jpg").as_uri()}" alt="">'
-        '<div class="mention">Fan fiction librement inspirée du football et des jouets LEGO®. La boîte est une image : '
-        'ce livre n’est pas un produit LEGO.</div></div></section>'
+        f'<div class="mention">{e(AVERTISSEMENT_COURT)}</div></div></section>'
     )
     chapitres_lus = lire_chapitres()
     cles = [cle_de(ch["nom"]) for ch in chapitres_lus]
