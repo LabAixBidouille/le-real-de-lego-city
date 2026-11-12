@@ -145,7 +145,7 @@ tw-story { overflow: clip; }
 /* L'image dans le texte : elle flotte à gauche, le texte l'entoure */
 .page { max-width: 54em; }
 .cote { float: left; width: 46%; margin: 0.3em 2em 1em 0; }
-.cadre-image { position: relative; padding: 0.5em; border: 4px solid var(--sachet); border-radius: 14px; background: #fff; }
+.cadre-image { position: relative; }
 .cadre-image img { display: block; width: 100%; height: auto; }
 .cote:has(img[src*="prologue"]), .cote:has(img[src*="chapitre-23"]) { width: 38%; }
 .texte .suite, .texte .de, .texte .separateur, .texte .elan, .texte .fin { clear: both; }
