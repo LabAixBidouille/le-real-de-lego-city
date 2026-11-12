@@ -137,38 +137,32 @@ tw-story { overflow: clip; }
 .cote img { display: block; width: 100%; height: auto; }
 .page:not(:has(.cote)) .texte { padding-top: 2.2em; }
 
-/* En-tête d'étape, comme une page de notice : à gauche le sachet et le gros numéro d'étape, à droite la
-   liste des pièces de l'étape dans un encadré bleu clair ; le titre dessous, aligné à gauche */
-.etape { display: flex; align-items: stretch; justify-content: space-between; gap: 1.5em; margin: 0.6em 0 0.6em; }
-.etape-gauche { display: flex; flex-direction: column; align-items: flex-start; gap: 0.3em; }
-.sachet { display: inline-flex; align-items: center; gap: 0.5em; font-family: "Jost", sans-serif; font-weight: 600;
-  font-size: 0.85em; letter-spacing: 0.04em; color: var(--encre-douce); }
-.sachet .sac { display: inline-flex; align-items: center; justify-content: center; width: 1.7em; height: 1.7em;
-  border-radius: 50%; background: var(--encre); color: #fff; font-weight: 700; }
-.etape .numero { font-family: "Jost", sans-serif; font-weight: 800; font-size: 5.2em; line-height: 0.9; color: var(--encre); }
-/* Une couleur de brique par sachet : la pastille du sachet et un trait sous le gros numéro */
-.etape { --sachet: var(--rouge); --sur-sachet: #fff; }
+/* En-tête d'étape, comme les cartes de l'arbre : un bandeau cerclé de gris-bleu, le gros numéro dans une case de
+   la couleur du sachet, le sachet et le titre à côté ; dessous, l'encadré bleu clair des pièces de l'étape */
+.etape { --sachet: var(--rouge); --sur-sachet: #fff; margin: 0.6em 0 1.3em; }
 .sachet-2 { --sachet: var(--jaune); --sur-sachet: var(--encre); }
 .sachet-3 { --sachet: var(--bleu); }
 .sachet-4 { --sachet: var(--vert); }
 .sachet-5 { --sachet: #f2780c; }
-.etape .sachet .sac { background: var(--sachet); color: var(--sur-sachet); }
-.etape .numero { padding-bottom: 0.06em; border-bottom: 0.12em solid var(--sachet); }
-.etape .numero.mot { font-size: 2.6em; line-height: 1.1; }
-.pieces { align-self: flex-start; min-width: 13em; max-width: 19em; padding: 0.7em 1em 0.8em; border-radius: 8px;
-  background: var(--notice); }
-.pieces-titre { display: block; font-family: "Jost", sans-serif; font-weight: 600; font-size: 0.78em; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--encre-douce); margin-bottom: 0.3em; }
-.pieces ul { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 0.25em 0.9em; }
-.pieces li { font-size: 0.92em; white-space: nowrap; }
+.bande { display: flex; align-items: stretch; border: 2.5px solid var(--notice-trait); border-radius: 10px; overflow: hidden; }
+.bande .num { flex: none; display: flex; align-items: center; justify-content: center; min-width: 2.1em; padding: 0 0.25em;
+  background: var(--sachet); color: var(--sur-sachet); font-family: "Jost", sans-serif; font-weight: 800; font-size: 3em; line-height: 1; }
+.bande-texte { padding: 0.6em 1em 0.65em; }
+.bande .sachet { display: block; font-family: "Jost", sans-serif; font-weight: 600; font-size: 0.82em; letter-spacing: 0.04em;
+  color: var(--encre-douce); }
+.pieces { display: inline-flex; flex-wrap: wrap; align-items: flex-end; gap: 0.35em 1.1em; margin: 0.7em 0 0; padding: 0.55em 0.9em;
+  list-style: none; border-radius: 10px; background: var(--notice); }
+.pieces li { font-size: 0.92em; }
 .pieces li b { font-weight: 700; color: var(--bleu); }
-.chapitre { text-align: left; margin: 0.4em 0 1em; font-weight: 400; font-size: 1em; line-height: 1.1;
-  padding-top: 0.5em; border-top: 2px solid var(--notice-trait); }
+.pieces li.avec-image { display: flex; flex-direction: column; align-items: center; gap: 0.1em; }
+.pieces li.avec-image img { display: block; height: 3.4em; width: auto; }
+.pieces li.avec-image b { font-size: 0.85em; }
+.chapitre { text-align: left; margin: 0.1em 0 0; font-weight: 400; font-size: 1em; line-height: 1.1; }
 .chapitre .titre {
   display: block;
   font-family: "Jost", sans-serif;
   font-weight: 700;
-  font-size: 2.2em;
+  font-size: 1.85em;
   line-height: 1.12;
   color: var(--encre);
 }
@@ -343,8 +337,8 @@ tw-story:has(.garde) { padding-top: 0; padding-bottom: 0; }
 
 @media (max-width: 600px) {
   tw-story { font-size: 1.03em; padding: 0.8em 1em 3em; }
-  .etape { flex-direction: column; gap: 0.6em; }
-  .pieces { max-width: none; }
+  .bande .num { font-size: 2.3em; }
+  .chapitre .titre { font-size: 1.5em; }
   .garde .boite { padding: 1.3em 1.2em 0; }
   .garde .boite-bas { gap: 0.9em; margin-left: -1.2em; margin-right: -1.2em; flex-wrap: wrap; }
   .chapitre .titre { font-size: 1.9em; }
@@ -460,18 +454,54 @@ def lire_choix(ch):
 
 # Les parties de l'histoire sont les sachets numérotés d'une boîte LEGO
 SACHETS = [(0, 3, "La chute"), (4, 7, "L’équipe"), (8, 11, "Le tournoi"), (12, 19, "La finale"), (20, 23, "Le retour")]
-# Les « pièces » de chaque étape : personnages et objets repérés dans le texte du chapitre, dans l'ordre où
-# ils apparaissent (motif cherché, nom affiché)
-PIECES = [
-    (r"\bKylian\b", "Kylian"), (r"\bMessi\b", "Messi"), (r"\bRonaldo\b", "Ronaldo"), (r"\bZidane\b", "Zidane"),
-    (r"homme en costume|l’entraîneur réfléchit", "l’entraîneur de l’OM"),
-    (r"\bpompier\b", "pompier"), (r"\bpolicière\b", "policière"), (r"\bboulangère\b", "boulangère"),
-    (r"\bpirate\b", "pirate"), (r"\bastronaute\b", "astronaute"), (r"\bblanchisseur\b", "blanchisseur"),
-    (r"\bmaire\b", "maire"), (r"petit chien", "chien"),
-    (r"\bpoubelle\b", "poubelle"), (r"\btrampoline\b", "trampoline"), (r"\bvitrine\b", "vitrine"),
-    (r"\bchaussettes\b", "chaussettes puantes"), (r"bombes de déodorant", "bombes de déodorant"),
-    (r"\bbrioches?\b", "brioche"), (r"\bbanderole\b", "banderole"), (r"camions? de pompiers", "camion de pompiers"), (r"\bsifflet\b", "sifflet"), (r"\bcoupe\b", "coupe"), (r"\bballon\b", "ballon"),
-]
+# Les pièces de chaque étape, revues à la main : (nombre, nom). Si images/pieces/<nom en minuscules, tirets>.png
+# existe, l'image remplace le nom (encadré des pièces d'une notice : l'image et « 1× » dessous).
+PIECES = {
+    0: [(1, "Kylian en civil"), (1, "vitrine vide"), (1, "étiquette « Jamais remportée »"), (1, "trappe")],
+    1: [(1, "Kylian"), (1, "banderole « Lego City cherche ses joueurs »"), (3, "briques")],
+    2: [(1, "poubelle"), (1, "petit chien"), (1, "blanchisseur"), (1, "machine à laver"), (1, "Messi"), (1, "Ronaldo")],
+    3: [(1, "trampoline"), (1, "camion de glaces"), (1, "ballon"), (1, "panneau d’affichage"), (1, "Messi"), (1, "Ronaldo")],
+    4: [(1, "serviette « Le Real de Lego City »"), (1, "pompier"), (1, "policière"), (1, "astronaute"), (1, "pirate"),
+        (1, "boulangère")],
+    5: [(1, "caisse de briques"), (1, "grue"), (1, "poteau de but"), (1, "maillot blanc"), (1, "banderole « Allez le Real ! »")],
+    6: [(1, "Zidane"), (1, "ballon"), (1, "plot d’entraînement")],
+    7: [(1, "entraîneur de l’OM"), (1, "tableau à flèches"), (1, "sifflet"), (1, "casque d’astronaute")],
+    8: [(1, "banderole « Allez le Real ! »"), (1, "perruque"), (1, "camion de pompiers"), (1, "joueur adverse")],
+    9: [(1, "astronaute"), (1, "pompier"), (1, "ballon")],
+    10: [(1, "Ronaldo"), (1, "joueur adverse"), (1, "ballon")],
+    11: [(1, "astronaute"), (1, "ballon"), (1, "joueur adverse")],
+    12: [(1, "coupe"), (1, "brioche"), (2, "silhouette"), (1, "grand sac")],
+    13: [(1, "Kylian"), (2, "silhouette"), (1, "porte")],
+    14: [(1, "Kylian"), (1, "Messi"), (1, "Ronaldo"), (1, "porte")],
+    15: [(1, "chaussettes puantes"), (1, "casier"), (1, "blanchisseur"), (1, "pirate")],
+    16: [(1, "bombe de déodorant"), (1, "camion de pompiers"), (1, "lance à incendie"), (1, "car du Bricksenal FC")],
+    17: [(1, "brioche"), (1, "gourde"), (1, "casque d’astronaute"), (1, "ballon")],
+    18: [(1, "Kylian"), (1, "ballon"), (1, "joueur adverse")],
+    19: [(1, "Messi"), (1, "ballon"), (1, "joueur adverse")],
+    20: [(1, "coupe"), (1, "maire"), (1, "brioche")],
+    21: [(1, "estrade en briques"), (1, "chapeau de pirate"), (1, "astronaute")],
+    22: [(1, "Kylian"), (1, "habitant"), (1, "projecteur")],
+    23: [(1, "gardien du musée"), (1, "minuscule coupe"), (1, "crayon"), (1, "étiquette « Jamais remportée »")],
+}
+
+
+def fichier_piece(nom):
+    """« camion de pompiers » → images/pieces/camion-de-pompiers.png"""
+    import unicodedata
+    base = unicodedata.normalize("NFD", nom.lower())
+    base = "".join(c for c in base if unicodedata.category(c) != "Mn")
+    return "images/pieces/" + re.sub(r"[^a-z0-9]+", "-", base).strip("-") + ".png"
+
+
+def pieces_html(cle):
+    elements = []
+    for nombre, nom in PIECES.get(cle, []):
+        image = fichier_piece(nom)
+        if (RACINE / image).exists():
+            elements.append(f'<li class="avec-image"><img src="{image}" alt="{nom}"><b>{nombre}×</b></li>')
+        else:
+            elements.append(f'<li><b>{nombre}×</b> {nom}</li>')
+    return "".join(elements)
 
 
 def sachet(cle):
@@ -479,15 +509,6 @@ def sachet(cle):
         if debut <= cle <= fin:
             return numero, nom
     return 1, SACHETS[0][2]
-
-
-def pieces(corps, maximum=6):
-    texte = " ".join(corps)
-    trouvees = []
-    for motif, nom in PIECES:
-        if nom and (m := re.search(motif, texte)):
-            trouvees.append((m.start(), nom))
-    return [nom for _, nom in sorted(trouvees)[:maximum]]
 
 
 def illustration(nom):
@@ -515,43 +536,46 @@ def passage_chapitre(ch):
                      f'{lien("Relire depuis le début", "Prologue")}</div></div>')
     cle = 0 if ch["nom"] == "Prologue" else int(ch["nom"].split()[-1])
     n_sachet, nom_sachet = sachet(cle)
-    etape = "Prologue" if ch["nom"] == "Prologue" else ch["numero"].split()[-1]
-    liste = "".join(f'<li><b>1×</b> {p}</li>' for p in pieces(corps))
-    entete = (f'<div class="etape sachet-{n_sachet}"><div class="etape-gauche"><span class="sachet"><span class="sac">{n_sachet}</span>'
-              f'Sachet {n_sachet} · {nom_sachet}</span>'
-              f'<span class="numero{" mot" if ch["nom"] == "Prologue" else ""}" aria-label="{ch["numero"]}">{etape}</span></div>'
-              + (f'<div class="pieces"><span class="pieces-titre">Pièces de cette étape</span><ul>{liste}</ul></div>' if liste else "")
-              + '</div>')
-    texte = (f'<div class="texte">{entete}<h1 class="chapitre"><span class="titre">{ch["titre"]}</span></h1>'
+    liste = pieces_html(cle)
+    numero = ("" if ch["nom"] == "Prologue"
+              else f'<span class="num" aria-label="{ch["numero"]}">{ch["numero"].split()[-1]}</span>')
+    entete = (f'<div class="etape sachet-{n_sachet}"><div class="bande">{numero}<div class="bande-texte">'
+              f'<span class="sachet">Sachet {n_sachet} · {nom_sachet}</span>'
+              f'<h1 class="chapitre"><span class="titre">{ch["titre"]}</span></h1></div></div>'
+              + (f'<ul class="pieces">{liste}</ul>' if liste else "") + '</div>')
+    texte = (f'<div class="texte">{entete}'
              + "\n\n".join(corps) + "".join(suite) + "</div>")
     return f'<div class="page">{cote}{texte}</div>'
 
 
-def lancers_par_lecture():
-    """Nombre de lancers de dé sur un chemin de lecture (le plus long, du prologue à la fin)."""
-    chapitres = {ch["nom"]: lire_choix(ch) for ch in lire_chapitres()}
+def minutes_de_lecture(mots_par_minute=120):
+    """Temps de lecture d'un chemin moyen, du prologue à la fin, arrondi à 5 minutes (un enfant de 9 ou 10 ans
+    lit environ 120 mots par minute)."""
+    chapitres = {ch["nom"]: ch for ch in lire_chapitres()}
 
-    def suite(nom):
-        _, _, tirages, renvoi, _ = chapitres[nom]
+    def longueurs(nom):
+        corps, _, tirages, renvoi, _ = lire_choix(chapitres[nom])
+        mots = len(" ".join(corps).split())
         cibles = [f"Chapitre {n}" for _, n in tirages] + ([f"Chapitre {renvoi}"] if renvoi else [])
-        return max((suite(c) for c in cibles), default=0) + (1 if tirages else 0)
-    return suite("Prologue")
+        return [mots + m for c in cibles for m in longueurs(c)] or [mots]
+    chemins = longueurs("Prologue")
+    return max(5, round(sum(chemins) / len(chemins) / mots_par_minute / 5) * 5)
 
 
 def passage_garde():
     resume = "".join(f"<p>{p}</p>" for p in SYNOPSIS.split("\n\n"))
     etapes = len(lire_chapitres()) - 1
-    lancers = lancers_par_lecture()
+    minutes = minutes_de_lecture()
     return (
         '<div class="garde">'
         '<div class="boite"><div class="boite-haut"><span class="set">2810</span><span class="age">6+</span></div>'
         '<span class="surtitre">Une histoire dont le lecteur est le héros</span>'
         '<span class="grand-titre">Le Real<span>de Lego City</span></span>'
         f'<span class="nom-auteur">par {AUTEURS}</span>'
-        f'<div class="boite-bas"><span><b>{etapes}</b> étapes</span><span><b>{len(SACHETS)}</b> sachets</span>'
-        f'<span><b>{lancers}</b> lancers de dé</span></div></div>'
+        f'<div class="boite-bas"><span><b>{etapes}</b> chapitres</span><span><b>{len(SACHETS)}</b> sachets</span>'
+        f'<span><b>{minutes}</b> min de lecture</span></div></div>'
         f'<div class="synopsis">{resume}</div>'
-        f'<div class="commencer">{lien("Commencer le montage", "Prologue")}</div>'
+        f'<div class="commencer">{lien("Commencer l’histoire", "Prologue")}</div>'
         f'<div class="secondaires">{lien("Comment est née cette histoire", "Comment est née cette histoire")}'
         f'<span class="point">·</span>{lien("L’arbre de l’histoire", "L’arbre de l’histoire")}</div>'
         f'<span class="mention">{AVERTISSEMENT_COURT}</span></div>'
