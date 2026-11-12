@@ -54,21 +54,34 @@ p {{ margin: 0 0 0.5em; orphans: 2; widows: 2; }}
 
 /* Couverture : la boîte de Manon en pleine page */
 @page couverture {{ margin: 0; @bottom-center {{ content: none; }} }}
-.couverture {{ page: couverture; height: 185.5mm; display: flex; align-items: center; justify-content: center; }}
-.boite {{ position: relative; width: 106mm; height: 166mm; border: 0.9mm solid {ENCRE}; border-radius: 3mm; overflow: hidden;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4mm; padding: 10mm 6mm 8mm; text-align: center; }}
+.couverture {{ page: couverture; height: 185.5mm; display: flex; align-items: center; justify-content: center; background: {BLEU}; }}
+.boite {{ position: relative; width: 108mm; height: 170mm; border-radius: 4mm; overflow: hidden; background: #fff;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4mm; padding: 14mm 6mm 18mm; text-align: center; }}
 .boite .coins {{ position: absolute; left: 0; right: 0; top: 0; display: flex; justify-content: space-between; }}
 .boite .set {{ background: {ROUGE}; color: #fff; font-weight: 800; font-size: 17pt; padding: 1.2mm 4mm; border-bottom-right-radius: 2.5mm; }}
 .boite .age {{ background: {JAUNE}; color: {ENCRE}; font-weight: 800; font-size: 17pt; padding: 1.2mm 4mm; border-bottom-left-radius: 2.5mm; }}
 .boite .surtitre {{ font-weight: 600; font-size: 7pt; letter-spacing: 1.4pt; text-transform: uppercase; color: {DOUCE}; }}
-.boite h1 {{ margin: -2mm 0 0; font-weight: 800; font-size: 26pt; line-height: 1.02; }}
-.boite .par {{ margin-top: -2mm; font-weight: 500; font-size: 11pt; color: {DOUCE}; }}
+.boite h1 {{ margin: -2mm 0 0; font-weight: 800; font-size: 34pt; line-height: 0.95; color: {ROUGE}; }}
+.boite h1 span {{ display: block; font-size: 22pt; color: {BLEU}; }}
+.boite .par {{ margin-top: -1mm; font-weight: 600; font-size: 12pt; color: {ENCRE}; }}
 .boite .contenu {{ align-self: stretch; border-radius: 3mm; background: {NOTICE}; padding: 3mm 3mm 2.5mm; }}
 .boite .contenu span {{ display: block; font-weight: 600; font-size: 6.5pt; letter-spacing: 1.2pt; text-transform: uppercase; color: {DOUCE}; }}
 .boite .figs {{ display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-end; gap: 2mm 2.5mm; margin: 2.5mm 0; }}
-.boite .figs img {{ height: 15mm; }}
+.boite .figs img {{ height: 16mm; }}
 .boite .chiffres {{ font-size: 8pt; color: {DOUCE}; }}
 .boite .chiffres b {{ color: {ENCRE}; }}
+/* Rangée de briques en bas de la boîte */
+.boite .briques {{ position: absolute; left: 0; right: 0; bottom: 0; height: 11mm; display: flex; gap: 0.8mm; padding: 0 0.8mm; }}
+.boite .briques i {{ position: relative; flex: 1; margin-top: 3mm; border-radius: 1mm 1mm 0 0; }}
+.boite .briques i::before, .boite .briques i::after {{ content: ""; position: absolute; top: -2.2mm; width: 4.5mm; height: 2.4mm;
+  border-radius: 0.6mm 0.6mm 0 0; background: inherit; }}
+.boite .briques i::before {{ left: 22%; }}
+.boite .briques i::after {{ right: 22%; }}
+.boite .briques i:nth-child(5n+1) {{ background: {ROUGE}; }}
+.boite .briques i:nth-child(5n+2) {{ background: {JAUNE}; }}
+.boite .briques i:nth-child(5n+3) {{ background: {BLEU}; }}
+.boite .briques i:nth-child(5n+4) {{ background: {VERT}; }}
+.boite .briques i:nth-child(5n+5) {{ background: {ORANGE}; }}
 
 /* Page 2 : le dos de la boîte */
 .dos {{ height: 158mm; display: flex; flex-direction: column; justify-content: center; text-align: center; gap: 4mm; }}
@@ -97,7 +110,8 @@ p {{ margin: 0 0 0.5em; orphans: 2; widows: 2; }}
 .pieces figure {{ margin: 0; display: flex; flex-direction: column; align-items: center; }}
 .pieces img {{ height: 9mm; width: auto; }}
 .pieces b {{ font-size: 6.5pt; color: {BLEU}; }}
-.pola {{ display: block; width: 66%; margin: 1mm auto 2.5mm; }}
+.pola {{ float: left; width: 52%; margin: 0.5mm 4mm 2mm 0; }}
+.suite, .montage, .de {{ clear: both; }}
 .scene {{ display: block; height: 70mm; width: auto; margin: 2mm auto 3mm; }}
 .ouvre {{ padding-top: 2mm; }}
 
@@ -119,6 +133,7 @@ p {{ margin: 0 0 0.5em; orphans: 2; widows: 2; }}
 .renvoi {{ font-weight: 700; color: {BLEU}; }}
 .pola + .montage {{ margin: 0 0 3mm; }}
 .montage-haut .pola {{ width: 44% !important; }}
+
 .montage-haut .montage {{ padding: 1mm 9mm; margin-bottom: 2mm !important; }}
 .montage {{ display: flex; align-items: center; justify-content: space-between; gap: 1.5mm; margin-top: 3mm; padding: 2mm 2.5mm;
   border-radius: 2.5mm; background: {NOTICE}; break-inside: avoid; }}
@@ -129,9 +144,9 @@ p {{ margin: 0 0 0.5em; orphans: 2; widows: 2; }}
 
 /* Chapitres resserrés pour éviter les pages presque vides */
 .serre {{ font-size: 10.4pt; line-height: 1.38; }}
-.serre .pola {{ width: 58%; }}
+.serre .pola {{ width: 48%; }}
 .serre2 {{ font-size: 9.9pt; line-height: 1.33; }}
-.serre2 .pola {{ width: 50%; }}
+.serre2 .pola {{ width: 44%; }}
 
 /* Contexte, arbre, dos */
 .contexte h2 {{ font-weight: 800; font-size: 15pt; text-align: center; margin: 0 0 3mm; }}
@@ -211,9 +226,8 @@ def chapitre(ch, suivant, pages):
     montage = ('<div class="montage">' + '<span class="fl">→</span>'.join(
         f'<img src="{x.as_uri()}" alt="">' for x in etapes) + '</div>') if etapes else ""
     if montage and cle in MONTAGE_HAUT:
-        # Chapitre trop court pour laisser le montage seul sur une page : il remonte sous le polaroid
-        i = next(k for k, m in enumerate(morceaux) if 'class="pola"' in m)
-        morceaux.insert(i + 1, montage)
+        # Chapitre trop court pour laisser le montage seul sur une page : il passe avant la case du dé ou le renvoi
+        morceaux.append(montage)
         montage = ""
     if suite:
         morceaux.append(f'<div class="suite">{"".join(suite)}</div>')
@@ -238,10 +252,12 @@ def document(pages, blanches=0):
         '<section class="couverture sans-numero"><div class="boite">'
         '<div class="coins"><span class="set">2810</span><span class="age">6+</span></div>'
         '<div class="surtitre">Une histoire dont le lecteur est le héros</div>'
-        f'<h1>{e(TITRE)}</h1><div class="par">par {e(AUTEURS)}</div>'
+        '<h1>Le Real<span>de Lego City</span></h1>'
+        f'<div class="par">par {e(AUTEURS)}</div>'
         f'<div class="contenu"><span>Dans la boîte</span><div class="figs">{figs}</div>'
         f'<div class="chiffres"><b>{etapes}</b> étapes · <b>5</b> sachets · <b>56</b> pièces · '
-        f'<b>{minutes_de_lecture()}</b> minutes de lecture</div></div></div></section>'
+        f'<b>{minutes_de_lecture()}</b> minutes de lecture</div></div>'
+        '<div class="briques">' + '<i></i>' * 7 + '</div></div></section>'
         '<section class="page-seule sans-numero"><div class="dos">'
         f'<div class="resume">{e(SYNOPSIS)}</div>'
         '<div class="mention">Fan fiction librement inspirée du football et des jouets LEGO®. La boîte est une image : '
@@ -373,7 +389,7 @@ def composer(dossier):
         SERRES2.update(courtes & SERRES)
         SERRES.update(courtes)
         pages, total = stabiliser(source, pdf, {})
-    # Ce qui reste court après deux crans de resserrement : le montage remonte sous le polaroid
+    # Ce qui reste court après deux crans de resserrement : le montage passe avant la fin du chapitre
     restes = set(queues_courtes(pdf, pages)) | set(pages_trouees(pdf, pages))
     if restes:
         MONTAGE_HAUT.update(restes)
