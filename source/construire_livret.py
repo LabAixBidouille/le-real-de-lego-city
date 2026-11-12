@@ -54,15 +54,28 @@ p {{ margin: 0 0 0.5em; orphans: 2; widows: 2; }}
 
 /* Couverture : la boîte de Manon en pleine page */
 @page couverture {{ margin: 0; @bottom-center {{ content: none; }} }}
-.couverture {{ page: couverture; position: relative; height: 185.5mm; display: flex; align-items: center; justify-content: center; background: #fff; }}
-.couverture img {{ display: block; width: 112mm; height: auto; }}
+.couverture {{ page: couverture; height: 185.5mm; display: flex; align-items: center; justify-content: center; }}
+.boite {{ position: relative; width: 106mm; height: 166mm; border: 0.9mm solid {ENCRE}; border-radius: 3mm; overflow: hidden;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4mm; padding: 10mm 6mm 8mm; text-align: center; }}
+.boite .coins {{ position: absolute; left: 0; right: 0; top: 0; display: flex; justify-content: space-between; }}
+.boite .set {{ background: {ENCRE}; color: #fff; font-weight: 800; font-size: 11pt; padding: 0.8mm 3mm; border-bottom-right-radius: 2mm; }}
+.boite .age {{ background: {JAUNE}; color: {ENCRE}; font-weight: 800; font-size: 11pt; padding: 0.8mm 3mm; border-bottom-left-radius: 2mm; }}
+.boite .surtitre {{ font-weight: 600; font-size: 7pt; letter-spacing: 1.4pt; text-transform: uppercase; color: {DOUCE}; }}
+.boite h1 {{ margin: -2mm 0 0; font-weight: 800; font-size: 26pt; line-height: 1.02; }}
+.boite .par {{ margin-top: -2mm; font-weight: 500; font-size: 11pt; color: {DOUCE}; }}
+.boite .contenu {{ align-self: stretch; border-radius: 3mm; background: {NOTICE}; padding: 3mm 3mm 2.5mm; }}
+.boite .contenu span {{ display: block; font-weight: 600; font-size: 6.5pt; letter-spacing: 1.2pt; text-transform: uppercase; color: {DOUCE}; }}
+.boite .figs {{ display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-end; gap: 2mm 2.5mm; margin: 2.5mm 0; }}
+.boite .figs img {{ height: 15mm; }}
+.boite .chiffres {{ font-size: 8pt; color: {DOUCE}; }}
+.boite .chiffres b {{ color: {ENCRE}; }}
 
 /* Page 2 : le dos de la boîte */
 .dos {{ height: 158mm; display: flex; flex-direction: column; justify-content: center; text-align: center; gap: 4mm; }}
 .dos .surtitre {{ font-weight: 600; font-size: 7pt; letter-spacing: 1.4pt; text-transform: uppercase; color: {DOUCE}; }}
 .dos h1 {{ margin: 0; font-weight: 800; font-size: 19pt; line-height: 1.05; }}
 .dos .par {{ font-weight: 500; color: {DOUCE}; }}
-.dos .resume {{ text-align: left; font-size: 11pt; line-height: 1.5; }}
+.dos .resume {{ text-align: left; font-size: 12pt; line-height: 1.55; }}
 .dos .contenu {{ border-radius: 3mm; background: {NOTICE}; padding: 2.5mm 3mm 2mm; }}
 .dos .contenu span {{ display: block; font-weight: 600; font-size: 6.5pt; letter-spacing: 1.2pt; text-transform: uppercase; color: {DOUCE}; }}
 .dos .figs {{ display: flex; justify-content: space-between; align-items: flex-end; margin: 1.5mm 0; }}
@@ -217,15 +230,20 @@ def document(pages, blanches=0):
     figs = "".join(f'<img src="{(RACINE / "images" / "pieces" / f"{f}.png").as_uri()}" alt="">'
                    for f in ("kylian", "messi", "ronaldo", "pompier", "boulangere", "pirate", "astronaute", "zidane"))
     etapes = len(lire_chapitres()) - 1
+    figs = "".join(f'<img src="{(RACINE / "images" / "pieces" / f"{f}.png").as_uri()}" alt="">'
+                   for f in ("kylian", "messi", "ronaldo", "zidane", "pompier", "policiere", "boulangere", "pirate",
+                             "astronaute", "blanchisseur", "maire", "entraineur-de-l-om", "petit-chien", "joueur-adverse"))
     couverture = (
-        f'<section class="couverture sans-numero"><img src="{(RACINE.parent / "Sources" / "Images_Notion" / "boite-portrait-transparente.png").as_uri()}" alt=""></section>'
-        '<section class="page-seule sans-numero"><div class="dos">'
-        f'<div><div class="surtitre">Une histoire dont le lecteur est le héros</div><h1>{e(TITRE)}</h1>'
-        f'<div class="par">par {e(AUTEURS)}</div></div>'
-        f'<div class="resume">{e(SYNOPSIS)}</div>'
+        # Couverture : le même encadré que sur le site, comme le devant d'une boîte de notice
+        '<section class="couverture sans-numero"><div class="boite">'
+        '<div class="coins"><span class="set">2810</span><span class="age">6+</span></div>'
+        '<div class="surtitre">Une histoire dont le lecteur est le héros</div>'
+        f'<h1>{e(TITRE)}</h1><div class="par">par {e(AUTEURS)}</div>'
         f'<div class="contenu"><span>Dans la boîte</span><div class="figs">{figs}</div>'
         f'<div class="chiffres"><b>{etapes}</b> étapes · <b>5</b> sachets · <b>56</b> pièces · '
-        f'<b>{minutes_de_lecture()}</b> minutes de lecture</div></div>'
+        f'<b>{minutes_de_lecture()}</b> minutes de lecture</div></div></div></section>'
+        '<section class="page-seule sans-numero"><div class="dos">'
+        f'<div class="resume">{e(SYNOPSIS)}</div>'
         '<div class="mention">Fan fiction librement inspirée du football et des jouets LEGO®. La boîte est une image : '
         'ce livre n’est pas un produit LEGO.</div></div></section>'
     )
