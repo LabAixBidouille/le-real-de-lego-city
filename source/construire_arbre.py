@@ -22,7 +22,7 @@ COULEURS = ["#d01012", "#f5c518", "#0057b8", "#2c8a3f", "#f2780c"]
 
 LARGEUR, CENTRE, ECART = 1000, 520, 300
 CARTE_L, CARTE_H = 250, 76
-PAS_Y, ENTETE = 150, 70
+PAS_Y, ENTETE = 168, 70
 RANGEES = [["Prologue"], ["1"], ["2", "3"], ["4"], ["5"], ["6", "7"], ["8"], ["9", "10"], ["11"], ["12"],
            ["13", "14"], ["15", "16"], ["17"], ["18", "19"], ["20"], ["21", "22"], ["23"]]
 # Les sachets : premier chapitre de chacun et son nom
@@ -128,12 +128,14 @@ def construire():
             if x1 == x2:
                 traits.append(f'<path d="M{x1} {depart} V{arrivee - 11}"/>')
             else:
-                palier = depart + 16 if len(cibles) > 1 else arrivee - 46
+                # Le trait horizontal est toujours à la même hauteur sous l'étape de départ : les flèches qui
+                # descendent vers une étape ont donc toutes la même longueur
+                palier = depart + 26
                 traits.append(f'<path d="M{x1} {depart} V{palier} H{x2} V{arrivee - 11}"/>')
             pointes.add((x2, arrivee))
             if (a, b) in des and b not in faites:
                 faites.add(b)
-                etiquettes.append(brique(x2, arrivee - 28, des[(a, b)]))
+                etiquettes.append(brique(x2, (depart + 26 + arrivee - 11) / 2, des[(a, b)]))
     fleches = "".join(f'<path d="M{x} {y} l-7.5 -12 h15 z"/>' for x, y in sorted(pointes))
     sections = "".join(sachet(y_, n, nom) for y_, n, nom in entetes)
     ordre = [n for rangee in RANGEES for n in rangee]
