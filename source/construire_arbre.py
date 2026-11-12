@@ -87,11 +87,9 @@ def brique(x, y, nom, titre, clair, fonce, cote):
     x0, y0 = x - BRIQUE_L / 2, y - BRIQUE_H / 2
     tenons = "".join(
         f'<rect x="{x0 + 18 + i * 56}" y="{y0 - 11}" width="32" height="14" rx="3" fill="{clair}" stroke="{fonce}" stroke-width="2"/>'
-        f'<rect x="{x0 + 22 + i * 56}" y="{y0 - 9}" width="24" height="3" rx="1.5" fill="#fff" opacity="0.35"/>'
         for i in range(4))
     corps = (f'<rect x="{x0}" y="{y0}" width="{BRIQUE_L}" height="{BRIQUE_H}" rx="7" fill="{clair}" stroke="{fonce}" stroke-width="2.5"/>'
-             f'<rect x="{x0 + 3}" y="{y0 + BRIQUE_H - 12}" width="{BRIQUE_L - 6}" height="9" rx="4" fill="{fonce}" opacity="0.45"/>'
-             f'<rect x="{x0 + 8}" y="{y0 + 6}" width="{BRIQUE_L - 16}" height="5" rx="2.5" fill="#fff" opacity="0.3"/>')
+)
     texte_couleur = ENCRE if clair == JAUNE else "#fff"
     if nom == "Prologue":
         numero = (f'<text x="{x}" y="{y0 + 26}" text-anchor="middle" font-family="Jost" font-weight="700" font-size="13" '
@@ -99,12 +97,12 @@ def brique(x, y, nom, titre, clair, fonce, cote):
         corps_titre = "".join(f'<text x="{x}" y="{y0 + 48 + i * 17}" text-anchor="middle" font-family="Jost" font-weight="700" '
                               f'font-size="16" fill="{texte_couleur}">{l}</text>' for i, l in enumerate(lignes(titre, 26)))
     else:
-        numero = (f'<circle cx="{x0 + 36}" cy="{y - 2}" r="24" fill="#fff"/>'
-                  f'<text x="{x0 + 36}" y="{y + 8}" text-anchor="middle" font-family="Jost" font-weight="800" '
-                  f'font-size="{28 if len(nom) == 1 else 24}" fill="{fonce}">{nom}</text>')
+        numero = (f'<circle cx="{x0 + 32}" cy="{y}" r="19" fill="#fff"/>'
+                  f'<text x="{x0 + 32}" y="{y + 7}" text-anchor="middle" font-family="Jost" font-weight="800" '
+                  f'font-size="{21 if len(nom) == 1 else 18}" fill="{fonce}">{nom}</text>')
         texte = lignes(titre, 18)
         debut = y + 3 - (len(texte) - 1) * 9
-        corps_titre = "".join(f'<text x="{x0 + 72}" y="{debut + i * 18}" font-family="Jost" font-weight="700" font-size="15.5" '
+        corps_titre = "".join(f'<text x="{x0 + 62}" y="{debut + i * 18}" font-family="Jost" font-weight="700" font-size="15.5" '
                               f'fill="{texte_couleur}">{l}</text>' for i, l in enumerate(texte))
     piece = ""
     if nom in VEDETTES:
@@ -119,7 +117,6 @@ def petite_brique(x, y, texte):
     return (f'<rect x="{x - 13}" y="{y - 19}" width="10" height="7" rx="2" fill="{JAUNE}"/>'
             f'<rect x="{x + 3}" y="{y - 19}" width="10" height="7" rx="2" fill="{JAUNE}"/>'
             f'<rect x="{x - largeur / 2}" y="{y - 13}" width="{largeur}" height="26" rx="4" fill="{JAUNE}"/>'
-            f'<rect x="{x - largeur / 2}" y="{y + 8}" width="{largeur}" height="5" rx="2" fill="#000" opacity="0.13"/>'
             f'<text x="{x}" y="{y + 5}" text-anchor="middle" font-family="Jost" font-weight="700" font-size="14" '
             f'fill="{ENCRE}">{texte}</text>')
 
