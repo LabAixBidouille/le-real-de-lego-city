@@ -142,11 +142,11 @@ tw-story { overflow: clip; }
 /* Chapitres centrés : l'image en tête (carrée, avec son cadre de briques), puis le titre et le texte */
 .page { max-width: 42em; margin: 0 auto; }
 /* Chapitre illustré : l'image entière à gauche, qui descend avec la lecture (sticky), le texte à droite */
-.page:has(.cote) { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 3em;
+.page:has(.cote) { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 3em;
   align-items: start; max-width: 1180px; }
 .cote { position: sticky; top: 1.8em; display: flex; justify-content: center; margin-top: 1em; padding: 0.9em 0 0 0.9em; }
 /* L'image dans un cadre blanc cerclé de la couleur du sachet, le numéro de l'étape en pastille sur le coin */
-.cadre-image { position: relative; padding: 0.8em; border: 4px solid var(--sachet); border-radius: 14px; background: #fff; }
+.cadre-image { position: relative; padding: 0.6em; border: 4px solid var(--sachet); border-radius: 14px; background: #fff; }
 .cadre-image img { display: block; width: auto; max-width: 100%; height: auto; max-height: calc(100vh - 7em); }
 .pastille-num { position: absolute; top: -0.9em; left: -0.9em; display: flex; align-items: center; justify-content: center;
   min-width: 2.1em; height: 2.1em; padding: 0 0.2em; border-radius: 10px; background: var(--sachet); color: var(--sur-sachet);
@@ -155,8 +155,7 @@ tw-story { overflow: clip; }
   .page:has(.cote) { display: block; max-width: 42em; }
   .cote { position: static; margin: 1em auto 1.4em; }
   .cadre-image img { max-height: none; width: 100%; }
-  .bande { flex-direction: column; }
-  .pieces { border-right: none; border-bottom: 2.5px solid var(--notice-trait); flex-wrap: wrap; }
+  .montage img { width: 28%; }
 }
 .page:not(:has(.cote)) .texte { padding-top: 2.2em; }
 
@@ -174,17 +173,21 @@ tw-story { overflow: clip; }
 .bande-texte { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; padding: 0.55em 1em 0.6em; }
 .bande .sachet { display: block; font-family: "Jost", sans-serif; font-weight: 600; font-size: 0.82em; letter-spacing: 0.04em;
   color: var(--encre-douce); }
-/* Les pièces de l'étape, dans la case gauche du bandeau, sur le gris-bleu des notices */
-.pieces { flex: none; display: flex; flex-wrap: nowrap; align-items: flex-end; gap: 0.2em 0.7em; margin: 0; padding: 0.45em 0.8em;
-  list-style: none; background: var(--notice); border-right: 2.5px solid var(--notice-trait); }
+
+.pieces { display: inline-flex; flex-wrap: wrap; align-items: flex-end; gap: 0.35em 1em; margin: 0.7em 0 0; padding: 0.5em 0.9em;
+  list-style: none; border-radius: 10px; background: var(--notice); }
 .pieces li { font-size: 0.92em; }
 .pieces li b { font-weight: 700; color: var(--bleu); }
 .pieces li.avec-image { display: flex; flex-direction: column; align-items: center; gap: 0.1em; }
-.pieces li.avec-image img { display: block; height: 2.6em; width: auto; }
+.pieces li.avec-image img { display: block; height: 3em; width: auto; }
 .pieces li.avec-image b { font-size: 0.85em; }
+/* Les étapes de montage, alignées et centrées sous le renvoi, reliées par des flèches */
+.montage { display: flex; align-items: center; justify-content: center; gap: 0.4em; margin: 2em 0 0; }
+.montage img { display: block; width: 9.5em; max-width: 30%; height: auto; }
+.fleche-etape { flex: none; width: 1.6em; height: 1em; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 24'%3E%3Cpath d='M2 12h28M22 4l10 8-10 8' fill='none' stroke='%230057b8' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / contain; }
 .chapitre { text-align: left; margin: 0.1em 0 0; font-weight: 400; font-size: 1em; line-height: 1.1; }
 /* Le titre tient toujours sur une ligne : le script réduit sa taille si besoin */
-.bande .chapitre .titre { white-space: nowrap; overflow: hidden; }
+
 .chapitre .titre {
   display: block;
   font-family: "Jost", sans-serif;
@@ -295,7 +298,14 @@ tw-story:has(.garde) { padding-top: 0; padding-bottom: 0; }
 .garde { position: relative; min-height: 100vh; box-sizing: border-box; padding: 4vh 0 9vh;
   display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
   gap: clamp(0.6em, 1.8vh, 1.2em); }
-.garde .boite-image { display: block; width: auto; max-width: min(100%, 52em); max-height: 44vh; height: auto; }
+/* Couverture en paysage, sans défilement : la boîte du set à gauche, le titre, le résumé et les boutons à droite */
+.garde { flex-direction: row !important; gap: 3vw !important; padding: 2vh 1vw 8vh !important; }
+tw-passage:has(.garde) { max-width: none; }
+.garde-image { flex: 1 1 0; min-width: 0; display: flex; justify-content: flex-end; }
+.garde-image img { display: block; width: 100%; max-width: 62vw; max-height: 86vh; height: auto; object-fit: contain; }
+.garde-texte { flex: 0 0 auto; width: min(30em, 40vw); display: flex; flex-direction: column; align-items: center; text-align: center;
+  gap: clamp(0.5em, 1.6vh, 1em); font-size: clamp(13px, 1.95vh, 17px); }
+.garde .boite { min-width: 0 !important; align-self: stretch; }
 .invisible { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .garde .boite { position: relative; display: flex; flex-direction: column; align-items: center; gap: 0.45em;
   min-width: min(34em, 92vw); padding: 1.3em 3em 0; border: 3px solid var(--encre); border-radius: 8px; overflow: hidden; }
@@ -310,7 +320,7 @@ tw-story:has(.garde) { padding-top: 0; padding-bottom: 0; }
 .garde .boite-bas b { color: var(--encre); font-weight: 800; }
 .garde .surtitre { font-family: "Jost", sans-serif; font-weight: 600; font-size: 0.85em; letter-spacing: 0.18em;
   text-transform: uppercase; color: var(--encre-douce); }
-.garde .grand-titre { font-family: "Jost", sans-serif; font-weight: 800; font-size: clamp(2.8em, 9vh, 4.6em);
+.garde .grand-titre { font-family: "Jost", sans-serif; font-weight: 800; font-size: 3.6em;
   line-height: 1; color: var(--encre); }
 .garde .grand-titre span { display: block; font-size: 0.6em; color: var(--bleu); }
 .garde .nom-auteur { font-family: "Jost", sans-serif; font-weight: 500; font-size: 1.15em; color: var(--encre-douce); }
@@ -377,6 +387,9 @@ tw-story:has(.garde) { padding-top: 0; padding-bottom: 0; }
   .tirage { flex-wrap: wrap; }
   .miniature img { height: 10em; }
   .garde .mention { position: static; }
+  .garde { flex-direction: column !important; }
+  .garde-image img { max-height: none; }
+  .garde-texte { width: auto; }
 }
 """.replace("ROUGE", ROUGE).replace("JAUNE", JAUNE).replace("BLEU", BLEU).replace("VERT", VERT).replace("BRIQUE_DE", BRIQUE_DE) + CSS_BRIQUES
 
@@ -390,24 +403,6 @@ DE_VIRTUEL = (
 )
 
 SCRIPT = """
-// Titre de chapitre sur une seule ligne : on réduit sa taille jusqu'à ce qu'il tienne dans le bandeau
-function ajusterTitres() {
-  document.querySelectorAll('.bande .titre').forEach(function (titre) {
-    if (!titre.clientWidth) return;
-    titre.style.fontSize = '';
-    var taille = parseFloat(getComputedStyle(titre).fontSize);
-    while (titre.scrollWidth > titre.clientWidth + 1 && taille > 14) {
-      taille -= 1;
-      titre.style.fontSize = taille + 'px';
-    }
-  });
-}
-document.addEventListener('load', function (e) { if (e.target.tagName === 'IMG') planifierTitres(); }, true);
-var attenteTitres = null;
-function planifierTitres() { cancelAnimationFrame(attenteTitres); attenteTitres = requestAnimationFrame(ajusterTitres); }
-new MutationObserver(planifierTitres).observe(document.documentElement, { childList: true, subtree: true });
-window.addEventListener('resize', planifierTitres);
-if (document.fonts) document.fonts.ready.then(planifierTitres);
 // La brique tourne, s'emboîte et montre le nombre tiré ; elle ne choisit jamais à la place du lecteur
 document.addEventListener('click', function (evenement) {
   var brique = evenement.target.closest('.brique');
@@ -567,10 +562,12 @@ def passage_chapitre(ch):
     corps, consigne, tirages, renvoi, fin = lire_choix(ch)
     poursuis = lambda n: lien(f"Poursuis au chapitre {n}", f"Chapitre {n}")
     image = RACINE / f"images/chapitres/{illustration(ch['nom'])}.jpg"
-    numero_image = ("" if ch["nom"] == "Prologue"
-                    else f'<span class="pastille-num" aria-label="{ch["numero"]}">{ch["numero"].split()[-1]}</span>')
-    cote = (f'<div class="cote"><div class="cadre-image">{numero_image}'
+    cote = (f'<div class="cote"><div class="cadre-image">'
             f'<img src="images/chapitres/{image.name}" alt="{ch["titre"]}"></div></div>' if image.exists() else "")
+    # Les étapes de montage du chapitre, découpées, alignées sous le renvoi
+    etapes = sorted((RACINE / "images" / "etapes").glob(f"{illustration(ch['nom'])}-*.png"))
+    montage = ('<div class="montage">' + '<span class="fleche-etape"></span>'.join(
+        f'<img src="images/etapes/{e.name}" alt="">' for e in etapes) + '</div>') if etapes else ""
 
     suite = []
     if tirages:
@@ -588,14 +585,14 @@ def passage_chapitre(ch):
     cle = 0 if ch["nom"] == "Prologue" else int(ch["nom"].split()[-1])
     n_sachet, nom_sachet = sachet(cle)
     liste = pieces_html(cle)
-    numero = ("" if image.exists() or ch["nom"] == "Prologue"
+    numero = ("" if ch["nom"] == "Prologue"
               else f'<span class="num" aria-label="{ch["numero"]}">{ch["numero"].split()[-1]}</span>')
-    pieces_bande = f'<ul class="pieces">{liste}</ul>' if liste else ""
-    entete = (f'<div class="etape"><div class="bande">{numero}{pieces_bande}<div class="bande-texte">'
+    entete = (f'<div class="etape"><div class="bande">{numero}<div class="bande-texte">'
               f'<span class="sachet">Sachet {n_sachet} · {nom_sachet}</span>'
-              f'<h1 class="chapitre"><span class="titre">{ch["titre"]}</span></h1></div></div></div>')
+              f'<h1 class="chapitre"><span class="titre">{ch["titre"]}</span></h1></div></div>'
+              + (f'<ul class="pieces">{liste}</ul>' if liste else "") + '</div>')
     texte = (f'<div class="texte">{entete}'
-             + "\n\n".join(corps) + "".join(suite) + "</div>")
+             + "\n\n".join(corps) + "".join(suite) + montage + "</div>")
     return f'<div class="page sachet-{n_sachet}">{cote}{texte}</div>'
 
 
@@ -618,15 +615,19 @@ def passage_garde():
     etapes = len(lire_chapitres()) - 1
     minutes = minutes_de_lecture()
     return (
-        '<div class="garde">'
-        # La boîte du set, image de Manon : elle porte déjà le titre, le numéro de set, l'âge et le bandeau
-        '<h1 class="invisible">Le Real de Lego City, une histoire dont le lecteur est le héros, par Ernest et Abel</h1>'
-        '<img class="boite-image" src="images/couverture.jpg" alt="La boîte du set 2810, Le Real de Lego City, '
-        'par Ernest et Abel : Kylian brandit la coupe au milieu de ses coéquipiers devant le stade">'
+        '<div class="garde"><div class="garde-image"><img src="images/couverture.jpg" alt="La boîte du set 2810, '
+        'Le Real de Lego City : Kylian brandit la coupe au milieu de ses coéquipiers devant le stade"></div>'
+        '<div class="garde-texte">'
+        '<div class="boite"><div class="boite-haut"><span class="set">2810</span><span class="age">6+</span></div>'
+        '<span class="surtitre">Une histoire dont le lecteur est le héros</span>'
+        '<span class="grand-titre">Le Real<span>de Lego City</span></span>'
+        f'<span class="nom-auteur">par {AUTEURS}</span>'
+        f'<div class="boite-bas"><span><b>{etapes}</b> étapes</span><span><b>{len(SACHETS)}</b> sachets</span>'
+        f'<span><b>{minutes}</b> minutes de lecture</span></div></div>'
         f'<div class="synopsis">{resume}</div>'
         f'<div class="commencer">{lien("Ouvrir le premier sachet", "Prologue")}</div>'
         f'<div class="secondaires">{lien("Comment est née cette histoire", "Comment est née cette histoire")}'
-        f'<span class="point">·</span>{lien("L’arbre de l’histoire", "L’arbre de l’histoire")}</div>'
+        f'<span class="point">·</span>{lien("L’arbre de l’histoire", "L’arbre de l’histoire")}</div></div>'
         f'<span class="mention">{AVERTISSEMENT_COURT}</span></div>'
     )
 
