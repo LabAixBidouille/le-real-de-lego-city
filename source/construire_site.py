@@ -142,14 +142,21 @@ tw-story { overflow: clip; }
 /* Chapitres centrés : l'image en tête (carrée, avec son cadre de briques), puis le titre et le texte */
 .page { max-width: 42em; margin: 0 auto; }
 /* Chapitre illustré : l'image entière à gauche, qui descend avec la lecture (sticky), le texte à droite */
-.page:has(.cote) { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.25fr); gap: 3em;
+.page:has(.cote) { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 3em;
   align-items: start; max-width: 1180px; }
-.cote { position: sticky; top: 1.2em; display: flex; justify-content: center; }
-.cote img { display: block; width: auto; max-width: 100%; height: auto; max-height: calc(100vh - 2.4em); }
+.cote { position: sticky; top: 1.8em; display: flex; justify-content: center; margin-top: 1em; padding: 0.9em 0 0 0.9em; }
+/* L'image dans un cadre blanc cerclé de la couleur du sachet, le numéro de l'étape en pastille sur le coin */
+.cadre-image { position: relative; padding: 0.8em; border: 4px solid var(--sachet); border-radius: 14px; background: #fff; }
+.cadre-image img { display: block; width: auto; max-width: 100%; height: auto; max-height: calc(100vh - 7em); }
+.pastille-num { position: absolute; top: -0.9em; left: -0.9em; display: flex; align-items: center; justify-content: center;
+  min-width: 2.1em; height: 2.1em; padding: 0 0.2em; border-radius: 10px; background: var(--sachet); color: var(--sur-sachet);
+  font-family: "Jost", sans-serif; font-weight: 800; font-size: 1.45em; box-shadow: 0 3px 0 rgba(0,0,0,0.15); }
 @media (max-width: 860px) {
   .page:has(.cote) { display: block; max-width: 42em; }
-  .cote { position: static; margin: 0 auto 1.4em; }
-  .cote img { max-height: none; width: 100%; }
+  .cote { position: static; margin: 1em auto 1.4em; }
+  .cadre-image img { max-height: none; width: 100%; }
+  .bande { flex-direction: column; }
+  .pieces { border-right: none; border-bottom: 2.5px solid var(--notice-trait); flex-wrap: wrap; }
 }
 .page:not(:has(.cote)) .texte { padding-top: 2.2em; }
 
@@ -164,17 +171,20 @@ tw-story { overflow: clip; }
 .bande { display: flex; align-items: stretch; border: 2.5px solid var(--notice-trait); border-radius: 10px; overflow: hidden; }
 .bande .num { flex: none; display: flex; align-items: center; justify-content: center; min-width: 2.1em; padding: 0 0.25em;
   background: var(--sachet); color: var(--sur-sachet); font-family: "Jost", sans-serif; font-weight: 800; font-size: 3em; line-height: 1; }
-.bande-texte { padding: 0.6em 1em 0.65em; }
+.bande-texte { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; padding: 0.55em 1em 0.6em; }
 .bande .sachet { display: block; font-family: "Jost", sans-serif; font-weight: 600; font-size: 0.82em; letter-spacing: 0.04em;
   color: var(--encre-douce); }
-.pieces { display: inline-flex; flex-wrap: wrap; align-items: flex-end; gap: 0.35em 1.1em; margin: 0.7em 0 0; padding: 0.55em 0.9em;
-  list-style: none; border-radius: 10px; background: var(--notice); }
+/* Les pièces de l'étape, dans la case gauche du bandeau, sur le gris-bleu des notices */
+.pieces { flex: none; display: flex; flex-wrap: nowrap; align-items: flex-end; gap: 0.2em 0.7em; margin: 0; padding: 0.45em 0.8em;
+  list-style: none; background: var(--notice); border-right: 2.5px solid var(--notice-trait); }
 .pieces li { font-size: 0.92em; }
 .pieces li b { font-weight: 700; color: var(--bleu); }
 .pieces li.avec-image { display: flex; flex-direction: column; align-items: center; gap: 0.1em; }
-.pieces li.avec-image img { display: block; height: 3.4em; width: auto; }
+.pieces li.avec-image img { display: block; height: 2.6em; width: auto; }
 .pieces li.avec-image b { font-size: 0.85em; }
 .chapitre { text-align: left; margin: 0.1em 0 0; font-weight: 400; font-size: 1em; line-height: 1.1; }
+/* Le titre tient toujours sur une ligne : le script réduit sa taille si besoin */
+.bande .chapitre .titre { white-space: nowrap; overflow: hidden; }
 .chapitre .titre {
   display: block;
   font-family: "Jost", sans-serif;
@@ -378,6 +388,24 @@ DE_VIRTUEL = (
 )
 
 SCRIPT = """
+// Titre de chapitre sur une seule ligne : on réduit sa taille jusqu'à ce qu'il tienne dans le bandeau
+function ajusterTitres() {
+  document.querySelectorAll('.bande .titre').forEach(function (titre) {
+    if (!titre.clientWidth) return;
+    titre.style.fontSize = '';
+    var taille = parseFloat(getComputedStyle(titre).fontSize);
+    while (titre.scrollWidth > titre.clientWidth + 1 && taille > 14) {
+      taille -= 1;
+      titre.style.fontSize = taille + 'px';
+    }
+  });
+}
+document.addEventListener('load', function (e) { if (e.target.tagName === 'IMG') planifierTitres(); }, true);
+var attenteTitres = null;
+function planifierTitres() { cancelAnimationFrame(attenteTitres); attenteTitres = requestAnimationFrame(ajusterTitres); }
+new MutationObserver(planifierTitres).observe(document.documentElement, { childList: true, subtree: true });
+window.addEventListener('resize', planifierTitres);
+if (document.fonts) document.fonts.ready.then(planifierTitres);
 // La brique tourne, s'emboîte et montre le nombre tiré ; elle ne choisit jamais à la place du lecteur
 document.addEventListener('click', function (evenement) {
   var brique = evenement.target.closest('.brique');
@@ -537,7 +565,10 @@ def passage_chapitre(ch):
     corps, consigne, tirages, renvoi, fin = lire_choix(ch)
     poursuis = lambda n: lien(f"Poursuis au chapitre {n}", f"Chapitre {n}")
     image = RACINE / f"images/chapitres/{illustration(ch['nom'])}.jpg"
-    cote = f'<div class="cote"><img src="images/chapitres/{image.name}" alt="{ch["titre"]}"></div>' if image.exists() else ""
+    numero_image = ("" if ch["nom"] == "Prologue"
+                    else f'<span class="pastille-num" aria-label="{ch["numero"]}">{ch["numero"].split()[-1]}</span>')
+    cote = (f'<div class="cote"><div class="cadre-image">{numero_image}'
+            f'<img src="images/chapitres/{image.name}" alt="{ch["titre"]}"></div></div>' if image.exists() else "")
 
     suite = []
     if tirages:
@@ -555,12 +586,12 @@ def passage_chapitre(ch):
     cle = 0 if ch["nom"] == "Prologue" else int(ch["nom"].split()[-1])
     n_sachet, nom_sachet = sachet(cle)
     liste = pieces_html(cle)
-    numero = ("" if ch["nom"] == "Prologue"
+    numero = ("" if image.exists() or ch["nom"] == "Prologue"
               else f'<span class="num" aria-label="{ch["numero"]}">{ch["numero"].split()[-1]}</span>')
-    entete = (f'<div class="etape"><div class="bande">{numero}<div class="bande-texte">'
+    pieces_bande = f'<ul class="pieces">{liste}</ul>' if liste else ""
+    entete = (f'<div class="etape"><div class="bande">{numero}{pieces_bande}<div class="bande-texte">'
               f'<span class="sachet">Sachet {n_sachet} · {nom_sachet}</span>'
-              f'<h1 class="chapitre"><span class="titre">{ch["titre"]}</span></h1></div></div>'
-              + (f'<ul class="pieces">{liste}</ul>' if liste else "") + '</div>')
+              f'<h1 class="chapitre"><span class="titre">{ch["titre"]}</span></h1></div></div></div>')
     texte = (f'<div class="texte">{entete}'
              + "\n\n".join(corps) + "".join(suite) + "</div>")
     return f'<div class="page sachet-{n_sachet}">{cote}{texte}</div>'
