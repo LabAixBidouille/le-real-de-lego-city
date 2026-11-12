@@ -84,15 +84,23 @@ def svg(code):
     return "data:image/svg+xml," + code.replace("#", "%23").replace("<", "%3C").replace(">", "%3E").replace('"', "'")
 
 
-# La brique rouge 2 × 2 qui sert de dé : deux tétons visibles, vue de face
-BRIQUE_DE = svg(
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">'
-    f'<rect x="20" y="8" width="20" height="14" rx="3" fill="#a80c0e"/><rect x="60" y="8" width="20" height="14" rx="3" fill="#a80c0e"/>'
-    f'<rect x="20" y="6" width="20" height="9" rx="4.5" fill="{ROUGE}"/><rect x="60" y="6" width="20" height="9" rx="4.5" fill="{ROUGE}"/>'
-    f'<rect x="6" y="20" width="88" height="74" rx="7" fill="#a80c0e"/>'
-    f'<rect x="6" y="18" width="88" height="68" rx="7" fill="{ROUGE}"/>'
-    '<rect x="12" y="23" width="76" height="5" rx="2.5" fill="#ffffff" opacity="0.28"/>'
-    '</svg>')
+# La brique 2 × 2 qui sert de dé, vue de face, deux tétons visibles ; une version par couleur de sachet
+def brique_de(clair, fonce):
+    return svg(
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">'
+        f'<rect x="20" y="8" width="20" height="14" rx="3" fill="{fonce}"/><rect x="60" y="8" width="20" height="14" rx="3" fill="{fonce}"/>'
+        f'<rect x="20" y="6" width="20" height="9" rx="4.5" fill="{clair}"/><rect x="60" y="6" width="20" height="9" rx="4.5" fill="{clair}"/>'
+        f'<rect x="6" y="20" width="88" height="74" rx="7" fill="{fonce}"/>'
+        f'<rect x="6" y="18" width="88" height="68" rx="7" fill="{clair}"/>'
+        '<rect x="12" y="23" width="76" height="5" rx="2.5" fill="#ffffff" opacity="0.28"/>'
+        '</svg>')
+
+
+BRIQUES_DE = {1: brique_de(ROUGE, "#a80c0e"), 2: brique_de(JAUNE, "#c99d06"), 3: brique_de(BLEU, "#003f86"),
+              4: brique_de(VERT, "#1f6a2f"), 5: brique_de("#f2780c", "#b8590a")}
+BRIQUE_DE = BRIQUES_DE[1]
+CSS_BRIQUES = "".join(f'.sachet-{n} .brique .corps {{ background-image: url("{code}"); }}\n'
+                      for n, code in BRIQUES_DE.items()) + ".sachet-2 .brique .face { color: #22252b; }\n"
 
 CSS = """
 @font-face { font-family: "Jost"; font-weight: 300 800; font-display: swap; src: url("fonts/Jost.woff2") format("woff2"); }
@@ -220,20 +228,20 @@ tw-link:hover, .enchantment-link:hover { color: var(--bleu); }
   color: var(--encre); margin-bottom: 0.5em; }
 .choix { display: flex; flex-direction: column; align-items: flex-start; gap: 0.45em; }
 .tirage { display: inline-flex; align-items: center; gap: 0.8em; }
-/* Les faces du dé, sur une petite brique de la couleur du sachet */
+/* Les faces du dé, sur une petite brique jaune */
 .tirage b {
   flex: none;
   min-width: 5.6em;
   padding: 0.12em 0.7em 0.08em;
   border-radius: 4px;
-  background: var(--sachet);
+  background: var(--jaune);
   box-shadow: inset 0 -3px 0 rgba(0,0,0,0.15);
   font-family: "Jost", sans-serif;
   font-weight: 600;
   font-size: 0.88em;
   text-align: center;
   white-space: nowrap;
-  color: var(--sur-sachet);
+  color: var(--encre);
 }
 .de .choix tw-link, .de .choix .enchantment-link {
   font-family: "Jost", sans-serif; font-weight: 600; font-size: 1.05em; color: var(--bleu);
@@ -352,7 +360,7 @@ tw-story:has(.garde) { padding-top: 0; padding-bottom: 0; }
   .miniature img { height: 10em; }
   .garde .mention { position: static; }
 }
-""".replace("ROUGE", ROUGE).replace("JAUNE", JAUNE).replace("BLEU", BLEU).replace("VERT", VERT).replace("BRIQUE_DE", BRIQUE_DE)
+""".replace("ROUGE", ROUGE).replace("JAUNE", JAUNE).replace("BLEU", BLEU).replace("VERT", VERT).replace("BRIQUE_DE", BRIQUE_DE) + CSS_BRIQUES
 
 SEPARATEUR = '<div class="separateur"><i></i><i></i><i></i></div>'
 

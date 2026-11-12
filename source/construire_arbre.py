@@ -141,7 +141,7 @@ def construire():
             pointes.add((x2, arrivee))
             if (a, b) in des and b not in faites:
                 faites.add(b)
-                etiquettes.append(brique(x2, (depart + 26 + arrivee - 11) / 2, des[(a, b)], couleur_de[a]))
+                etiquettes.append(brique(x2, (depart + 26 + arrivee - 11) / 2, des[(a, b)]))
     fleches = "".join(f'<path d="M{x} {y} l-7.5 -12 h15 z"/>' for x, y in sorted(pointes))
     sections = "".join(sachet(y_, n, nom) for y_, n, nom in entetes)
     cartes = "".join(carte(*pos[n], n, titres[n], couleur_de[n]) for n in pos)
