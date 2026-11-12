@@ -195,6 +195,7 @@
 
 
 
+
 <meta name="robots" content="noindex, nofollow, noarchive">
 <meta content="width=device-width, initial-scale=1" name="viewport">
 <title>Le Real de Lego City</title>
@@ -277,15 +278,13 @@ tw-story { overflow: clip; }
   color: var(--encre);
 }
 
-/* Séparateur : trois briques 2 × 1, rouge, jaune et bleue, chacune avec ses deux tétons */
-.separateur { display: flex; align-items: flex-end; justify-content: center; gap: 0.45em; margin: 2em 0 1.4em; }
+/* Séparateur : trois briques 1 × 1, rouge, jaune et bleue, chacune avec son tenon */
+.separateur { display: flex; align-items: flex-end; justify-content: center; gap: 0.4em; margin: 2em 0 1.4em; }
 .separateur::before, .separateur::after { content: ""; width: 4em; height: 2px; margin: 0 0.7em 0.45em; background: var(--notice-trait); }
-.separateur i { position: relative; display: block; width: 1.9em; height: 0.95em; border-radius: 3px;
+.separateur i { position: relative; display: block; width: 1em; height: 0.95em; border-radius: 3px;
   box-shadow: inset 0 -3px 0 rgba(0,0,0,0.22); }
-.separateur i::before, .separateur i::after { content: ""; position: absolute; top: -0.3em; width: 0.55em; height: 0.34em;
-  border-radius: 2px 2px 0 0; background: inherit; box-shadow: inset 0 -1px 0 rgba(0,0,0,0.15); }
-.separateur i::before { left: 0.22em; }
-.separateur i::after { right: 0.22em; }
+.separateur i::before { content: ""; position: absolute; left: 50%; top: -0.3em; width: 0.56em; height: 0.34em;
+  transform: translateX(-50%); border-radius: 2px 2px 0 0; background: inherit; box-shadow: inset 0 -1px 0 rgba(0,0,0,0.15); }
 .separateur i:nth-child(1) { background: var(--rouge); }
 .separateur i:nth-child(2) { background: var(--jaune); }
 .separateur i:nth-child(3) { background: var(--bleu); }
