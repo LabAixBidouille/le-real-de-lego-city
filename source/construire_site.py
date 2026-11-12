@@ -306,16 +306,16 @@ tw-story:has(.garde) { padding-top: 0; padding-bottom: 0; }
   gap: clamp(0.6em, 1.8vh, 1.2em); }
 /* Couverture en paysage, sans défilement : la boîte du set à gauche, le titre, le résumé et les boutons à droite */
 /* Couverture : le devant de la boîte et son dos, côte à côte et de même hauteur, centrés dans l'écran */
-.garde { --h-boite: min(84vh, 50vw); display: flex !important; flex-direction: row !important; align-items: stretch !important;
+.garde { --h-boite: min(91vh, 56vw); display: flex !important; flex-direction: row !important; align-items: stretch !important;
   justify-content: center !important; gap: 2.5vw !important; height: 100vh; min-height: 0 !important;
-  padding: calc((100vh - var(--h-boite)) / 2 - 2vh) 1vw 0 !important; box-sizing: border-box; }
+  padding: calc((100vh - var(--h-boite)) / 2 - 1.6vh) 1vw 0 !important; box-sizing: border-box; }
 .garde > .garde-image, .garde > .dos { height: var(--h-boite); }
 tw-passage:has(.garde) { max-width: none; }
 .garde-image { flex: none; }
 .garde-image img { display: block; height: 100%; width: auto; }
-.dos { flex: none; width: calc(var(--h-boite) * 0.66); box-sizing: border-box; display: flex; flex-direction: column;
+.dos { flex: none; width: calc(var(--h-boite) * 0.72); box-sizing: border-box; display: flex; flex-direction: column;
   align-items: center; justify-content: space-between; text-align: center; padding: 0 1.6em 1.1em;
-  border: 3px solid var(--encre); border-radius: 10px; overflow: hidden; font-size: calc(var(--h-boite) / 46); }
+  border: 3px solid var(--encre); border-radius: 10px; overflow: hidden; font-size: calc(var(--h-boite) / 42); }
 .dos-tete { align-self: stretch; flex: none; display: flex; justify-content: space-between; align-items: center; margin: 0 -1.6em;
   background: var(--notice); font-weight: 600; font-size: 0.8em; letter-spacing: 0.12em; text-transform: uppercase; color: var(--encre-douce); }
 .dos .set { background: var(--encre); color: #fff; padding: 0.2em 0.8em; font-size: 1.15em; font-weight: 800; letter-spacing: 0.05em; }
@@ -365,7 +365,7 @@ tw-passage:has(.garde) { max-width: none; }
 .garde .secondaires tw-link, .garde .secondaires .enchantment-link { text-decoration: none; color: var(--encre-douce); }
 .garde .secondaires tw-link:hover { color: var(--bleu); }
 .garde .secondaires .point { margin: 0 0.8em; color: var(--notice-trait); }
-.garde .mention { position: absolute; left: 0; right: 0; bottom: 1.5vh; font-size: 0.8em; font-style: italic;
+.garde .mention { position: absolute; left: 0; right: 0; bottom: 0.6vh; font-size: 0.8em; font-style: italic;
   color: var(--encre-douce); }
 
 /* Page de l'arbre */
