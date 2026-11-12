@@ -618,7 +618,9 @@ def passage_chapitre(ch):
     suite = []
     if tirages:
         lignes = "".join(f'<span class="tirage"><b>{f}</b><span>{poursuis(n)}</span></span>' for f, n in tirages)
-        suite.append(f'<div class="de"><div class="de-texte"><span class="consigne">{consigne}</span>'
+        # En ligne, on ne lance pas de dé : on touche l'objet qui en tient lieu (le livret garde « Lance le dé »)
+        consigne_en_ligne = consigne.replace("Lance le dé", "Touche la brique", 1)
+        suite.append(f'<div class="de"><div class="de-texte"><span class="consigne">{consigne_en_ligne}</span>'
                      f'<div class="choix">{lignes}</div></div>{DE_VIRTUEL}</div>')
     else:
         suite.append(SEPARATEUR)
