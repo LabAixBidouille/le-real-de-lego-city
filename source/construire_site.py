@@ -305,12 +305,16 @@ tw-story:has(.garde) { padding-top: 0; padding-bottom: 0; }
   display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
   gap: clamp(0.6em, 1.8vh, 1.2em); }
 /* Couverture en paysage, sans défilement : la boîte du set à gauche, le titre, le résumé et les boutons à droite */
-.garde { flex-direction: row !important; gap: 3vw !important; padding: 2vh 1vw 8vh !important; }
+/* La boîte à une hauteur fixe H ; le haut de l'encadré du titre est aligné sur le haut de la face avant de la
+   boîte (environ 4,5 % de la hauteur de l'image, mesuré sur l'image) */
+.garde { --h-boite: min(60vh, 33vw); display: grid !important; grid-template-columns: auto auto; align-items: start !important;
+  align-content: center; justify-content: center !important; column-gap: 3vw; height: 100vh; min-height: 0 !important;
+  padding: 2vh 1vw 7vh !important; }
 tw-passage:has(.garde) { max-width: none; }
-.garde-image { flex: 1 1 0; min-width: 0; display: flex; justify-content: flex-end; }
-.garde-image img { display: block; width: 100%; max-width: 62vw; max-height: 86vh; height: auto; object-fit: contain; }
-.garde-texte { flex: 0 0 auto; width: min(30em, 40vw); display: flex; flex-direction: column; align-items: center; text-align: center;
-  gap: clamp(0.5em, 1.6vh, 1em); font-size: clamp(13px, 1.95vh, 17px); }
+.garde-image { flex: none; display: block; }
+.garde-image img { display: block; height: var(--h-boite); width: auto; max-width: none; }
+.garde-texte { flex: 0 0 auto; width: min(30em, 40vw); margin-top: calc(var(--h-boite) * 0.045); display: flex; flex-direction: column; align-items: center; text-align: center;
+  gap: clamp(0.4em, 1.3vh, 0.9em); font-size: clamp(12px, 1.8vh, 16px); }
 .garde .boite { min-width: 0 !important; align-self: stretch; }
 .invisible { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .garde .boite { position: relative; display: flex; flex-direction: column; align-items: center; gap: 0.45em;
@@ -398,7 +402,9 @@ tw-passage:has(.garde) { max-width: none; }
   .miniature img { height: 10em; }
   .garde .mention { position: static; }
   .garde { flex-direction: column !important; }
-  .garde-image img { max-height: none; }
+  .garde-image img { height: auto; width: 100%; }
+  .garde-texte { margin-top: 0; }
+  .garde { padding-top: 3vh !important; display: flex !important; height: auto; }
   .garde-texte { width: auto; }
 }
 """.replace("ROUGE", ROUGE).replace("JAUNE", JAUNE).replace("BLEU", BLEU).replace("VERT", VERT).replace("BRIQUE_DE", BRIQUE_DE) + CSS_BRIQUES
