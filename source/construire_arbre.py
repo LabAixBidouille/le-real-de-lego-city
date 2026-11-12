@@ -92,10 +92,12 @@ def brique(x, y, nom, titre, clair, fonce, cote):
 )
     texte_couleur = ENCRE if clair == JAUNE else "#fff"
     if nom == "Prologue":
-        numero = (f'<text x="{x}" y="{y0 + 26}" text-anchor="middle" font-family="Jost" font-weight="700" font-size="13" '
-                  f'letter-spacing="2" fill="{texte_couleur}" opacity="0.85">PROLOGUE</text>')
-        corps_titre = "".join(f'<text x="{x}" y="{y0 + 48 + i * 17}" text-anchor="middle" font-family="Jost" font-weight="700" '
-                              f'font-size="16" fill="{texte_couleur}">{l}</text>' for i, l in enumerate(lignes(titre, 26)))
+        # Le prologue : seulement son titre, centré dans la brique
+        numero = ""
+        texte = lignes(titre, 30)
+        debut = y + 6 - (len(texte) - 1) * 9.5
+        corps_titre = "".join(f'<text x="{x}" y="{debut + i * 19}" text-anchor="middle" font-family="Jost" font-weight="700" '
+                              f'font-size="16" fill="{texte_couleur}">{l}</text>' for i, l in enumerate(texte))
     else:
         numero = (f'<circle cx="{x0 + 32}" cy="{y}" r="19" fill="#fff"/>'
                   f'<text x="{x0 + 32}" y="{y + 7}" text-anchor="middle" font-family="Jost" font-weight="800" '
