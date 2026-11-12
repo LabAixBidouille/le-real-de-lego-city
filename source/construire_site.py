@@ -305,17 +305,34 @@ tw-story:has(.garde) { padding-top: 0; padding-bottom: 0; }
   display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
   gap: clamp(0.6em, 1.8vh, 1.2em); }
 /* Couverture en paysage, sans défilement : la boîte du set à gauche, le titre, le résumé et les boutons à droite */
-/* La boîte à une hauteur fixe H ; le haut de l'encadré du titre est aligné sur le haut de la face avant de la
-   boîte (environ 4,5 % de la hauteur de l'image, mesuré sur l'image) */
-.garde { --h-boite: min(60vh, 33vw); display: grid !important; grid-template-columns: auto auto; align-items: start !important;
-  align-content: center; justify-content: center !important; column-gap: 3vw; height: 100vh; min-height: 0 !important;
-  padding: 2vh 1vw 7vh !important; }
+/* Couverture : le devant de la boîte et son dos, côte à côte et de même hauteur, centrés dans l'écran */
+.garde { --h-boite: min(84vh, 50vw); display: flex !important; flex-direction: row !important; align-items: stretch !important;
+  justify-content: center !important; gap: 2.5vw !important; height: 100vh; min-height: 0 !important;
+  padding: calc((100vh - var(--h-boite)) / 2 - 2vh) 1vw 0 !important; box-sizing: border-box; }
+.garde > .garde-image, .garde > .dos { height: var(--h-boite); }
 tw-passage:has(.garde) { max-width: none; }
-.garde-image { flex: none; display: block; }
-.garde-image img { display: block; height: var(--h-boite); width: auto; max-width: none; }
-.garde-texte { flex: 0 0 auto; width: min(30em, 40vw); margin-top: calc(var(--h-boite) * 0.045); display: flex; flex-direction: column; align-items: center; text-align: center;
-  gap: clamp(0.4em, 1.3vh, 0.9em); font-size: clamp(12px, 1.8vh, 16px); }
-.garde .boite { min-width: 0 !important; align-self: stretch; }
+.garde-image { flex: none; }
+.garde-image img { display: block; height: 100%; width: auto; }
+.dos { flex: none; width: calc(var(--h-boite) * 0.66); box-sizing: border-box; display: flex; flex-direction: column;
+  align-items: center; justify-content: space-between; text-align: center; padding: 0 1.6em 1.1em;
+  border: 3px solid var(--encre); border-radius: 10px; overflow: hidden; font-size: calc(var(--h-boite) / 46); }
+.dos-tete { align-self: stretch; flex: none; display: flex; justify-content: space-between; align-items: center; margin: 0 -1.6em;
+  background: var(--notice); font-weight: 600; font-size: 0.8em; letter-spacing: 0.12em; text-transform: uppercase; color: var(--encre-douce); }
+.dos .set { background: var(--encre); color: #fff; padding: 0.2em 0.8em; font-size: 1.15em; font-weight: 800; letter-spacing: 0.05em; }
+.dos .age { background: var(--jaune); color: var(--encre); padding: 0.2em 0.8em; font-size: 1.15em; font-weight: 800; }
+.dos .surtitre { font-size: 0.75em !important; }
+.dos .grand-titre { font-size: 2.3em !important; line-height: 1.05; }
+.dos .nom-auteur { font-size: 1em !important; }
+.dos .synopsis { font-size: 0.92em !important; line-height: 1.5 !important; text-align: left; max-width: none !important; }
+.dos .synopsis p { margin: 0.35em 0 !important; }
+.dos .contenu { align-self: stretch; padding: 0.5em 0.8em 0.4em; border-radius: 10px; background: var(--notice); }
+.dos .titre-contenu { display: block; font-weight: 600; font-size: 0.7em; letter-spacing: 0.12em; text-transform: uppercase; color: var(--encre-douce); }
+.dos .figs { display: flex; justify-content: space-between; align-items: flex-end; margin: 0.25em 0; }
+.dos .figs img { height: 2.8em; width: auto; }
+.dos .chiffres { font-size: 0.8em; color: var(--encre-douce); }
+.dos .chiffres b { color: var(--encre); font-weight: 800; }
+.dos .commencer tw-link, .dos .commencer .enchantment-link { font-size: 1.3em !important; }
+.dos .secondaires { font-size: 0.85em !important; }
 .invisible { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .garde .boite { position: relative; display: flex; flex-direction: column; align-items: center; gap: 0.45em;
   min-width: min(34em, 92vw); padding: 1.3em 3em 0; border: 3px solid var(--encre); border-radius: 8px; overflow: hidden; }
@@ -402,9 +419,10 @@ tw-passage:has(.garde) { max-width: none; }
   .miniature img { height: 10em; }
   .garde .mention { position: static; }
   .garde { flex-direction: column !important; }
-  .garde-image img { height: auto; width: 100%; }
-  .garde-texte { margin-top: 0; }
-  .garde { padding-top: 3vh !important; display: flex !important; height: auto; }
+  .garde { flex-direction: column !important; height: auto; padding: 3vh 0 !important; align-items: center !important; }
+  .garde > .garde-image, .garde > .dos { height: auto; }
+  .garde-image img { height: auto; width: 100%; max-width: 360px; margin: 0 auto; }
+  .dos { width: 100%; font-size: 15px; }
   .garde-texte { width: auto; }
 }
 """.replace("ROUGE", ROUGE).replace("JAUNE", JAUNE).replace("BLEU", BLEU).replace("VERT", VERT).replace("BRIQUE_DE", BRIQUE_DE) + CSS_BRIQUES
@@ -632,16 +650,18 @@ def passage_garde():
     etapes = len(lire_chapitres()) - 1
     minutes = minutes_de_lecture()
     return (
-        '<div class="garde"><div class="garde-image"><img src="images/couverture.jpg" alt="La boîte du set 2810, '
+        # Le devant de la boîte (image de Manon) et son dos, côte à côte, à la même hauteur
+        '<div class="garde"><div class="garde-image"><img src="images/boite.png" alt="Le devant de la boîte du set 2810, '
         'Le Real de Lego City : Kylian brandit la coupe au milieu de ses coéquipiers devant le stade"></div>'
-        '<div class="garde-texte">'
-        '<div class="boite"><div class="boite-haut"><span class="set">2810</span><span class="age">6+</span></div>'
+        '<div class="dos"><div class="dos-tete"><span class="set">2810</span><span>Dos de la boîte</span><span class="age">6+</span></div>'
         '<span class="surtitre">Une histoire dont le lecteur est le héros</span>'
-        '<span class="grand-titre">Le Real<span>de Lego City</span></span>'
+        '<h1 class="grand-titre">Le Real de Lego City</h1>'
         f'<span class="nom-auteur">par {AUTEURS}</span>'
-        f'<div class="boite-bas"><span><b>{etapes}</b> étapes</span><span><b>{len(SACHETS)}</b> sachets</span>'
-        f'<span><b>{minutes}</b> minutes de lecture</span></div></div>'
         f'<div class="synopsis">{resume}</div>'
+        '<div class="contenu"><span class="titre-contenu">Dans la boîte</span>'
+        '<div class="figs"><img src="images/pieces/kylian.png" alt=""><img src="images/pieces/messi.png" alt=""><img src="images/pieces/ronaldo.png" alt=""><img src="images/pieces/pompier.png" alt=""><img src="images/pieces/boulangere.png" alt=""><img src="images/pieces/pirate.png" alt=""><img src="images/pieces/astronaute.png" alt=""><img src="images/pieces/zidane.png" alt=""></div>'
+        f'<div class="chiffres"><b>{etapes}</b> étapes · <b>{len(SACHETS)}</b> sachets · <b>56</b> pièces · '
+        f'<b>{minutes}</b> minutes de lecture</div></div>'
         f'<div class="commencer">{lien("Ouvrir le premier sachet", "Prologue")}</div>'
         f'<div class="secondaires">{lien("Comment est née cette histoire", "Comment est née cette histoire")}'
         f'<span class="point">·</span>{lien("L’arbre de l’histoire", "L’arbre de l’histoire")}</div></div>'
