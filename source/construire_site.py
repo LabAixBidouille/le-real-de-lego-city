@@ -539,7 +539,7 @@ def passage_garde():
         '<div class="boite"><div class="boite-haut"><span class="set">2810</span><span class="age">6+</span></div>'
         '<span class="surtitre">Une histoire dont le lecteur est le héros</span>'
         '<span class="grand-titre">Le Real<span>de Lego City</span></span>'
-        f'<span class="nom-auteur">une histoire par {AUTEURS}</span>'
+        f'<span class="nom-auteur">par {AUTEURS}</span>'
         f'<div class="boite-bas"><span><b>{etapes}</b> étapes</span><span><b>{len(SACHETS)}</b> sachets</span>'
         f'<span><b>{lancers}</b> lancers de dé</span></div></div>'
         f'<div class="synopsis">{resume}</div>'
