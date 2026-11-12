@@ -623,7 +623,9 @@ def passage_chapitre(ch):
     numero = ("" if ch["nom"] == "Prologue"
               else f'<span class="num" aria-label="{ch["numero"]}">{ch["numero"].split()[-1]}</span>')
     entete = (f'<div class="etape"><div class="bande">{numero}<div class="bande-texte">'
-              f'<span class="sachet">Sachet {n_sachet} · {nom_sachet}</span>'
+              + ('<span class="sachet">Prologue</span>' if ch["nom"] == "Prologue"
+                 else f'<span class="sachet">Sachet {n_sachet} · {nom_sachet}</span>')
+              +
               f'<h1 class="chapitre"><span class="titre">{ch["titre"]}</span></h1></div>'
               + (f'<ul class="pieces">{liste}</ul>' if liste else "") + '</div></div>')
     texte = (f'<div class="texte">{entete}{cote}'
