@@ -54,17 +54,20 @@ p {{ margin: 0 0 0.5em; orphans: 2; widows: 2; }}
 
 /* Couverture : la boîte de Manon en pleine page */
 @page couverture {{ margin: 0; @bottom-center {{ content: none; }} }}
-.couverture {{ page: couverture; position: relative; height: 185.5mm; overflow: hidden; background: #fff; }}
-.couverture .fond {{ position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: auto; }}
-.couverture .coins {{ position: absolute; left: 0; right: 0; top: 0; display: flex; justify-content: space-between; z-index: 2; }}
+/* Couverture : le titre en haut sur le blanc, l'image du prologue entière dessous, sans rien par-dessus */
+.couverture {{ page: couverture; position: relative; height: 185.5mm; overflow: hidden; background: #fff;
+  display: flex; flex-direction: column; align-items: center; }}
+.couverture .coins {{ position: absolute; left: 0; right: 0; top: 0; display: flex; justify-content: space-between; }}
 .couverture .set {{ background: {ROUGE}; color: #fff; font-weight: 800; font-size: 17pt; padding: 1.2mm 4mm; border-bottom-right-radius: 2.5mm; }}
 .couverture .age {{ background: {JAUNE}; color: {ENCRE}; font-weight: 800; font-size: 17pt; padding: 1.2mm 4mm; border-bottom-left-radius: 2.5mm; }}
-.couverture .titre {{ position: absolute; left: 12mm; right: 12mm; top: 17mm; z-index: 2; padding: 4mm 5mm 4.5mm; border-radius: 3mm;
-  background: #fff; text-align: center; border: 0.8mm solid {ENCRE}; }}
+.couverture .titre {{ margin-top: 15mm; text-align: center; }}
 .couverture .surtitre {{ font-weight: 600; font-size: 6.5pt; letter-spacing: 1.3pt; text-transform: uppercase; color: {DOUCE}; }}
-.couverture h1 {{ margin: 1mm 0 0; font-weight: 800; font-size: 30pt; line-height: 0.95; color: {ROUGE}; }}
-.couverture h1 span {{ display: block; font-size: 19pt; color: {BLEU}; }}
+.couverture h1 {{ margin: 1.5mm 0 0; font-weight: 800; font-size: 32pt; line-height: 0.95; color: {ROUGE}; }}
+.couverture h1 span {{ display: block; font-size: 20pt; color: {BLEU}; }}
 .couverture .par {{ margin-top: 1.5mm; font-weight: 600; font-size: 11pt; }}
+.couverture .fond {{ position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); height: 128mm; width: auto; }}
+/* Page 2 : l'équipe sous le résumé */
+.dos .equipe {{ display: block; width: 100%; height: auto; }}
 /* Rangée de briques en bas de la boîte */
 .boite .briques {{ position: absolute; left: 0; right: 0; bottom: 0; height: 11mm; display: flex; gap: 0.8mm; padding: 0 0.8mm; }}
 .boite .briques i {{ position: relative; flex: 1; margin-top: 3mm; border-radius: 1mm 1mm 0 0; }}
@@ -252,6 +255,7 @@ def document(pages, blanches=0):
         f'<div class="par">par {e(AUTEURS)}</div></div></section>'
         '<section class="page-seule sans-numero"><div class="dos">'
         f'<div class="resume">{e(SYNOPSIS)}</div>'
+        f'<img class="equipe" src="{(RACINE / "images" / "equipe.jpg").as_uri()}" alt="">'
         '<div class="mention">Fan fiction librement inspirée du football et des jouets LEGO®. La boîte est une image : '
         'ce livre n’est pas un produit LEGO.</div></div></section>'
     )
