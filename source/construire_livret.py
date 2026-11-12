@@ -54,22 +54,17 @@ p {{ margin: 0 0 0.5em; orphans: 2; widows: 2; }}
 
 /* Couverture : la boîte de Manon en pleine page */
 @page couverture {{ margin: 0; @bottom-center {{ content: none; }} }}
-.couverture {{ page: couverture; height: 185.5mm; display: flex; align-items: center; justify-content: center; background: {BLEU}; }}
-.boite {{ position: relative; width: 108mm; height: 170mm; border-radius: 4mm; overflow: hidden; background: #fff;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4mm; padding: 14mm 6mm 18mm; text-align: center; }}
-.boite .coins {{ position: absolute; left: 0; right: 0; top: 0; display: flex; justify-content: space-between; }}
-.boite .set {{ background: {ROUGE}; color: #fff; font-weight: 800; font-size: 17pt; padding: 1.2mm 4mm; border-bottom-right-radius: 2.5mm; }}
-.boite .age {{ background: {JAUNE}; color: {ENCRE}; font-weight: 800; font-size: 17pt; padding: 1.2mm 4mm; border-bottom-left-radius: 2.5mm; }}
-.boite .surtitre {{ font-weight: 600; font-size: 7pt; letter-spacing: 1.4pt; text-transform: uppercase; color: {DOUCE}; }}
-.boite h1 {{ margin: -2mm 0 0; font-weight: 800; font-size: 34pt; line-height: 0.95; color: {ROUGE}; }}
-.boite h1 span {{ display: block; font-size: 22pt; color: {BLEU}; }}
-.boite .par {{ margin-top: -1mm; font-weight: 600; font-size: 12pt; color: {ENCRE}; }}
-.boite .contenu {{ align-self: stretch; border-radius: 3mm; background: {NOTICE}; padding: 3mm 3mm 2.5mm; }}
-.boite .contenu span {{ display: block; font-weight: 600; font-size: 6.5pt; letter-spacing: 1.2pt; text-transform: uppercase; color: {DOUCE}; }}
-.boite .figs {{ display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-end; gap: 2mm 2.5mm; margin: 2.5mm 0; }}
-.boite .figs img {{ height: 16mm; }}
-.boite .chiffres {{ font-size: 8pt; color: {DOUCE}; }}
-.boite .chiffres b {{ color: {ENCRE}; }}
+.couverture {{ page: couverture; position: relative; height: 185.5mm; overflow: hidden; background: #fff; }}
+.couverture .fond {{ position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: auto; }}
+.couverture .coins {{ position: absolute; left: 0; right: 0; top: 0; display: flex; justify-content: space-between; z-index: 2; }}
+.couverture .set {{ background: {ROUGE}; color: #fff; font-weight: 800; font-size: 17pt; padding: 1.2mm 4mm; border-bottom-right-radius: 2.5mm; }}
+.couverture .age {{ background: {JAUNE}; color: {ENCRE}; font-weight: 800; font-size: 17pt; padding: 1.2mm 4mm; border-bottom-left-radius: 2.5mm; }}
+.couverture .titre {{ position: absolute; left: 12mm; right: 12mm; top: 17mm; z-index: 2; padding: 4mm 5mm 4.5mm; border-radius: 3mm;
+  background: #fff; text-align: center; border: 0.8mm solid {ENCRE}; }}
+.couverture .surtitre {{ font-weight: 600; font-size: 6.5pt; letter-spacing: 1.3pt; text-transform: uppercase; color: {DOUCE}; }}
+.couverture h1 {{ margin: 1mm 0 0; font-weight: 800; font-size: 30pt; line-height: 0.95; color: {ROUGE}; }}
+.couverture h1 span {{ display: block; font-size: 19pt; color: {BLEU}; }}
+.couverture .par {{ margin-top: 1.5mm; font-weight: 600; font-size: 11pt; }}
 /* Rangée de briques en bas de la boîte */
 .boite .briques {{ position: absolute; left: 0; right: 0; bottom: 0; height: 11mm; display: flex; gap: 0.8mm; padding: 0 0.8mm; }}
 .boite .briques i {{ position: relative; flex: 1; margin-top: 3mm; border-radius: 1mm 1mm 0 0; }}
@@ -248,16 +243,13 @@ def document(pages, blanches=0):
                    for f in ("kylian", "messi", "ronaldo", "zidane", "pompier", "policiere", "boulangere", "pirate",
                              "astronaute", "blanchisseur", "maire", "entraineur-de-l-om", "petit-chien", "joueur-adverse"))
     couverture = (
-        # Couverture : le même encadré que sur le site, comme le devant d'une boîte de notice
-        '<section class="couverture sans-numero"><div class="boite">'
+        # Couverture : l'image du prologue en pleine page, le titre dans le panneau blanc du haut
+        '<section class="couverture sans-numero">'
+        f'<img class="fond" src="{(RACINE / "images" / "chapitres" / "prologue.jpg").as_uri()}" alt="">'
         '<div class="coins"><span class="set">2810</span><span class="age">6+</span></div>'
-        '<div class="surtitre">Une histoire dont le lecteur est le héros</div>'
+        '<div class="titre"><div class="surtitre">Une histoire dont le lecteur est le héros</div>'
         '<h1>Le Real<span>de Lego City</span></h1>'
-        f'<div class="par">par {e(AUTEURS)}</div>'
-        f'<div class="contenu"><span>Dans la boîte</span><div class="figs">{figs}</div>'
-        f'<div class="chiffres"><b>{etapes}</b> étapes · <b>5</b> sachets · <b>56</b> pièces · '
-        f'<b>{minutes_de_lecture()}</b> minutes de lecture</div></div>'
-        '<div class="briques">' + '<i></i>' * 7 + '</div></div></section>'
+        f'<div class="par">par {e(AUTEURS)}</div></div></section>'
         '<section class="page-seule sans-numero"><div class="dos">'
         f'<div class="resume">{e(SYNOPSIS)}</div>'
         '<div class="mention">Fan fiction librement inspirée du football et des jouets LEGO®. La boîte est une image : '
