@@ -54,18 +54,17 @@ p {{ margin: 0 0 0.5em; orphans: 2; widows: 2; }}
 
 /* Couverture : la boîte de Manon en pleine page */
 @page couverture {{ margin: 0; @bottom-center {{ content: none; }} }}
-/* Couverture : le titre en haut sur le blanc, l'image du prologue entière dessous, sans rien par-dessus */
-.couverture {{ page: couverture; position: relative; height: 185.5mm; overflow: hidden; background: #fff;
-  display: flex; flex-direction: column; align-items: center; }}
+/* Couverture : l'image du prologue sur toute la largeur, jusqu'en bas (jamais recadrée) ; l'encadré blanc du site par-dessus */
+.couverture {{ page: couverture; position: relative; height: 185.5mm; overflow: hidden; background: #fff; }}
+.couverture .fond {{ position: absolute; left: 0; bottom: 0; width: 100%; height: auto; }}
+.couverture .encadre {{ position: absolute; left: 9mm; right: 9mm; top: 10mm; padding: 9mm 4mm 4.5mm; background: #fff;
+  border: 0.8mm solid {ENCRE}; border-radius: 3mm; overflow: hidden; text-align: center; }}
 .couverture .coins {{ position: absolute; left: 0; right: 0; top: 0; display: flex; justify-content: space-between; }}
-.couverture .set {{ background: {ROUGE}; color: #fff; font-weight: 800; font-size: 17pt; padding: 1.2mm 4mm; border-bottom-right-radius: 2.5mm; }}
-.couverture .age {{ background: {JAUNE}; color: {ENCRE}; font-weight: 800; font-size: 17pt; padding: 1.2mm 4mm; border-bottom-left-radius: 2.5mm; }}
-.couverture .titre {{ margin-top: 15mm; text-align: center; }}
-.couverture .surtitre {{ font-weight: 600; font-size: 6.5pt; letter-spacing: 1.3pt; text-transform: uppercase; color: {DOUCE}; }}
-.couverture h1 {{ margin: 1.5mm 0 0; font-weight: 800; font-size: 32pt; line-height: 0.95; color: {ROUGE}; }}
-.couverture h1 span {{ display: block; font-size: 20pt; color: {BLEU}; }}
-.couverture .par {{ margin-top: 1.5mm; font-weight: 600; font-size: 11pt; }}
-.couverture .fond {{ position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); height: 128mm; width: auto; }}
+.couverture .set {{ background: {ROUGE}; color: #fff; font-weight: 800; font-size: 13pt; padding: 0.8mm 3mm; border-bottom-right-radius: 2mm; }}
+.couverture .age {{ background: {JAUNE}; color: {ENCRE}; font-weight: 800; font-size: 13pt; padding: 0.8mm 3mm; border-bottom-left-radius: 2mm; }}
+.couverture .surtitre {{ font-weight: 600; font-size: 6pt; letter-spacing: 1.2pt; text-transform: uppercase; color: {DOUCE}; }}
+.couverture h1 {{ margin: 1mm 0 0; font-weight: 800; font-size: 22pt; line-height: 1.05; color: {ENCRE}; }}
+.couverture .par {{ margin-top: 1mm; font-weight: 600; font-size: 10pt; color: {DOUCE}; }}
 /* Page 2 : l'équipe sous le résumé */
 .dos .equipe {{ display: block; width: 100%; height: auto; }}
 /* Rangée de briques en bas de la boîte */
@@ -246,12 +245,12 @@ def document(pages, blanches=0):
                    for f in ("kylian", "messi", "ronaldo", "zidane", "pompier", "policiere", "boulangere", "pirate",
                              "astronaute", "blanchisseur", "maire", "entraineur-de-l-om", "petit-chien", "joueur-adverse"))
     couverture = (
-        # Couverture : l'image du prologue en pleine page, le titre dans le panneau blanc du haut
+        # Couverture : l'image du prologue en pleine page ; par-dessus, l'encadré blanc du site
         '<section class="couverture sans-numero">'
         f'<img class="fond" src="{(RACINE / "images" / "chapitres" / "prologue.jpg").as_uri()}" alt="">'
-        '<div class="coins"><span class="set">2810</span><span class="age">6+</span></div>'
-        '<div class="titre"><div class="surtitre">Une histoire dont le lecteur est le héros</div>'
-        '<h1>Le Real<span>de Lego City</span></h1>'
+        '<div class="encadre"><div class="coins"><span class="set">2810</span><span class="age">6+</span></div>'
+        '<div class="surtitre">Une histoire dont le lecteur est le héros</div>'
+        f'<h1>{e(TITRE)}</h1>'
         f'<div class="par">par {e(AUTEURS)}</div></div></section>'
         '<section class="page-seule sans-numero"><div class="dos">'
         f'<div class="resume">{e(SYNOPSIS)}</div>'
