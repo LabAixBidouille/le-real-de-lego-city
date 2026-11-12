@@ -294,7 +294,9 @@ tw-link:hover, .enchantment-link:hover { color: var(--bleu); }
 tw-story:has(.garde) { padding-top: 0; padding-bottom: 0; }
 .garde { position: relative; min-height: 100vh; box-sizing: border-box; padding: 4vh 0 9vh;
   display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
-  gap: clamp(0.8em, 2.4vh, 1.3em); }
+  gap: clamp(0.6em, 1.8vh, 1.2em); }
+.garde .boite-image { display: block; width: auto; max-width: min(100%, 52em); max-height: 44vh; height: auto; }
+.invisible { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .garde .boite { position: relative; display: flex; flex-direction: column; align-items: center; gap: 0.45em;
   min-width: min(34em, 92vw); padding: 1.3em 3em 0; border: 3px solid var(--encre); border-radius: 8px; overflow: hidden; }
 .garde .boite-haut { position: absolute; left: 0; right: 0; top: 0; display: flex; justify-content: space-between; }
@@ -312,7 +314,7 @@ tw-story:has(.garde) { padding-top: 0; padding-bottom: 0; }
   line-height: 1; color: var(--encre); }
 .garde .grand-titre span { display: block; font-size: 0.6em; color: var(--bleu); }
 .garde .nom-auteur { font-family: "Jost", sans-serif; font-weight: 500; font-size: 1.15em; color: var(--encre-douce); }
-.garde .synopsis { max-width: 34em; font-size: clamp(0.92em, 2.1vh, 1.05em); line-height: 1.65; }
+.garde .synopsis { max-width: 38em; font-size: clamp(0.85em, 1.9vh, 1em); line-height: 1.55; }
 .garde .synopsis p { margin: 0.5em 0; }
 .garde .commencer tw-link, .garde .commencer .enchantment-link {
   display: inline-block; padding: 0.35em 1.4em 0.32em; border-radius: 4px; background: var(--bleu);
@@ -617,12 +619,10 @@ def passage_garde():
     minutes = minutes_de_lecture()
     return (
         '<div class="garde">'
-        '<div class="boite"><div class="boite-haut"><span class="set">2810</span><span class="age">6+</span></div>'
-        '<span class="surtitre">Une histoire dont le lecteur est le héros</span>'
-        '<span class="grand-titre">Le Real<span>de Lego City</span></span>'
-        f'<span class="nom-auteur">par {AUTEURS}</span>'
-        f'<div class="boite-bas"><span><b>{etapes}</b> étapes</span><span><b>{len(SACHETS)}</b> sachets</span>'
-        f'<span><b>{minutes}</b> minutes de lecture</span></div></div>'
+        # La boîte du set, image de Manon : elle porte déjà le titre, le numéro de set, l'âge et le bandeau
+        '<h1 class="invisible">Le Real de Lego City, une histoire dont le lecteur est le héros, par Ernest et Abel</h1>'
+        '<img class="boite-image" src="images/couverture.jpg" alt="La boîte du set 2810, Le Real de Lego City, '
+        'par Ernest et Abel : Kylian brandit la coupe au milieu de ses coéquipiers devant le stade">'
         f'<div class="synopsis">{resume}</div>'
         f'<div class="commencer">{lien("Ouvrir le premier sachet", "Prologue")}</div>'
         f'<div class="secondaires">{lien("Comment est née cette histoire", "Comment est née cette histoire")}'
