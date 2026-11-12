@@ -320,9 +320,9 @@ tw-passage:has(.garde) { max-width: none; }
 .dos > :not(.dos-tete) { margin-left: 1.6rem; margin-right: 1.6rem; }
 .dos-tete { align-self: stretch; flex: none; display: flex; justify-content: space-between; align-items: stretch; margin: 0; font-weight: 600; font-size: 0.8em; letter-spacing: 0.12em; text-transform: uppercase; color: var(--encre-douce); }
 .dos .dos-tete > span { display: flex; align-items: center; }
-.dos .set { background: var(--encre); color: #fff; padding: 0.25em 0.8em; font-size: 1.15em; font-weight: 800; letter-spacing: 0.05em; }
-.dos .age { background: var(--jaune); color: var(--encre); padding: 0.25em 0.8em; font-size: 1.15em; font-weight: 800; }
-.dos-titre { display: flex; flex-direction: column; align-items: center; gap: 0.15em; margin-top: -0.6em; }
+.garde .dos .set { background: var(--rouge); color: #fff; padding: 0.3em 1em 0.35em; font-size: 2em; font-weight: 800; letter-spacing: 0.04em; border-bottom-right-radius: 10px; }
+.garde .dos .age { background: var(--jaune); color: var(--encre); padding: 0.3em 1em 0.35em; font-size: 2em; font-weight: 800; border-bottom-left-radius: 10px; }
+.dos-titre { display: flex; flex-direction: column; align-items: center; gap: 0.15em; margin-top: -1.8em; }
 .dos .surtitre { font-size: 0.75em !important; }
 .dos .grand-titre { font-size: 3.1em !important; line-height: 1.05; margin: 0 !important; }
 .dos .nom-auteur { font-size: 1em !important; }
@@ -431,6 +431,8 @@ tw-passage:has(.garde) { max-width: none; }
   .dos .figs { flex-wrap: wrap; justify-content: center; }
   .dos .figs img { height: 3.4em; }
   .dos .grand-titre { font-size: 2.2em !important; }
+  .dos-titre { margin-top: 0.4em !important; }
+  .garde .dos .set, .garde .dos .age { font-size: 1.5em; }
   .garde-texte { width: auto; }
 }
 """.replace("ROUGE", ROUGE).replace("JAUNE", JAUNE).replace("BLEU", BLEU).replace("VERT", VERT).replace("BRIQUE_DE", BRIQUE_DE) + CSS_BRIQUES

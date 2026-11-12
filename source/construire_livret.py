@@ -58,8 +58,8 @@ p {{ margin: 0 0 0.5em; orphans: 2; widows: 2; }}
 .boite {{ position: relative; width: 106mm; height: 166mm; border: 0.9mm solid {ENCRE}; border-radius: 3mm; overflow: hidden;
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4mm; padding: 10mm 6mm 8mm; text-align: center; }}
 .boite .coins {{ position: absolute; left: 0; right: 0; top: 0; display: flex; justify-content: space-between; }}
-.boite .set {{ background: {ENCRE}; color: #fff; font-weight: 800; font-size: 11pt; padding: 0.8mm 3mm; border-bottom-right-radius: 2mm; }}
-.boite .age {{ background: {JAUNE}; color: {ENCRE}; font-weight: 800; font-size: 11pt; padding: 0.8mm 3mm; border-bottom-left-radius: 2mm; }}
+.boite .set {{ background: {ROUGE}; color: #fff; font-weight: 800; font-size: 17pt; padding: 1.2mm 4mm; border-bottom-right-radius: 2.5mm; }}
+.boite .age {{ background: {JAUNE}; color: {ENCRE}; font-weight: 800; font-size: 17pt; padding: 1.2mm 4mm; border-bottom-left-radius: 2.5mm; }}
 .boite .surtitre {{ font-weight: 600; font-size: 7pt; letter-spacing: 1.4pt; text-transform: uppercase; color: {DOUCE}; }}
 .boite h1 {{ margin: -2mm 0 0; font-weight: 800; font-size: 26pt; line-height: 1.02; }}
 .boite .par {{ margin-top: -2mm; font-weight: 500; font-size: 11pt; color: {DOUCE}; }}
