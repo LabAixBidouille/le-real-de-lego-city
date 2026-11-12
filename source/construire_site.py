@@ -139,7 +139,8 @@ tw-story { overflow: clip; }
 
 /* En-tête d'étape, comme les cartes de l'arbre : un bandeau cerclé de gris-bleu, le gros numéro dans une case de
    la couleur du sachet, le sachet et le titre à côté ; dessous, l'encadré bleu clair des pièces de l'étape */
-.etape { --sachet: var(--rouge); --sur-sachet: #fff; margin: 0.6em 0 1.3em; }
+.page { --sachet: var(--rouge); --sur-sachet: #fff; }
+.etape { margin: 0.6em 0 1.3em; }
 .sachet-2 { --sachet: var(--jaune); --sur-sachet: var(--encre); }
 .sachet-3 { --sachet: var(--bleu); }
 .sachet-4 { --sachet: var(--vert); }
@@ -219,20 +220,20 @@ tw-link:hover, .enchantment-link:hover { color: var(--bleu); }
   color: var(--encre); margin-bottom: 0.5em; }
 .choix { display: flex; flex-direction: column; align-items: flex-start; gap: 0.45em; }
 .tirage { display: inline-flex; align-items: center; gap: 0.8em; }
-/* Les faces du dé, sur une petite brique jaune */
+/* Les faces du dé, sur une petite brique de la couleur du sachet */
 .tirage b {
   flex: none;
   min-width: 5.6em;
   padding: 0.12em 0.7em 0.08em;
   border-radius: 4px;
-  background: var(--jaune);
+  background: var(--sachet);
   box-shadow: inset 0 -3px 0 rgba(0,0,0,0.15);
   font-family: "Jost", sans-serif;
   font-weight: 600;
   font-size: 0.88em;
   text-align: center;
   white-space: nowrap;
-  color: var(--encre);
+  color: var(--sur-sachet);
 }
 .de .choix tw-link, .de .choix .enchantment-link {
   font-family: "Jost", sans-serif; font-weight: 600; font-size: 1.05em; color: var(--bleu);
@@ -542,13 +543,13 @@ def passage_chapitre(ch):
     liste = pieces_html(cle)
     numero = ("" if ch["nom"] == "Prologue"
               else f'<span class="num" aria-label="{ch["numero"]}">{ch["numero"].split()[-1]}</span>')
-    entete = (f'<div class="etape sachet-{n_sachet}"><div class="bande">{numero}<div class="bande-texte">'
+    entete = (f'<div class="etape"><div class="bande">{numero}<div class="bande-texte">'
               f'<span class="sachet">Sachet {n_sachet} · {nom_sachet}</span>'
               f'<h1 class="chapitre"><span class="titre">{ch["titre"]}</span></h1></div></div>'
               + (f'<ul class="pieces">{liste}</ul>' if liste else "") + '</div>')
     texte = (f'<div class="texte">{entete}'
              + "\n\n".join(corps) + "".join(suite) + "</div>")
-    return f'<div class="page">{cote}{texte}</div>'
+    return f'<div class="page sachet-{n_sachet}">{cote}{texte}</div>'
 
 
 def minutes_de_lecture(mots_par_minute=120):
