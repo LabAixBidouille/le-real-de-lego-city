@@ -576,14 +576,14 @@ def illustration(nom):
 
 def passage_chapitre(ch):
     corps, consigne, tirages, renvoi, fin = lire_choix(ch)
-    poursuis = lambda n: lien(f"Poursuis au chapitre {n}", f"Chapitre {n}")
-    image = RACINE / f"images/chapitres/{illustration(ch['nom'])}.jpg"
-    cote = (f'<div class="cote"><div class="cadre-image">'
-            f'<img src="images/chapitres/{image.name}" alt="{ch["titre"]}"></div></div>' if image.exists() else "")
     # Les étapes de montage du chapitre, découpées, alignées sous le renvoi
     etapes = sorted((RACINE / "images" / "etapes").glob(f"{illustration(ch['nom'])}-*.png"))
     montage = ('<div class="montage">' + '<span class="fleche-etape"></span>'.join(
         f'<img src="images/etapes/{e.name}" alt="">' for e in etapes) + '</div>') if etapes else ""
+    poursuis = lambda n: lien(f"Poursuis au chapitre {n}", f"Chapitre {n}")
+    image = RACINE / f"images/chapitres/{illustration(ch['nom'])}.jpg"
+    cote = (f'<div class="cote"><div class="cadre-image">'
+            f'<img src="images/chapitres/{image.name}" alt="{ch["titre"]}"></div></div>' if image.exists() else "")
 
     suite = []
     if tirages:
@@ -600,7 +600,8 @@ def passage_chapitre(ch):
                      f'{lien("Relire depuis le début", "Prologue")}</div></div>')
     cle = 0 if ch["nom"] == "Prologue" else int(ch["nom"].split()[-1])
     n_sachet, nom_sachet = sachet(cle)
-    liste = pieces_html(cle)
+    # Pas de pièces quand l'étape n'a pas de montage (le prologue et le retour au musée)
+    liste = pieces_html(cle) if etapes else ""
     numero = ("" if ch["nom"] == "Prologue"
               else f'<span class="num" aria-label="{ch["numero"]}">{ch["numero"].split()[-1]}</span>')
     entete = (f'<div class="etape"><div class="bande">{numero}<div class="bande-texte">'
