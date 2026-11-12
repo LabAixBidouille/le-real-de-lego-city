@@ -106,16 +106,15 @@ def police(fichier, nom):
 def construire():
     titres, renvois, des = lire_texte()
     debuts = {premier: (i, nom) for i, (premier, nom) in enumerate(SACHETS, start=1)}
-    pos, entetes, y = {}, [], 0
-    for noms in RANGEES:
+    # Toutes les étapes au même pas ; le titre d'un sachet se place dans la marge, à la hauteur de sa première étape
+    pos, entetes = {}, []
+    for i, noms in enumerate(RANGEES):
+        y = 20 + CARTE_H / 2 + i * PAS_Y
         if noms[0] in debuts:
-            entetes.append((y + 30, *debuts[noms[0]]))
-            y += ENTETE + CARTE_H / 2
-        else:
-            y += PAS_Y - CARTE_H / 2
+            entetes.append((y, *debuts[noms[0]]))
         for j, nom in enumerate(noms):
             pos[nom] = (CENTRE + (j - (len(noms) - 1) / 2) * ECART, y)
-        y += CARTE_H / 2
+    y += CARTE_H / 2
     hauteur = y + 30
     assert set(pos) == set(renvois), f"Chapitres absents de l'arbre : {set(renvois) ^ set(pos)}"
 
