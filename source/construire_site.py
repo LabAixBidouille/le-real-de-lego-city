@@ -137,24 +137,25 @@ tw-story { overflow: clip; }
 .cote img { display: block; width: 100%; height: auto; }
 .page:not(:has(.cote)) .texte { padding-top: 2.2em; }
 
-/* Le numéro du chapitre : un gros chiffre encadré, comme une étape de notice de montage */
-.chapitre { text-align: center; margin: 0 0 1.2em; font-weight: 400; font-size: 1em; line-height: 1.1; }
-.chapitre .numero {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 1.7em;
-  height: 1.7em;
-  padding: 0 0.2em;
-  margin-bottom: 0.35em;
-  border: 3px solid var(--encre);
-  border-radius: 5px;
-  background: #fff;
-  font-family: "Jost", sans-serif;
-  font-weight: 800;
-  font-size: 1.6em;
-  color: var(--encre);
-}
+/* En-tête d'étape, comme une page de notice : à gauche le sachet et le gros numéro d'étape, à droite la
+   liste des pièces de l'étape dans un encadré bleu clair ; le titre dessous, aligné à gauche */
+.etape { display: flex; align-items: stretch; justify-content: space-between; gap: 1.5em; margin: 0.6em 0 0.6em; }
+.etape-gauche { display: flex; flex-direction: column; align-items: flex-start; gap: 0.3em; }
+.sachet { display: inline-flex; align-items: center; gap: 0.5em; font-family: "Jost", sans-serif; font-weight: 600;
+  font-size: 0.85em; letter-spacing: 0.04em; color: var(--encre-douce); }
+.sachet .sac { display: inline-flex; align-items: center; justify-content: center; width: 1.7em; height: 1.7em;
+  border-radius: 50%; background: var(--encre); color: #fff; font-weight: 700; }
+.etape .numero { font-family: "Jost", sans-serif; font-weight: 800; font-size: 5.2em; line-height: 0.9; color: var(--encre); }
+.etape .numero.mot { font-size: 2.6em; line-height: 1.1; }
+.pieces { align-self: flex-start; min-width: 13em; max-width: 19em; padding: 0.7em 1em 0.8em; border-radius: 8px;
+  background: var(--notice); }
+.pieces-titre { display: block; font-family: "Jost", sans-serif; font-weight: 600; font-size: 0.78em; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--encre-douce); margin-bottom: 0.3em; }
+.pieces ul { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 0.25em 0.9em; }
+.pieces li { font-size: 0.92em; white-space: nowrap; }
+.pieces li b { font-weight: 700; color: var(--bleu); }
+.chapitre { text-align: left; margin: 0.4em 0 1em; font-weight: 400; font-size: 1em; line-height: 1.1;
+  padding-top: 0.5em; border-top: 2px solid var(--notice-trait); }
 .chapitre .titre {
   display: block;
   font-family: "Jost", sans-serif;
@@ -194,8 +195,9 @@ tw-link:hover, .enchantment-link:hover { color: var(--bleu); }
   font-family: "Jost", sans-serif; font-weight: 600; font-size: 1.3em; color: var(--bleu);
   text-decoration: none; transition: color 0.2s ease;
 }
-.elan tw-link::after, .elan .enchantment-link::after { content: "→"; display: inline-block; margin-left: 0.35em;
-  color: var(--rouge); transition: transform 0.2s ease; }
+.elan tw-link::after, .elan .enchantment-link::after { content: ""; display: inline-block; width: 1.5em; height: 0.9em;
+  margin-left: 0.45em; vertical-align: -0.05em; transition: transform 0.2s ease;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 24'%3E%3Cpath d='M2 8h22V2l14 10-14 10v-6H2z' fill='%23ffffff' stroke='%2322252b' stroke-width='2.4' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / contain; }
 .elan tw-link:hover::after { transform: translateX(5px); }
 .elan tw-link:hover { color: var(--bleu-fonce); }
 
@@ -254,8 +256,9 @@ tw-link:hover, .enchantment-link:hover { color: var(--bleu); }
 
 /* Fin */
 .fin { text-align: center; margin-top: 0.4em; }
+.fin .bravo { display: block; margin: -0.2em 0 1em; font-weight: 600; font-size: 1.15em; color: var(--encre-douce); }
 .fin .mot-fin { display: block; font-family: "Jost", sans-serif; font-weight: 700; font-size: 3.4em; line-height: 1;
-  color: var(--rouge); margin-bottom: 0.4em; }
+  color: var(--encre); margin-bottom: 0.4em; }
 .secondaires { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5em 1.6em; }
 .secondaires tw-link, .secondaires .enchantment-link { font-family: "Jost", sans-serif; font-weight: 600;
   font-size: 1.05em; color: var(--bleu); text-decoration: underline 2px var(--notice-trait); text-underline-offset: 0.3em; }
@@ -265,11 +268,20 @@ tw-story:has(.garde) { padding-top: 0; padding-bottom: 0; }
 .garde { position: relative; min-height: 100vh; box-sizing: border-box; padding: 4vh 0 9vh;
   display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
   gap: clamp(0.8em, 2.4vh, 1.3em); }
-.garde .encadre { display: flex; flex-direction: column; align-items: center; gap: 0.5em; padding: 1.6em 3em 1.5em;
-  border: 2px solid var(--notice-trait); border-radius: 5px; }
+.garde .boite { position: relative; display: flex; flex-direction: column; align-items: center; gap: 0.45em;
+  min-width: min(34em, 92vw); padding: 1.3em 3em 0; border: 3px solid var(--encre); border-radius: 8px; overflow: hidden; }
+.garde .boite-haut { position: absolute; left: 0; right: 0; top: 0; display: flex; justify-content: space-between; }
+.garde .set { padding: 0.15em 0.7em; background: var(--encre); color: #fff; font-weight: 800; font-size: 1.05em;
+  letter-spacing: 0.06em; border-bottom-right-radius: 6px; }
+.garde .age { padding: 0.15em 0.7em; background: var(--jaune); color: var(--encre); font-weight: 800; font-size: 1.05em;
+  border-bottom-left-radius: 6px; }
+.garde .boite .surtitre { margin-top: 1.2em; }
+.garde .boite-bas { align-self: stretch; display: flex; justify-content: center; gap: 1.8em; margin-top: 0.8em;
+  padding: 0.55em 1em; background: var(--notice); margin-left: -3em; margin-right: -3em; font-size: 0.95em; color: var(--encre-douce); }
+.garde .boite-bas b { color: var(--encre); font-weight: 800; }
 .garde .surtitre { font-family: "Jost", sans-serif; font-weight: 600; font-size: 0.85em; letter-spacing: 0.18em;
   text-transform: uppercase; color: var(--encre-douce); }
-.garde .grand-titre { font-family: "Jost", sans-serif; font-weight: 800; font-size: clamp(2.8em, 9.5vh, 4.8em);
+.garde .grand-titre { font-family: "Jost", sans-serif; font-weight: 800; font-size: clamp(2.8em, 9vh, 4.6em);
   line-height: 1; color: var(--encre); }
 .garde .grand-titre span { display: block; font-size: 0.6em; color: var(--bleu); }
 .garde .nom-auteur { font-family: "Jost", sans-serif; font-weight: 500; font-size: 1.15em; color: var(--encre-douce); }
@@ -323,6 +335,10 @@ tw-story:has(.garde) { padding-top: 0; padding-bottom: 0; }
 
 @media (max-width: 600px) {
   tw-story { font-size: 1.03em; padding: 0.8em 1em 3em; }
+  .etape { flex-direction: column; gap: 0.6em; }
+  .pieces { max-width: none; }
+  .garde .boite { padding: 1.3em 1.2em 0; }
+  .garde .boite-bas { gap: 0.9em; margin-left: -1.2em; margin-right: -1.2em; flex-wrap: wrap; }
   .chapitre .titre { font-size: 1.9em; }
   .de { flex-direction: column-reverse; align-items: stretch; }
   .lancer { align-self: center; width: auto; }
@@ -434,6 +450,38 @@ def lire_choix(ch):
     return corps, consigne, tirages, renvoi, fin
 
 
+# Les parties de l'histoire sont les sachets numérotés d'une boîte LEGO
+SACHETS = [(0, 3, "La chute"), (4, 7, "L’équipe"), (8, 11, "Le tournoi"), (12, 19, "La finale"), (20, 23, "Le retour")]
+# Les « pièces » de chaque étape : personnages et objets repérés dans le texte du chapitre, dans l'ordre où
+# ils apparaissent (motif cherché, nom affiché)
+PIECES = [
+    (r"\bKylian\b", "Kylian"), (r"\bMessi\b", "Messi"), (r"\bRonaldo\b", "Ronaldo"), (r"\bZidane\b", "Zidane"),
+    (r"homme en costume|l’entraîneur réfléchit", "l’entraîneur de l’OM"),
+    (r"\bpompier\b", "pompier"), (r"\bpolicière\b", "policière"), (r"\bboulangère\b", "boulangère"),
+    (r"\bpirate\b", "pirate"), (r"\bastronaute\b", "astronaute"), (r"\bblanchisseur\b", "blanchisseur"),
+    (r"\bmaire\b", "maire"), (r"petit chien", "chien"),
+    (r"\bpoubelle\b", "poubelle"), (r"\btrampoline\b", "trampoline"), (r"\bvitrine\b", "vitrine"),
+    (r"\bchaussettes\b", "chaussettes puantes"), (r"bombes de déodorant", "bombes de déodorant"),
+    (r"\bbrioches?\b", "brioche"), (r"\bbanderole\b", "banderole"), (r"camions? de pompiers", "camion de pompiers"), (r"\bsifflet\b", "sifflet"), (r"\bcoupe\b", "coupe"), (r"\bballon\b", "ballon"),
+]
+
+
+def sachet(cle):
+    for numero, (debut, fin, nom) in enumerate(SACHETS, start=1):
+        if debut <= cle <= fin:
+            return numero, nom
+    return 1, SACHETS[0][2]
+
+
+def pieces(corps, maximum=6):
+    texte = " ".join(corps)
+    trouvees = []
+    for motif, nom in PIECES:
+        if nom and (m := re.search(motif, texte)):
+            trouvees.append((m.start(), nom))
+    return [nom for _, nom in sorted(trouvees)[:maximum]]
+
+
 def illustration(nom):
     return "prologue" if nom == "Prologue" else f"chapitre-{int(nom.split()[-1]):02d}"
 
@@ -454,25 +502,48 @@ def passage_chapitre(ch):
         if renvoi:
             suite.append(f'<div class="elan">{poursuis(renvoi)}</div>')
     if fin:
-        suite.append('<div class="fin"><span class="mot-fin">Fin</span>'
+        suite.append('<div class="fin"><span class="mot-fin">Fin</span><span class="bravo">Ton modèle est terminé.</span>'
                      f'<div class="secondaires">{lien("Comment est née cette histoire", "Comment est née cette histoire")}'
                      f'{lien("Relire depuis le début", "Prologue")}</div></div>')
-    numero = ("" if ch["nom"] == "Prologue"
-              else f'<span class="numero" aria-label="{ch["numero"]}">{ch["numero"].split()[-1]}</span>')
-    texte = (f'<div class="texte"><h1 class="chapitre">{numero}<span class="titre">{ch["titre"]}</span></h1>'
+    cle = 0 if ch["nom"] == "Prologue" else int(ch["nom"].split()[-1])
+    n_sachet, nom_sachet = sachet(cle)
+    etape = "Prologue" if ch["nom"] == "Prologue" else ch["numero"].split()[-1]
+    liste = "".join(f'<li><b>1×</b> {p}</li>' for p in pieces(corps))
+    entete = (f'<div class="etape"><div class="etape-gauche"><span class="sachet"><span class="sac">{n_sachet}</span>'
+              f'Sachet {n_sachet} · {nom_sachet}</span>'
+              f'<span class="numero{" mot" if ch["nom"] == "Prologue" else ""}" aria-label="{ch["numero"]}">{etape}</span></div>'
+              + (f'<div class="pieces"><span class="pieces-titre">Pièces de cette étape</span><ul>{liste}</ul></div>' if liste else "")
+              + '</div>')
+    texte = (f'<div class="texte">{entete}<h1 class="chapitre"><span class="titre">{ch["titre"]}</span></h1>'
              + "\n\n".join(corps) + "".join(suite) + "</div>")
     return f'<div class="page">{cote}{texte}</div>'
 
 
+def lancers_par_lecture():
+    """Nombre de lancers de dé sur un chemin de lecture (le plus long, du prologue à la fin)."""
+    chapitres = {ch["nom"]: lire_choix(ch) for ch in lire_chapitres()}
+
+    def suite(nom):
+        _, _, tirages, renvoi, _ = chapitres[nom]
+        cibles = [f"Chapitre {n}" for _, n in tirages] + ([f"Chapitre {renvoi}"] if renvoi else [])
+        return max((suite(c) for c in cibles), default=0) + (1 if tirages else 0)
+    return suite("Prologue")
+
+
 def passage_garde():
     resume = "".join(f"<p>{p}</p>" for p in SYNOPSIS.split("\n\n"))
+    etapes = len(lire_chapitres()) - 1
+    lancers = lancers_par_lecture()
     return (
         '<div class="garde">'
-        '<div class="encadre"><span class="surtitre">Une histoire dont le lecteur est le héros</span>'
+        '<div class="boite"><div class="boite-haut"><span class="set">2810</span><span class="age">6+</span></div>'
+        '<span class="surtitre">Une histoire dont le lecteur est le héros</span>'
         '<span class="grand-titre">Le Real<span>de Lego City</span></span>'
-        f'<span class="nom-auteur">une histoire par {AUTEURS}</span></div>'
-        f'{SEPARATEUR}<div class="synopsis">{resume}</div>'
-        f'<div class="commencer">{lien("Commencer l’histoire", "Prologue")}</div>'
+        f'<span class="nom-auteur">une histoire par {AUTEURS}</span>'
+        f'<div class="boite-bas"><span><b>{etapes}</b> étapes</span><span><b>{len(SACHETS)}</b> sachets</span>'
+        f'<span><b>{lancers}</b> lancers de dé</span></div></div>'
+        f'<div class="synopsis">{resume}</div>'
+        f'<div class="commencer">{lien("Commencer le montage", "Prologue")}</div>'
         f'<div class="secondaires">{lien("Comment est née cette histoire", "Comment est née cette histoire")}'
         f'<span class="point">·</span>{lien("L’arbre de l’histoire", "L’arbre de l’histoire")}</div>'
         f'<span class="mention">{AVERTISSEMENT_COURT}</span></div>'
