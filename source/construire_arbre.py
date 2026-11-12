@@ -80,12 +80,12 @@ def carte(x, y, nom, titre, couleur=None):
     return fond + numero + separation + corps
 
 
-def brique(x, y, texte):
+def brique(x, y, texte, couleur=JAUNE):
     largeur = 26 + len(texte) * 8.2
-    return (f'<rect x="{x - largeur / 2}" y="{y - 12}" width="{largeur}" height="24" rx="4" fill="{JAUNE}"/>'
+    return (f'<rect x="{x - largeur / 2}" y="{y - 12}" width="{largeur}" height="24" rx="4" fill="{couleur}"/>'
             f'<rect x="{x - largeur / 2}" y="{y + 8}" width="{largeur}" height="4" rx="2" fill="#000" opacity="0.13"/>'
             f'<text x="{x}" y="{y + 5}" text-anchor="middle" font-family="Jost" font-weight="600" font-size="14" '
-            f'fill="{ENCRE}">{texte}</text>')
+            f'fill="{ENCRE if couleur == JAUNE else "#fff"}">{texte}</text>')
 
 
 def sachet(y, numero, nom):
@@ -118,6 +118,12 @@ def construire():
     hauteur = y + 30
     assert set(pos) == set(renvois), f"Chapitres absents de l'arbre : {set(renvois) ^ set(pos)}"
 
+    ordre = [n for rangee in RANGEES for n in rangee]
+    premiers = {p: i for i, (p, _) in enumerate(SACHETS)}
+    couleur_de, courant = {}, 0
+    for n in ordre:
+        courant = premiers.get(n, courant)
+        couleur_de[n] = COULEURS[courant]
     traits, pointes, etiquettes, faites = [], set(), [], set()
     for a, cibles in renvois.items():
         for b in cibles:
@@ -135,15 +141,9 @@ def construire():
             pointes.add((x2, arrivee))
             if (a, b) in des and b not in faites:
                 faites.add(b)
-                etiquettes.append(brique(x2, (depart + 26 + arrivee - 11) / 2, des[(a, b)]))
+                etiquettes.append(brique(x2, (depart + 26 + arrivee - 11) / 2, des[(a, b)], couleur_de[a]))
     fleches = "".join(f'<path d="M{x} {y} l-7.5 -12 h15 z"/>' for x, y in sorted(pointes))
     sections = "".join(sachet(y_, n, nom) for y_, n, nom in entetes)
-    ordre = [n for rangee in RANGEES for n in rangee]
-    premiers = {p: i for i, (p, _) in enumerate(SACHETS)}
-    couleur_de, courant = {}, 0
-    for n in ordre:
-        courant = premiers.get(n, courant)
-        couleur_de[n] = COULEURS[courant]
     cartes = "".join(carte(*pos[n], n, titres[n], couleur_de[n]) for n in pos)
     svg = (
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {LARGEUR} {hauteur:.0f}" width="{LARGEUR}" '
