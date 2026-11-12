@@ -25,8 +25,8 @@ RANGEES = [["Prologue"], ["1"], ["2", "3"], ["4"], ["5"], ["6", "7"], ["8"], ["9
            ["13", "14"], ["15", "16"], ["17"], ["18", "19"], ["20"], ["21", "22"], ["23"]]
 PAS_Y, HAUT_Y = 150, 60
 # Les parties de l'histoire : (premier chapitre, dernier, nom, couleur)
-PARTIES = [("Prologue", "3", "LA CHUTE", GRIS_BRIQUE), ("4", "7", "L’ÉQUIPE", JAUNE),
-           ("8", "11", "LE TOURNOI", BLEU), ("12", "19", "LA FINALE", ROUGE), ("20", "23", "LE RETOUR", VERT)]
+PARTIES = [("Prologue", "3", "SACHET 1 · LA CHUTE", GRIS_BRIQUE), ("4", "7", "SACHET 2 · L’ÉQUIPE", JAUNE),
+           ("8", "11", "SACHET 3 · LE TOURNOI", BLEU), ("12", "19", "SACHET 4 · LA FINALE", ROUGE), ("20", "23", "SACHET 5 · LE RETOUR", VERT)]
 SOUS_TITRE = 62
 
 
