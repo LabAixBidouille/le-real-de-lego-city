@@ -178,12 +178,13 @@ tw-story { overflow: clip; }
 .bande .sachet { display: block; font-family: "Jost", sans-serif; font-weight: 600; font-size: 0.82em; letter-spacing: 0.04em;
   color: var(--encre-douce); }
 
-.pieces { display: inline-flex; flex-wrap: wrap; align-items: flex-end; gap: 0.35em 1em; margin: 0.7em 0 0; padding: 0.5em 0.9em;
-  list-style: none; border-radius: 10px; background: var(--notice); }
+/* Les pièces sur la même ligne que le numéro et le titre, à droite du bandeau */
+.pieces { flex: none; display: flex; flex-wrap: nowrap; align-items: flex-end; gap: 0.2em 0.7em; margin: 0 0 0 auto;
+  padding: 0.45em 0.8em; list-style: none; background: var(--notice); border-left: 2.5px solid var(--notice-trait); }
 .pieces li { font-size: 0.92em; }
 .pieces li b { font-weight: 700; color: var(--bleu); }
 .pieces li.avec-image { display: flex; flex-direction: column; align-items: center; gap: 0.1em; }
-.pieces li.avec-image img { display: block; height: 3em; width: auto; }
+.pieces li.avec-image img { display: block; height: 2.6em; width: auto; }
 .pieces li.avec-image b { font-size: 0.85em; }
 /* Les étapes de montage, alignées et centrées sous le renvoi, reliées par des flèches */
 .montage { clear: both; display: flex; align-items: center; justify-content: space-between; gap: 0.6em; margin: 2em 0 0;
@@ -380,6 +381,10 @@ tw-passage:has(.garde) { max-width: none; }
   padding: 2vh 2vw; background: rgba(34, 37, 43, 0.88); cursor: zoom-out; }
 .agrandi img { max-width: 100%; max-height: 96vh; }
 
+@media (max-width: 860px) {
+  .bande { flex-wrap: wrap; }
+  .pieces { flex: 1 1 100%; flex-wrap: wrap; border-left: none; border-top: 2.5px solid var(--notice-trait); }
+}
 @media (max-width: 600px) {
   tw-story { font-size: 1.03em; padding: 0.8em 1em 3em; }
   .bande .num { font-size: 2.3em; }
@@ -594,8 +599,8 @@ def passage_chapitre(ch):
               else f'<span class="num" aria-label="{ch["numero"]}">{ch["numero"].split()[-1]}</span>')
     entete = (f'<div class="etape"><div class="bande">{numero}<div class="bande-texte">'
               f'<span class="sachet">Sachet {n_sachet} · {nom_sachet}</span>'
-              f'<h1 class="chapitre"><span class="titre">{ch["titre"]}</span></h1></div></div>'
-              + (f'<ul class="pieces">{liste}</ul>' if liste else "") + '</div>')
+              f'<h1 class="chapitre"><span class="titre">{ch["titre"]}</span></h1></div>'
+              + (f'<ul class="pieces">{liste}</ul>' if liste else "") + '</div></div>')
     texte = (f'<div class="texte">{entete}{cote}'
              + "\n\n".join(corps) + "".join(suite) + montage + "</div>")
     return f'<div class="page sachet-{n_sachet}">{texte}</div>'
