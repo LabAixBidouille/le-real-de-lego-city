@@ -29,12 +29,12 @@ BRIQUE_L, BRIQUE_H = 236, 70
 PAS_Y = 170
 RANGEES = [["Prologue"], ["1"], ["2", "3"], ["4"], ["5"], ["6", "7"], ["8"], ["9", "10"], ["11"], ["12"],
            ["13", "14"], ["15", "16"], ["17"], ["18", "19"], ["20"], ["21", "22"], ["23"]]
-# La pièce montrée à côté de chaque brique
-VEDETTES = {"Prologue": "trappe", "1": "kylian", "2": "poubelle", "3": "trampoline", "4": "serviette-le-real-de-lego-city",
+# La pièce montrée à côté de chaque brique (aucune pour le prologue et la fin, qui n’ont pas de montage)
+VEDETTES = {"1": "kylian", "2": "poubelle", "3": "trampoline", "4": "serviette-le-real-de-lego-city",
             "5": "grue", "6": "zidane", "7": "entraineur-de-l-om", "8": "banderole-allez-le-real", "9": "astronaute",
             "10": "ronaldo", "11": "astronaute", "12": "silhouette", "13": "silhouette", "14": "porte",
             "15": "chaussettes-puantes", "16": "camion-de-pompiers", "17": "brioche", "18": "kylian", "19": "messi",
-            "20": "coupe", "21": "chapeau-de-pirate", "22": "projecteur", "23": "minuscule-coupe"}
+            "20": "coupe", "21": "chapeau-de-pirate", "22": "projecteur"}
 
 
 def lire_texte():
