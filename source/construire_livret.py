@@ -45,7 +45,7 @@ CSS = f"""
 }}
 @page sans-numero {{ @bottom-center {{ content: none; }} }}
 * {{ -webkit-print-color-adjust: exact; print-color-adjust: exact; box-sizing: border-box; }}
-html {{ font-family: "Jost", sans-serif; font-size: 11pt; line-height: 1.45; color: {ENCRE}; }}
+html {{ font-family: "Jost", sans-serif; font-size: 11pt; line-height: 1.32; color: {ENCRE}; }}
 body {{ margin: 0; }}
 p {{ margin: 0 0 0.5em; orphans: 2; widows: 2; }}
 .page-seule {{ break-before: page; }}
@@ -97,23 +97,20 @@ p {{ margin: 0 0 0.5em; orphans: 2; widows: 2; }}
 .dos .mention {{ font-style: italic; font-size: 7.5pt; color: {DOUCE}; }}
 
 /* Bandeau d'étape et pièces */
-.bande {{ display: flex; align-items: stretch; border: 0.6mm solid {TRAIT}; border-radius: 2.5mm; overflow: hidden; break-inside: avoid; }}
-.bande .num {{ flex: none; display: flex; align-items: center; justify-content: center; min-width: 14mm; padding: 0 1.5mm;
-  font-weight: 800; font-size: 22pt; line-height: 1; color: #fff; }}
-.bande .num.jaune {{ color: {ENCRE}; }}
-.bande .texte {{ padding: 1.8mm 3mm; }}
-.bande .sachet {{ display: block; font-weight: 600; font-size: 7pt; color: {DOUCE}; }}
-.bande h1 {{ margin: 0; font-weight: 700; font-size: 14pt; line-height: 1.12; }}
-.pieces {{ display: flex; flex-wrap: wrap; align-items: flex-end; gap: 1mm 3mm; margin: 2mm 0 3mm; padding: 1.5mm 2.5mm;
-  border-radius: 2.5mm; background: {NOTICE}; width: fit-content; }}
-.pieces figure {{ margin: 0; display: flex; flex-direction: column; align-items: center; }}
-.pieces img {{ height: 9mm; width: auto; }}
-.pieces b {{ font-size: 6.5pt; color: {BLEU}; }}
-.pola {{ float: left; width: 52%; margin: 0.5mm 4mm 2mm 0; }}
-.suite, .montage, .de {{ clear: both; }}
-.scene {{ float: left; width: 46%; height: auto; margin: 0.5mm 4mm 2mm 0; }}
-.ouvre {{ padding-top: 2mm; }}
-
+/* Chapitre de livre : l'image de tête pleine largeur, puis le numéro et le titre */
+.tete {{ display: block; width: 100%; height: auto; margin: 0 0 4mm; }}
+.scene {{ display: block; height: 92mm; width: auto; margin: 0 auto 4mm; }}
+.entete {{ text-align: center; margin: 0 0 4mm; break-after: avoid; }}
+.entete .num {{ display: inline-block; padding: 0.6mm 3.5mm; border-radius: 1.2mm; font-weight: 700; font-size: 8pt;
+  letter-spacing: 1.2pt; text-transform: uppercase; }}
+.entete h1 {{ margin: 2.5mm 0 0; font-weight: 700; font-size: 17pt; line-height: 1.12; color: {ENCRE}; }}
+.corps {{ text-align: justify; hyphens: auto; }}
+.corps p {{ text-indent: 4.5mm; margin: 0; }}
+.corps p:first-child {{ text-indent: 0; }}
+/* Le carnet de montage, après le séparateur */
+.carnet {{ break-inside: avoid; margin-top: 1mm; }}
+.carnet-titre {{ display: block; text-align: center; font-weight: 600; font-size: 7pt; letter-spacing: 1.4pt; text-transform: uppercase;
+  color: {DOUCE}; margin: -0.5mm 0 1.5mm; }}
 /* Fin de chapitre */
 .suite {{ break-inside: avoid; break-before: avoid; }}
 .separateur {{ display: flex; align-items: flex-end; justify-content: center; gap: 1.3mm; margin: 3.5mm 0 2.5mm; }}
@@ -123,17 +120,13 @@ p {{ margin: 0 0 0.5em; orphans: 2; widows: 2; }}
 .separateur i:nth-of-type(1) {{ background: {ROUGE}; }}
 .separateur i:nth-of-type(2) {{ background: {JAUNE}; }}
 .separateur i:nth-of-type(3) {{ background: {BLEU}; }}
-.elan {{ text-align: center; font-weight: 700; font-size: 11.5pt; color: {BLEU}; }}
+.elan {{ margin-top: 3mm; text-align: center; font-weight: 700; font-size: 11.5pt; color: {BLEU}; }}
 .elan::after {{ content: " →"; color: {ROUGE}; }}
-.de {{ margin-top: 3.5mm; padding: 2.5mm 3.5mm 2mm; border: 0.7mm solid {BLEU}; border-radius: 2.5mm; break-inside: avoid; }}
+.de {{ margin-top: 3mm; padding: 2.5mm 3.5mm 2mm; border: 0.7mm solid {BLEU}; border-radius: 2.5mm; break-inside: avoid; }}
 .consigne {{ font-weight: 600; font-size: 10.5pt; margin: 0 0 1.8mm; }}
 .tirage {{ display: grid; grid-template-columns: 22mm 1fr; gap: 3mm; align-items: center; margin: 0 0 1.4mm; }}
 .tirage b {{ text-align: center; background: {JAUNE}; border-radius: 1mm; padding: 0.3mm 0; font-weight: 700; font-size: 9pt; }}
 .renvoi {{ font-weight: 700; color: {BLEU}; }}
-.pola + .montage {{ margin: 0 0 3mm; }}
-.montage-haut .pola {{ width: 44% !important; }}
-
-.montage-haut .montage {{ padding: 1mm 9mm; margin-bottom: 2mm !important; }}
 .montage {{ display: flex; align-items: center; justify-content: space-between; gap: 1.5mm; margin-top: 3mm; padding: 2mm 2.5mm;
   border-radius: 2.5mm; background: {NOTICE}; break-inside: avoid; }}
 .montage img {{ flex: 1 1 0; min-width: 0; width: 100%; height: auto; }}
@@ -141,13 +134,11 @@ p {{ margin: 0 0 0.5em; orphans: 2; widows: 2; }}
 .fin {{ text-align: center; font-weight: 800; font-size: 26pt; color: {ROUGE}; margin-top: 1mm; }}
 .fin span {{ display: block; font-weight: 600; font-size: 10pt; color: {DOUCE}; }}
 
-/* Chapitres resserrés pour éviter les pages presque vides */
-.serre {{ line-height: 1.4; }}
-.serre p {{ margin-bottom: 0.4em; }}
-.serre .pola, .serre .scene {{ width: 44% !important; }}
-.serre2 {{ line-height: 1.36; }}
-.serre2 p {{ margin-bottom: 0.3em; }}
-.serre2 .pola, .serre2 .scene {{ width: 38% !important; }}
+/* Chapitres resserrés : seule l'image de tête rapetisse, le texte reste à 11 pt */
+.serre .tete {{ width: 82%; margin-left: auto; margin-right: auto; }}
+.serre .scene {{ height: 76mm; }}
+.serre2 .tete {{ width: 66%; }}
+.serre2 .scene {{ height: 62mm; }}
 
 /* Contexte, arbre, dos */
 .contexte h2 {{ font-weight: 800; font-size: 15pt; text-align: center; margin: 0 0 3mm; }}
@@ -192,29 +183,26 @@ def pieces(cle):
 
 
 def chapitre(ch, suivant, pages):
+    """Un chapitre de livre : l'image de tête sur toute la largeur, le numéro et le titre, le texte, puis le
+    séparateur, le carnet de montage et enfin les choix (case du dé ou renvoi)."""
     cle = cle_de(ch["nom"])
     serre = (" serre" if cle in SERRES else "") + (" serre2" if cle in SERRES2 else "")
-    n_sachet, nom_sachet = sachet(cle)
+    n_sachet, _ = sachet(cle)
     image = RACINE / "images" / "chapitres" / f"{illustration(ch['nom'])}.jpg"
     etapes = sorted((RACINE / "images" / "etapes").glob(f"{illustration(ch['nom'])}-*.png"))
     couleur = COULEURS[n_sachet]
-    if ch["nom"] == "Prologue":
-        bande = (f'<div class="bande"><div class="texte"><span class="sachet">Prologue</span>'
-                 f'<h1>{e(ch["titre"])}</h1></div></div>')
-    else:
-        bande = (f'<div class="bande"><span class="num{" jaune" if couleur == JAUNE else ""}" style="background:{couleur}">'
-                 f'{ch["numero"].split()[-1]}</span><div class="texte"><span class="sachet">Sachet {n_sachet} · {e(nom_sachet)}</span>'
-                 f'<h1>{e(ch["titre"])}</h1></div></div>')
-    serre += " montage-haut" if cle in MONTAGE_HAUT else ""
-    morceaux = [f'<section class="page-seule ouvre{serre}"><span class="marque">@@CH{cle}@@</span>', bande]
-    if etapes:
-        morceaux.append(pieces(cle))
+    morceaux = [f'<section class="page-seule chap{serre}"><span class="marque">@@CH{cle}@@</span>']
     if image.exists():
-        classe = "pola" if etapes else "scene"
-        morceaux.append(f'<img class="{classe}" src="{image.as_uri()}" alt="">')
+        morceaux.append(f'<img class="{"tete" if etapes else "scene"}" src="{image.as_uri()}" alt="">')
+    numero = "Prologue" if ch["nom"] == "Prologue" else ch["numero"]
+    morceaux.append(f'<div class="entete"><span class="num" style="background:{couleur};color:{ENCRE if couleur == JAUNE else "#fff"}">'
+                    f'{e(numero)}</span><h1>{e(ch["titre"])}</h1></div>')
 
     corps, consigne, tirages, cible, fin = lire_choix(ch)
-    morceaux += [f"<p>{e(p)}</p>" for p in corps]
+    morceaux.append('<div class="corps">' + "".join(f"<p>{e(p)}</p>" for p in corps) + "</div>")
+    if etapes:
+        morceaux.append(f'<div class="carnet">{SEPARATEUR}<span class="carnet-titre">Carnet de montage</span><div class="montage">'
+                        + '<span class="fl">→</span>'.join(f'<img src="{x.as_uri()}" alt="">' for x in etapes) + '</div></div>')
     suite = []
     if tirages:
         suite.append(f'<div class="de"><p class="consigne">{e(consigne)}</p>' + "".join(
@@ -222,22 +210,11 @@ def chapitre(ch, suivant, pages):
             f'{"Tourne la page" if suivant is not None and int(n) == suivant else e(renvoi(n, pages))}</span></div>'
             for f, n in tirages) + "</div>")
     elif cible and not (suivant is not None and int(cible) == suivant):
-        suite += [SEPARATEUR, f'<p class="elan">{e(renvoi(cible, pages))}</p>']
+        suite.append(f'<p class="elan">{e(renvoi(cible, pages))}</p>')
     if fin:
-        suite += [SEPARATEUR, '<div class="fin">Fin</div>']
-    montage = ('<div class="montage">' + '<span class="fl">→</span>'.join(
-        f'<img src="{x.as_uri()}" alt="">' for x in etapes) + '</div>') if etapes else ""
-    if montage and cle in MONTAGE_HAUT:
-        # Chapitre trop court pour laisser le montage seul sur une page : il passe avant la case du dé ou le renvoi
-        morceaux.append(montage)
-        montage = ""
+        suite += ([] if etapes else [SEPARATEUR]) + ['<div class="fin">Fin</div>']
     if suite:
         morceaux.append(f'<div class="suite">{"".join(suite)}</div>')
-    if montage:
-        morceaux.append(montage)
-    if False:
-        morceaux.append('<div class="montage">' + '<span class="fl">→</span>'.join(
-            f'<img src="{x.as_uri()}" alt="">' for x in etapes) + '</div>')
     morceaux.append("</section>")
     return "".join(morceaux)
 
@@ -372,7 +349,7 @@ def pages_trouees(pdf, pages, seuil=0.8):
     return trouees
 
 
-SERRES, SERRES2, MONTAGE_HAUT = set(), set(), set()
+SERRES, SERRES2 = set(), set()
 
 
 def composer(dossier):
@@ -388,11 +365,6 @@ def composer(dossier):
             break
         SERRES2.update(courtes & SERRES)
         SERRES.update(courtes)
-        pages, total = stabiliser(source, pdf, {})
-    # Ce qui reste court après deux crans de resserrement : le montage passe avant la fin du chapitre
-    restes = set(queues_courtes(pdf, pages)) | set(pages_trouees(pdf, pages))
-    if restes:
-        MONTAGE_HAUT.update(restes)
         pages, total = stabiliser(source, pdf, {})
     blanches = (-total) % 4
     if blanches:
@@ -488,7 +460,6 @@ def construire():
     total = len(PdfReader(str(lecture)).pages)
     print(f"{lecture} : {total} pages, soit {total // 4} feuilles A4 recto verso")
     print("Chapitres resserrés :", ", ".join(str(c) + ("+" if c in SERRES2 else "") for c in sorted(SERRES)) or "aucun")
-    print("Montage sous le polaroid :", ", ".join(str(c) for c in sorted(MONTAGE_HAUT)) or "aucun")
     print("Pages à moitié vides :", ", ".join(str(c) for c in pages_trouees(lecture, pages)) or "aucune")
     print("Fins de chapitre de quelques lignes :", ", ".join(str(c) for c in queues_courtes(lecture, pages)) or "aucune")
     print("Pages des chapitres :", ", ".join(f"{k}→{v}" for k, v in sorted(pages.items())))
