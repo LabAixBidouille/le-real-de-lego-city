@@ -246,6 +246,9 @@
 
 
 
+
+
+
 <meta name="robots" content="noindex, nofollow, noarchive">
 <meta content="width=device-width, initial-scale=1" name="viewport">
 <title>Le Real de Lego City</title>
@@ -458,9 +461,9 @@ tw-story:has(.garde) { padding-top: 0; padding-bottom: 0; }
   gap: clamp(0.6em, 1.8vh, 1.2em); }
 /* Couverture en paysage, sans défilement : la boîte du set à gauche, le titre, le résumé et les boutons à droite */
 /* Couverture : le devant de la boîte et son dos, côte à côte et de même hauteur, centrés dans l'écran */
-.garde { --h-boite: min(89vh, 55vw); display: flex !important; flex-direction: row !important; align-items: stretch !important;
+.garde { --h-boite: min(84vh, 52vw); display: flex !important; flex-direction: row !important; align-items: stretch !important;
   justify-content: center !important; gap: 2.5vw !important; height: 100vh; min-height: 0 !important;
-  padding: calc((100vh - var(--h-boite)) / 2 - 1.6vh) 1vw 0 !important; box-sizing: border-box; }
+  padding: calc((100vh - var(--h-boite)) / 2 - 3vh) 1vw 0 !important; box-sizing: border-box; }
 .garde > .garde-image, .garde > .dos { height: var(--h-boite); }
 tw-passage:has(.garde) { max-width: none; }
 .garde-image { flex: none; }
@@ -522,7 +525,9 @@ tw-passage:has(.garde) { max-width: none; }
 .garde .secondaires tw-link, .garde .secondaires .enchantment-link { text-decoration: none; color: var(--encre-douce); }
 .garde .secondaires tw-link:hover { color: var(--bleu); }
 .garde .secondaires .point { margin: 0 0.8em; color: var(--notice-trait); }
-.garde .mention { position: absolute; left: 0; right: 0; bottom: 0.6vh; font-size: 0.8em; font-style: italic;
+/* Pied de page : une bande fine sur toute la largeur, séparée du reste */
+.garde .mention { position: absolute; left: calc(50% - 50vw); width: 100vw; bottom: 0; box-sizing: border-box; padding: 1.1vh 1em;
+  border-top: 1px solid var(--notice-trait); background: var(--notice); text-align: center; font-size: clamp(11px, 1.5vh, 13.5px);
   color: var(--encre-douce); }
 
 /* Page de l'arbre */
@@ -579,7 +584,11 @@ tw-passage:has(.garde) { max-width: none; }
   .garde { flex-direction: column !important; height: auto; padding: 3vh 0 !important; align-items: center !important; }
   .garde > .garde-image, .garde > .dos { height: auto; }
   .garde-image img { height: auto; width: 100%; max-width: 360px; margin: 0 auto; }
-  .dos { width: 100% !important; font-size: 15px !important; gap: 0.7em; }
+  tw-passage:has(.garde) { width: auto !important; }
+  .garde .mention { width: auto !important; left: auto !important; }
+  .dos { width: 100% !important; min-width: 0; font-size: 15px !important; gap: 0.7em; }
+  .dos .equipe { width: 100% !important; max-width: 100%; height: auto !important; max-height: none !important; }
+  .dos .contenu { min-width: 0; }
   .dos .figs { flex-wrap: wrap; justify-content: center; }
   .dos .figs img { height: 3.4em; }
   .dos .grand-titre { font-size: 2.2em !important; }
@@ -630,7 +639,7 @@ document.addEventListener('keydown', function (evenement) {
   var ouvert = document.querySelector('.agrandi');
   if (ouvert && evenement.key === 'Escape') ouvert.remove();
 });
-</script><tw-passagedata pid="1" name="Bouton couverture" tags="header" position="150,0" size="100,100">(unless: (a: &quot;Page de garde&quot;, &quot;Comment est née cette histoire&quot;, &quot;L’arbre de l’histoire&quot;) contains (passage:)&#x27;s name)[&lt;div class=&quot;retour&quot;&gt;[[Couverture-&gt;Page de garde]]&lt;/div&gt;]</tw-passagedata><tw-passagedata pid="2" name="Page de garde" tags="" position="300,0" size="100,100">&lt;div class=&quot;garde&quot;&gt;&lt;div class=&quot;dos&quot;&gt;&lt;div class=&quot;dos-tete&quot;&gt;&lt;span class=&quot;set&quot;&gt;2810&lt;/span&gt;&lt;span class=&quot;age&quot;&gt;6+&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;dos-titre&quot;&gt;&lt;span class=&quot;surtitre&quot;&gt;Une histoire dont le lecteur est le héros&lt;/span&gt;&lt;h1 class=&quot;grand-titre&quot;&gt;Le Real de Lego City&lt;/h1&gt;&lt;span class=&quot;nom-auteur&quot;&gt;par Ernest et Abel&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;synopsis&quot;&gt;&lt;p&gt;Une trappe s’ouvre sous les pieds de Kylian Mbappé, et le voilà plongé à Lego City. Aux côtés de Messi, Ronaldo et d’étonnants coéquipiers, il se lance à la conquête d’une coupe légendaire. Mais au-delà des matchs et des surprises, une question le poursuit : retrouvera-t-il un jour le chemin de chez lui ?&lt;/p&gt;&lt;/div&gt;&lt;img class=&quot;equipe&quot; src=&quot;images/equipe.jpg&quot; alt=&quot;L’équipe du Real de Lego City en maillots blancs : Kylian, Messi, Ronaldo, la boulangère, le pompier, l’astronaute, la policière, le pirate et leurs coéquipiers&quot;&gt;&lt;div class=&quot;commencer&quot;&gt;[[Découvrir l’histoire-&gt;Prologue]]&lt;/div&gt;&lt;div class=&quot;secondaires&quot;&gt;[[Comment est née cette histoire-&gt;Comment est née cette histoire]]&lt;span class=&quot;point&quot;&gt;·&lt;/span&gt;[[L’arbre de l’histoire-&gt;L’arbre de l’histoire]]&lt;/div&gt;&lt;/div&gt;&lt;span class=&quot;mention&quot;&gt;Fan fiction librement inspirée du football et des jouets LEGO®. Les pièces et les montages sont une façon de raconter l’histoire : ce livre n’est pas un produit LEGO.&lt;/span&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="3" name="Comment est née cette histoire" tags="" position="450,0" size="100,100">&lt;div class=&quot;contexte&quot;&gt;&lt;span class=&quot;lien-retour&quot;&gt;[[Couverture-&gt;Page de garde]]&lt;/span&gt;
+</script><tw-passagedata pid="1" name="Bouton couverture" tags="header" position="150,0" size="100,100">(unless: (a: &quot;Page de garde&quot;, &quot;Comment est née cette histoire&quot;, &quot;L’arbre de l’histoire&quot;) contains (passage:)&#x27;s name)[&lt;div class=&quot;retour&quot;&gt;[[Couverture-&gt;Page de garde]]&lt;/div&gt;]</tw-passagedata><tw-passagedata pid="2" name="Page de garde" tags="" position="300,0" size="100,100">&lt;div class=&quot;garde&quot;&gt;&lt;div class=&quot;dos&quot;&gt;&lt;div class=&quot;dos-tete&quot;&gt;&lt;span class=&quot;set&quot;&gt;2810&lt;/span&gt;&lt;span class=&quot;age&quot;&gt;6+&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;dos-titre&quot;&gt;&lt;span class=&quot;surtitre&quot;&gt;Une histoire dont le lecteur est le héros&lt;/span&gt;&lt;h1 class=&quot;grand-titre&quot;&gt;Le Real de Lego City&lt;/h1&gt;&lt;span class=&quot;nom-auteur&quot;&gt;par Ernest et Abel&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;synopsis&quot;&gt;&lt;p&gt;Une trappe s’ouvre sous les pieds de Kylian Mbappé, et le voilà plongé à Lego City. Aux côtés de Messi, Ronaldo et d’étonnants coéquipiers, il se lance à la conquête d’une coupe légendaire. Mais au-delà des matchs et des surprises, une question le poursuit : retrouvera-t-il un jour le chemin de chez lui ?&lt;/p&gt;&lt;/div&gt;&lt;img class=&quot;equipe&quot; src=&quot;images/equipe.jpg&quot; alt=&quot;L’équipe du Real de Lego City en maillots blancs : Kylian, Messi, Ronaldo, la boulangère, le pompier, l’astronaute, la policière, le pirate et leurs coéquipiers&quot;&gt;&lt;div class=&quot;commencer&quot;&gt;[[Découvrir l’histoire-&gt;Prologue]]&lt;/div&gt;&lt;div class=&quot;secondaires&quot;&gt;[[Comment est née cette histoire-&gt;Comment est née cette histoire]]&lt;span class=&quot;point&quot;&gt;·&lt;/span&gt;[[L’arbre de l’histoire-&gt;L’arbre de l’histoire]]&lt;/div&gt;&lt;/div&gt;&lt;span class=&quot;mention&quot;&gt;Fan fiction inspirée du football et des jouets LEGO® · Ce livre n’est pas un produit LEGO.&lt;/span&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="3" name="Comment est née cette histoire" tags="" position="450,0" size="100,100">&lt;div class=&quot;contexte&quot;&gt;&lt;span class=&quot;lien-retour&quot;&gt;[[Couverture-&gt;Page de garde]]&lt;/span&gt;
 &lt;div class=&quot;dessins&quot;&gt;&lt;figure&gt;&lt;img src=&quot;images/dessins/kylian.png&quot; alt=&quot;Kylian, dessiné par Ernest et Abel&quot;&gt;&lt;figcaption&gt;Kylian&lt;/figcaption&gt;&lt;/figure&gt;&lt;figure&gt;&lt;img src=&quot;images/dessins/messi.png&quot; alt=&quot;Messi, dessiné par Ernest et Abel&quot;&gt;&lt;figcaption&gt;Messi&lt;/figcaption&gt;&lt;/figure&gt;&lt;figure&gt;&lt;img src=&quot;images/dessins/ronaldo.png&quot; alt=&quot;Ronaldo, dessiné par Ernest et Abel&quot;&gt;&lt;figcaption&gt;Ronaldo&lt;/figcaption&gt;&lt;/figure&gt;&lt;/div&gt;&lt;h1&gt;Comment est née cette histoire&lt;/h1&gt;&lt;div class=&quot;separateur&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;contexte-texte&quot;&gt;En octobre 2026, le L.A.B a animé l’atelier « La quête du curry, une histoire dont tu es le héros » dans les bibliothèques Méjanes d’Aix-en-Provence. Les enfants ont été accompagnés dans la création d’un récit complet, depuis l’invention des personnages jusqu’à la construction d’une intrigue reliant les différentes étapes de leur aventure.
 
 Nous leur avons proposé d’introduire une part de hasard dans leur récit. Le résultat d’un lancer de dé pouvait modifier le déroulement de certains passages et conduire le lecteur vers un chapitre ou un autre.

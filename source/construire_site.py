@@ -37,9 +37,7 @@ SYNOPSIS = (
     "matchs et des surprises, une question le poursuit : retrouvera-t-il un jour le chemin de chez lui ?"
 )
 
-AVERTISSEMENT_COURT = (
-    "Fan fiction librement inspirée du football et des jouets LEGO®. Les pièces et les montages sont une façon de raconter l’histoire : ce livre n’est pas un produit LEGO."
-)
+AVERTISSEMENT_COURT = "Fan fiction inspirée du football et des jouets LEGO® · Ce livre n’est pas un produit LEGO."
 AVERTISSEMENT = (
     "Une fan fiction humoristique, librement inspirée du monde du football et de l’univers des jouets LEGO®. "
     "Les joueurs, l’entraîneur et les clubs qui existent réellement n’y apparaissent que comme des personnages "
@@ -307,9 +305,9 @@ tw-story:has(.garde) { padding-top: 0; padding-bottom: 0; }
   gap: clamp(0.6em, 1.8vh, 1.2em); }
 /* Couverture en paysage, sans défilement : la boîte du set à gauche, le titre, le résumé et les boutons à droite */
 /* Couverture : le devant de la boîte et son dos, côte à côte et de même hauteur, centrés dans l'écran */
-.garde { --h-boite: min(89vh, 55vw); display: flex !important; flex-direction: row !important; align-items: stretch !important;
+.garde { --h-boite: min(84vh, 52vw); display: flex !important; flex-direction: row !important; align-items: stretch !important;
   justify-content: center !important; gap: 2.5vw !important; height: 100vh; min-height: 0 !important;
-  padding: calc((100vh - var(--h-boite)) / 2 - 1.6vh) 1vw 0 !important; box-sizing: border-box; }
+  padding: calc((100vh - var(--h-boite)) / 2 - 3vh) 1vw 0 !important; box-sizing: border-box; }
 .garde > .garde-image, .garde > .dos { height: var(--h-boite); }
 tw-passage:has(.garde) { max-width: none; }
 .garde-image { flex: none; }
@@ -371,7 +369,9 @@ tw-passage:has(.garde) { max-width: none; }
 .garde .secondaires tw-link, .garde .secondaires .enchantment-link { text-decoration: none; color: var(--encre-douce); }
 .garde .secondaires tw-link:hover { color: var(--bleu); }
 .garde .secondaires .point { margin: 0 0.8em; color: var(--notice-trait); }
-.garde .mention { position: absolute; left: 0; right: 0; bottom: 0.6vh; font-size: 0.8em; font-style: italic;
+/* Pied de page : une bande fine sur toute la largeur, séparée du reste */
+.garde .mention { position: absolute; left: calc(50% - 50vw); width: 100vw; bottom: 0; box-sizing: border-box; padding: 1.1vh 1em;
+  border-top: 1px solid var(--notice-trait); background: var(--notice); text-align: center; font-size: clamp(11px, 1.5vh, 13.5px);
   color: var(--encre-douce); }
 
 /* Page de l'arbre */
@@ -428,7 +428,11 @@ tw-passage:has(.garde) { max-width: none; }
   .garde { flex-direction: column !important; height: auto; padding: 3vh 0 !important; align-items: center !important; }
   .garde > .garde-image, .garde > .dos { height: auto; }
   .garde-image img { height: auto; width: 100%; max-width: 360px; margin: 0 auto; }
-  .dos { width: 100% !important; font-size: 15px !important; gap: 0.7em; }
+  tw-passage:has(.garde) { width: auto !important; }
+  .garde .mention { width: auto !important; left: auto !important; }
+  .dos { width: 100% !important; min-width: 0; font-size: 15px !important; gap: 0.7em; }
+  .dos .equipe { width: 100% !important; max-width: 100%; height: auto !important; max-height: none !important; }
+  .dos .contenu { min-width: 0; }
   .dos .figs { flex-wrap: wrap; justify-content: center; }
   .dos .figs img { height: 3.4em; }
   .dos .grand-titre { font-size: 2.2em !important; }
