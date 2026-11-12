@@ -283,7 +283,7 @@ tw-story:has(.garde) { padding-top: 0; padding-bottom: 0; }
   letter-spacing: 0.06em; border-bottom-right-radius: 6px; }
 .garde .age { padding: 0.15em 0.7em; background: var(--jaune); color: var(--encre); font-weight: 800; font-size: 1.05em;
   border-bottom-left-radius: 6px; }
-.garde .boite .surtitre { margin-top: 1.2em; }
+.garde .boite .surtitre { margin-top: 2.6em; }
 .garde .boite-bas { align-self: stretch; display: flex; justify-content: center; gap: 1.8em; margin-top: 0.8em;
   padding: 0.55em 1em; background: var(--notice); margin-left: -3em; margin-right: -3em; font-size: 0.95em; color: var(--encre-douce); }
 .garde .boite-bas b { color: var(--encre); font-weight: 800; }
