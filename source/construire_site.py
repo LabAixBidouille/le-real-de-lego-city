@@ -575,7 +575,7 @@ def passage_garde():
         f'<div class="boite-bas"><span><b>{etapes}</b> étapes</span><span><b>{len(SACHETS)}</b> sachets</span>'
         f'<span><b>{minutes}</b> minutes de lecture</span></div></div>'
         f'<div class="synopsis">{resume}</div>'
-        f'<div class="commencer">{lien("À toi de monter l’histoire", "Prologue")}</div>'
+        f'<div class="commencer">{lien("Ouvrir le premier sachet", "Prologue")}</div>'
         f'<div class="secondaires">{lien("Comment est née cette histoire", "Comment est née cette histoire")}'
         f'<span class="point">·</span>{lien("L’arbre de l’histoire", "L’arbre de l’histoire")}</div>'
         f'<span class="mention">{AVERTISSEMENT_COURT}</span></div>'
