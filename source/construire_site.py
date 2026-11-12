@@ -330,7 +330,7 @@ tw-passage:has(.garde) { max-width: none; }
 .dos .synopsis p { margin: 0.35em 0 !important; }
 .dos .contenu { align-self: stretch; padding: 0.4em 0.8em 0.4em; }
 .dos .titre-contenu { display: block; font-weight: 600; font-size: 0.7em; letter-spacing: 0.12em; text-transform: uppercase; color: var(--encre-douce); }
-.dos .equipe { display: block; width: 100%; height: auto; max-height: 30vh; object-fit: contain; margin: 0.3em 0 0.2em; }
+.dos .equipe { display: block; width: 100%; height: auto; max-height: 34vh; object-fit: contain; margin: 0.3em 0 0.2em; }
 .dos .figs { display: flex; justify-content: space-between; align-items: flex-end; margin: 0.35em 0; gap: 0.3em; }
 .dos .figs img { height: 4.8em; width: auto; min-width: 0; }
 .dos .chiffres { font-size: 0.8em; color: var(--encre-douce); }
@@ -670,10 +670,7 @@ def passage_garde():
         '<h1 class="grand-titre">Le Real de Lego City</h1>'
         f'<span class="nom-auteur">par {AUTEURS}</span></div>'
         f'<div class="synopsis">{resume}</div>'
-        '<div class="contenu"><span class="titre-contenu">Dans la boîte</span>'
         '<img class="equipe" src="images/equipe.jpg" alt="L’équipe du Real de Lego City en maillots blancs : Kylian, Messi, Ronaldo, la boulangère, le pompier, l’astronaute, la policière, le pirate et leurs coéquipiers">'
-        f'<div class="chiffres"><b>{etapes}</b> étapes · <b>{len(SACHETS)}</b> sachets · <b>56</b> pièces · '
-        f'<b>{minutes}</b> minutes de lecture</div></div>'
         f'<div class="commencer">{lien("Ouvrir le premier sachet", "Prologue")}</div>'
         f'<div class="secondaires">{lien("Comment est née cette histoire", "Comment est née cette histoire")}'
         f'<span class="point">·</span>{lien("L’arbre de l’histoire", "L’arbre de l’histoire")}</div></div>'
