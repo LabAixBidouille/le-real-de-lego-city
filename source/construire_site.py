@@ -30,13 +30,11 @@ FAVICON = ('<link rel="icon" type="image/png" sizes="48x48" href="images/favicon
 TITRE = "Le Real de Lego City"
 AUTEURS = "Ernest et Abel"
 
-# Résumé provisoire, à remplacer par celui de Manon
+# Résumé de Manon, à garder mot pour mot
 SYNOPSIS = (
-    "Kylian Mbappé visitait tranquillement le musée du football quand le plancher s’est ouvert sous ses pieds. "
-    "Le voici tombé à Lego City, avec des pinces à la place des mains et des jambes qui ne plient plus.\n\n"
-    "La ville veut participer à la Ligue des Champions en Briques, mais elle n’a pas d’équipe. Avec Messi, "
-    "Ronaldo, un pompier, une boulangère, un pirate et un astronaute, Kylian va devoir en construire une.\n\n"
-    "Lance le dé : il décidera de ton atterrissage, de ton entraîneur et de ce qui t’attend avant la finale."
+    "Une trappe s’ouvre sous les pieds de Kylian Mbappé, et le voilà plongé à Lego City. Aux côtés de Messi, "
+    "Ronaldo et d’étonnants coéquipiers, il se lance à la conquête d’une coupe légendaire. Mais au-delà des "
+    "matchs et des surprises, une question le poursuit : retrouvera-t-il un jour le chemin de chez lui ?"
 )
 
 AVERTISSEMENT_COURT = "Fan fiction humoristique librement inspirée du football et des jouets LEGO®"
@@ -326,7 +324,7 @@ tw-passage:has(.garde) { max-width: none; }
 .dos .surtitre { font-size: 0.75em !important; }
 .dos .grand-titre { font-size: 2.3em !important; line-height: 1.05; margin: 0 !important; }
 .dos .nom-auteur { font-size: 1em !important; }
-.dos .synopsis { font-size: 1.04em !important; line-height: 1.45 !important; text-align: left; max-width: none !important; }
+.dos .synopsis { font-size: 1.2em !important; line-height: 1.45 !important; text-align: left; max-width: none !important; }
 .dos .synopsis p { margin: 0.35em 0 !important; }
 .dos .contenu { align-self: stretch; padding: 0.5em 0.8em 0.4em; border-radius: 10px; background: var(--notice); }
 .dos .titre-contenu { display: block; font-weight: 600; font-size: 0.7em; letter-spacing: 0.12em; text-transform: uppercase; color: var(--encre-douce); }
