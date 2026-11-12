@@ -318,16 +318,15 @@ tw-passage:has(.garde) { max-width: none; }
   border: 3px solid var(--encre); border-radius: 10px; overflow: hidden; font-size: calc(var(--h-boite) / 42); }
 /* Le bandeau touche les bords du dos ; tout le reste a une marge intérieure */
 .dos > :not(.dos-tete) { margin-left: 1.6rem; margin-right: 1.6rem; }
-.dos-tete { align-self: stretch; flex: none; display: flex; justify-content: space-between; align-items: stretch; margin: 0;
-  border-bottom: 2px solid var(--notice-trait);
-  background: var(--notice); font-weight: 600; font-size: 0.8em; letter-spacing: 0.12em; text-transform: uppercase; color: var(--encre-douce); }
+.dos-tete { align-self: stretch; flex: none; display: flex; justify-content: space-between; align-items: stretch; margin: 0; font-weight: 600; font-size: 0.8em; letter-spacing: 0.12em; text-transform: uppercase; color: var(--encre-douce); }
 .dos .dos-tete > span { display: flex; align-items: center; }
 .dos .set { background: var(--encre); color: #fff; padding: 0.25em 0.8em; font-size: 1.15em; font-weight: 800; letter-spacing: 0.05em; }
 .dos .age { background: var(--jaune); color: var(--encre); padding: 0.25em 0.8em; font-size: 1.15em; font-weight: 800; }
+.dos-titre { display: flex; flex-direction: column; align-items: center; gap: 0.15em; margin-top: -0.6em; }
 .dos .surtitre { font-size: 0.75em !important; }
-.dos .grand-titre { font-size: 2.3em !important; line-height: 1.05; }
+.dos .grand-titre { font-size: 2.3em !important; line-height: 1.05; margin: 0 !important; }
 .dos .nom-auteur { font-size: 1em !important; }
-.dos .synopsis { font-size: 0.92em !important; line-height: 1.5 !important; text-align: left; max-width: none !important; }
+.dos .synopsis { font-size: 1.04em !important; line-height: 1.45 !important; text-align: left; max-width: none !important; }
 .dos .synopsis p { margin: 0.35em 0 !important; }
 .dos .contenu { align-self: stretch; padding: 0.5em 0.8em 0.4em; border-radius: 10px; background: var(--notice); }
 .dos .titre-contenu { display: block; font-weight: 600; font-size: 0.7em; letter-spacing: 0.12em; text-transform: uppercase; color: var(--encre-douce); }
@@ -661,10 +660,10 @@ def passage_garde():
         # Le devant de la boîte (image de Manon) et son dos, côte à côte, à la même hauteur
         '<div class="garde"><div class="garde-image"><img src="images/boite.png" alt="Le devant de la boîte du set 2810, '
         'Le Real de Lego City : Kylian brandit la coupe au milieu de ses coéquipiers devant le stade"></div>'
-        '<div class="dos"><div class="dos-tete"><span class="set">2810</span><span>Dos de la boîte</span><span class="age">6+</span></div>'
-        '<span class="surtitre">Une histoire dont le lecteur est le héros</span>'
+        '<div class="dos"><div class="dos-tete"><span class="set">2810</span><span class="age">6+</span></div>'
+        '<div class="dos-titre"><span class="surtitre">Une histoire dont le lecteur est le héros</span>'
         '<h1 class="grand-titre">Le Real de Lego City</h1>'
-        f'<span class="nom-auteur">par {AUTEURS}</span>'
+        f'<span class="nom-auteur">par {AUTEURS}</span></div>'
         f'<div class="synopsis">{resume}</div>'
         '<div class="contenu"><span class="titre-contenu">Dans la boîte</span>'
         '<div class="figs"><img src="images/pieces/kylian.png" alt=""><img src="images/pieces/messi.png" alt=""><img src="images/pieces/ronaldo.png" alt=""><img src="images/pieces/pompier.png" alt=""><img src="images/pieces/boulangere.png" alt=""><img src="images/pieces/pirate.png" alt=""><img src="images/pieces/astronaute.png" alt=""><img src="images/pieces/zidane.png" alt=""></div>'
