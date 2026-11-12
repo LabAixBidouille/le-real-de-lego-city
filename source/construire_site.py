@@ -313,7 +313,7 @@ tw-story:has(.garde) { padding-top: 0; padding-bottom: 0; }
 tw-passage:has(.garde) { max-width: none; }
 .garde-image { flex: none; }
 .garde-image img { display: block; height: 100%; width: auto; }
-.dos { flex: none; width: min(64em, 94vw, calc(var(--h-boite) * 1.25)); box-sizing: border-box; display: flex; flex-direction: column;
+.dos { flex: none; width: min(80em, 94vw, calc(var(--h-boite) * 1.55)); box-sizing: border-box; display: flex; flex-direction: column;
   align-items: center; justify-content: space-between; text-align: center; padding: 0 0 1.1em;
   border: 3px solid var(--encre); border-radius: 10px; overflow: hidden; font-size: calc(var(--h-boite) / 42); }
 /* Le bandeau touche les bords du dos ; tout le reste a une marge intérieure */
