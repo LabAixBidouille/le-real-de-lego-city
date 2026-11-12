@@ -142,12 +142,16 @@ tw-story { overflow: clip; }
 /* Chapitres centrés : l'image en tête (carrée, avec son cadre de briques), puis le titre et le texte */
 .page { max-width: 42em; margin: 0 auto; }
 /* Chapitre illustré : l'image entière à gauche, qui descend avec la lecture (sticky), le texte à droite */
-.page:has(.cote) { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 3em;
-  align-items: start; max-width: 1180px; }
-.cote { position: sticky; top: 1.8em; display: flex; justify-content: center; margin-top: 1em; padding: 0.9em 0 0 0.9em; }
-/* L'image dans un cadre blanc cerclé de la couleur du sachet, le numéro de l'étape en pastille sur le coin */
-.cadre-image { position: relative; padding: 0.6em; border: 4px solid var(--sachet); border-radius: 14px; background: #fff; }
-.cadre-image img { display: block; width: auto; max-width: 100%; height: auto; max-height: calc(100vh - 7em); }
+/* L'image dans le texte : elle flotte à gauche, le texte l'entoure */
+.page { max-width: 54em; }
+.cote { float: left; width: 46%; margin: 0.3em 2em 1em 0; }
+.cadre-image { position: relative; padding: 0.5em; border: 4px solid var(--sachet); border-radius: 14px; background: #fff; }
+.cadre-image img { display: block; width: 100%; height: auto; }
+.cote:has(img[src*="prologue"]), .cote:has(img[src*="chapitre-23"]) { width: 38%; }
+.texte .suite, .texte .de, .texte .separateur, .texte .elan, .texte .fin { clear: both; }
+@media (max-width: 700px) {
+  .cote { float: none; width: auto !important; margin: 1em 0 1.2em; }
+}
 .pastille-num { position: absolute; top: -0.9em; left: -0.9em; display: flex; align-items: center; justify-content: center;
   min-width: 2.1em; height: 2.1em; padding: 0 0.2em; border-radius: 10px; background: var(--sachet); color: var(--sur-sachet);
   font-family: "Jost", sans-serif; font-weight: 800; font-size: 1.45em; box-shadow: 0 3px 0 rgba(0,0,0,0.15); }
@@ -155,7 +159,7 @@ tw-story { overflow: clip; }
   .page:has(.cote) { display: block; max-width: 42em; }
   .cote { position: static; margin: 1em auto 1.4em; }
   .cadre-image img { max-height: none; width: 100%; }
-  .montage img { width: 28%; }
+
 }
 .page:not(:has(.cote)) .texte { padding-top: 2.2em; }
 
@@ -182,8 +186,9 @@ tw-story { overflow: clip; }
 .pieces li.avec-image img { display: block; height: 3em; width: auto; }
 .pieces li.avec-image b { font-size: 0.85em; }
 /* Les étapes de montage, alignées et centrées sous le renvoi, reliées par des flèches */
-.montage { display: flex; align-items: center; justify-content: center; gap: 0.4em; margin: 2em 0 0; }
-.montage img { display: block; width: 9.5em; max-width: 30%; height: auto; }
+.montage { clear: both; display: flex; align-items: center; justify-content: space-between; gap: 0.6em; margin: 2em 0 0;
+  padding: 1em 1.2em; border-radius: 12px; background: var(--notice); }
+.montage img { display: block; flex: 1 1 0; min-width: 0; width: 100%; height: auto; }
 .fleche-etape { flex: none; width: 1.6em; height: 1em; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 24'%3E%3Cpath d='M2 12h28M22 4l10 8-10 8' fill='none' stroke='%230057b8' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center / contain; }
 .chapitre { text-align: left; margin: 0.1em 0 0; font-weight: 400; font-size: 1em; line-height: 1.1; }
 /* Le titre tient toujours sur une ligne : le script réduit sa taille si besoin */
@@ -591,9 +596,9 @@ def passage_chapitre(ch):
               f'<span class="sachet">Sachet {n_sachet} · {nom_sachet}</span>'
               f'<h1 class="chapitre"><span class="titre">{ch["titre"]}</span></h1></div></div>'
               + (f'<ul class="pieces">{liste}</ul>' if liste else "") + '</div>')
-    texte = (f'<div class="texte">{entete}'
+    texte = (f'<div class="texte">{entete}{cote}'
              + "\n\n".join(corps) + "".join(suite) + montage + "</div>")
-    return f'<div class="page sachet-{n_sachet}">{cote}{texte}</div>'
+    return f'<div class="page sachet-{n_sachet}">{texte}</div>'
 
 
 def minutes_de_lecture(mots_par_minute=120):
