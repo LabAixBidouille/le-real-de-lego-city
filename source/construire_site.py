@@ -366,8 +366,7 @@ tw-passage:has(.garde) { max-width: none; }
 }
 .garde .commencer tw-link:hover { background: var(--bleu-fonce); color: #fff; }
 /* Sous le bouton, en petit dans le bouton : « commencer l'histoire » */
-.garde .commencer tw-link::after, .garde .commencer .enchantment-link::after { content: "· commencer l’histoire"; display: inline; margin-left: 0.5em;
-  margin-top: 0.1em; font-weight: 500; font-size: 0.52em; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.85; }
+.garde .commencer tw-link::after, .garde .commencer .enchantment-link::after { content: none; }
 .garde .secondaires { gap: 0; font-size: 0.95em; }
 .garde .secondaires tw-link, .garde .secondaires .enchantment-link { text-decoration: none; color: var(--encre-douce); }
 .garde .secondaires tw-link:hover { color: var(--bleu); }
@@ -674,7 +673,7 @@ def passage_garde():
         f'<span class="nom-auteur">par {AUTEURS}</span></div>'
         f'<div class="synopsis">{resume}</div>'
         '<img class="equipe" src="images/equipe.jpg" alt="L’équipe du Real de Lego City en maillots blancs : Kylian, Messi, Ronaldo, la boulangère, le pompier, l’astronaute, la policière, le pirate et leurs coéquipiers">'
-        f'<div class="commencer">{lien("Ouvrir le premier chapitre", "Prologue")}</div>'
+        f'<div class="commencer">{lien("Découvrir l’histoire", "Prologue")}</div>'
         f'<div class="secondaires">{lien("Comment est née cette histoire", "Comment est née cette histoire")}'
         f'<span class="point">·</span>{lien("L’arbre de l’histoire", "L’arbre de l’histoire")}</div></div>'
         f'<span class="mention">{AVERTISSEMENT_COURT}</span></div>'
