@@ -17,6 +17,8 @@ TEXTE = RACINE / "source" / "texte.md"
 SORTIE = RACINE / "images" / "arbre.svg"
 
 ENCRE, DOUCE, TRAIT, JAUNE = "#22252b", "#5b5f68", "#cfd8e3", "#f5c518"
+# Une couleur de brique par sachet ; texte blanc dessus, sauf sur le jaune
+COULEURS = ["#d01012", "#f5c518", "#0057b8", "#2c8a3f", "#f2780c"]
 
 LARGEUR, CENTRE, ECART = 1000, 520, 300
 CARTE_L, CARTE_H = 250, 76
@@ -53,7 +55,7 @@ def lignes(titre, largeur):
     return sortie + [ligne]
 
 
-def carte(x, y, nom, titre):
+def carte(x, y, nom, titre, couleur=None):
     """Carte d'étape : cadre gris-bleu, gros numéro à gauche, titre à droite (sur une ou deux lignes)."""
     x0, y0 = x - CARTE_L / 2, y - CARTE_H / 2
     fond = (f'<rect x="{x0}" y="{y0}" width="{CARTE_L}" height="{CARTE_H}" rx="9" fill="#fff" stroke="{TRAIT}" '
@@ -65,10 +67,12 @@ def carte(x, y, nom, titre):
                         f'font-weight="600" font-size="15.5" fill="{ENCRE}">{l}</text>'
                         for i, l in enumerate(lignes(titre, 28)))
         return fond + etiquette + corps
-    numero = (f'<text x="{x0 + 42}" y="{y + 15}" text-anchor="middle" font-family="Jost" font-weight="800" '
-              f'font-size="{42 if len(nom) == 1 else 36}" fill="{ENCRE}">{nom}</text>')
-    separation = (f'<line x1="{x0 + 80}" y1="{y0 + 14}" x2="{x0 + 80}" y2="{y0 + CARTE_H - 14}" stroke="{TRAIT}" '
-                  'stroke-width="2"/>')
+    chiffre = ENCRE if couleur == JAUNE else "#fff"
+    case = (f'<path d="M{x0 + 1.25} {y0 + 10} a8.75 8.75 0 0 1 8.75 -8.75 H{x0 + 80} V{y0 + CARTE_H - 1.25} H{x0 + 10} '
+            f'a8.75 8.75 0 0 1 -8.75 -8.75 Z" fill="{couleur}"/>')
+    numero = case + (f'<text x="{x0 + 41}" y="{y + 15}" text-anchor="middle" font-family="Jost" font-weight="800" '
+                     f'font-size="{42 if len(nom) == 1 else 36}" fill="{chiffre}">{nom}</text>')
+    separation = ""
     texte = lignes(titre, 21)
     debut = y + 5.5 - (len(texte) - 1) * 9
     corps = "".join(f'<text x="{x0 + 94}" y="{debut + i * 18}" font-family="Jost" font-weight="500" font-size="15" '
@@ -85,9 +89,10 @@ def brique(x, y, texte):
 
 
 def sachet(y, numero, nom):
-    return (f'<circle cx="54" cy="{y}" r="15" fill="{ENCRE}"/>'
+    couleur = COULEURS[numero - 1]
+    return (f'<circle cx="54" cy="{y}" r="15" fill="{couleur}"/>'
             f'<text x="54" y="{y + 5.5}" text-anchor="middle" font-family="Jost" font-weight="700" font-size="16" '
-            f'fill="#fff">{numero}</text>'
+            f'fill="{ENCRE if couleur == JAUNE else "#fff"}">{numero}</text>'
             f'<text x="80" y="{y + 6}" font-family="Jost" font-weight="600" font-size="17" fill="{ENCRE}">Sachet {numero}'
             f'<tspan fill="{DOUCE}" font-weight="500"> · {nom}</tspan></text>')
 
@@ -132,7 +137,13 @@ def construire():
                 etiquettes.append(brique(x2, arrivee - 28, des[(a, b)]))
     fleches = "".join(f'<path d="M{x} {y} l-7.5 -12 h15 z"/>' for x, y in sorted(pointes))
     sections = "".join(sachet(y_, n, nom) for y_, n, nom in entetes)
-    cartes = "".join(carte(*pos[n], n, titres[n]) for n in pos)
+    ordre = [n for rangee in RANGEES for n in rangee]
+    premiers = {p: i for i, (p, _) in enumerate(SACHETS)}
+    couleur_de, courant = {}, 0
+    for n in ordre:
+        courant = premiers.get(n, courant)
+        couleur_de[n] = COULEURS[courant]
+    cartes = "".join(carte(*pos[n], n, titres[n], couleur_de[n]) for n in pos)
     svg = (
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {LARGEUR} {hauteur:.0f}" width="{LARGEUR}" '
         f'height="{hauteur:.0f}"><style>' + police("Jost.woff2", "Jost") + "</style>"
