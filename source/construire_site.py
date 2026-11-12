@@ -146,6 +146,14 @@ tw-story { overflow: clip; }
 .sachet .sac { display: inline-flex; align-items: center; justify-content: center; width: 1.7em; height: 1.7em;
   border-radius: 50%; background: var(--encre); color: #fff; font-weight: 700; }
 .etape .numero { font-family: "Jost", sans-serif; font-weight: 800; font-size: 5.2em; line-height: 0.9; color: var(--encre); }
+/* Une couleur de brique par sachet : la pastille du sachet et un trait sous le gros numéro */
+.etape { --sachet: var(--rouge); --sur-sachet: #fff; }
+.sachet-2 { --sachet: var(--jaune); --sur-sachet: var(--encre); }
+.sachet-3 { --sachet: var(--bleu); }
+.sachet-4 { --sachet: var(--vert); }
+.sachet-5 { --sachet: #f2780c; }
+.etape .sachet .sac { background: var(--sachet); color: var(--sur-sachet); }
+.etape .numero { padding-bottom: 0.06em; border-bottom: 0.12em solid var(--sachet); }
 .etape .numero.mot { font-size: 2.6em; line-height: 1.1; }
 .pieces { align-self: flex-start; min-width: 13em; max-width: 19em; padding: 0.7em 1em 0.8em; border-radius: 8px;
   background: var(--notice); }
@@ -509,7 +517,7 @@ def passage_chapitre(ch):
     n_sachet, nom_sachet = sachet(cle)
     etape = "Prologue" if ch["nom"] == "Prologue" else ch["numero"].split()[-1]
     liste = "".join(f'<li><b>1×</b> {p}</li>' for p in pieces(corps))
-    entete = (f'<div class="etape"><div class="etape-gauche"><span class="sachet"><span class="sac">{n_sachet}</span>'
+    entete = (f'<div class="etape sachet-{n_sachet}"><div class="etape-gauche"><span class="sachet"><span class="sac">{n_sachet}</span>'
               f'Sachet {n_sachet} · {nom_sachet}</span>'
               f'<span class="numero{" mot" if ch["nom"] == "Prologue" else ""}" aria-label="{ch["numero"]}">{etape}</span></div>'
               + (f'<div class="pieces"><span class="pieces-titre">Pièces de cette étape</span><ul>{liste}</ul></div>' if liste else "")
