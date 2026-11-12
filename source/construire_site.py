@@ -294,6 +294,9 @@ tw-story:has(.garde) { padding-top: 0; padding-bottom: 0; }
   font-family: "Jost", sans-serif; font-weight: 700; font-size: 1.5em; color: #fff; transition: background 0.15s ease;
 }
 .garde .commencer tw-link:hover { background: var(--bleu-fonce); color: #fff; }
+/* Sous le bouton, en petit dans le bouton : « commencer l'histoire » */
+.garde .commencer tw-link::after, .garde .commencer .enchantment-link::after { content: "commencer l’histoire"; display: block;
+  margin-top: 0.1em; font-weight: 500; font-size: 0.52em; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.85; }
 .garde .secondaires { gap: 0; font-size: 0.95em; }
 .garde .secondaires tw-link, .garde .secondaires .enchantment-link { text-decoration: none; color: var(--encre-douce); }
 .garde .secondaires tw-link:hover { color: var(--bleu); }
