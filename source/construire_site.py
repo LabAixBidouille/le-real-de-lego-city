@@ -37,13 +37,15 @@ SYNOPSIS = (
     "matchs et des surprises, une question le poursuit : retrouvera-t-il un jour le chemin de chez lui ?"
 )
 
-AVERTISSEMENT_COURT = "Fan fiction humoristique librement inspirée du football et des jouets LEGO®"
+AVERTISSEMENT_COURT = ("Fan fiction librement inspirée du football et des jouets LEGO®. La boîte est une image : "
+                       "ce livre n’est pas un produit LEGO.")
 AVERTISSEMENT = (
     "Une fan fiction humoristique, librement inspirée du monde du football et de l’univers des jouets LEGO®. "
     "Les joueurs, l’entraîneur et les clubs qui existent réellement n’y apparaissent que comme des personnages "
     "de fiction : les situations et les paroles qu’on leur prête sont entièrement imaginaires. Ce livre n’est "
     "ni approuvé ni soutenu par eux, par leurs clubs ou par le groupe LEGO. LEGO est une marque déposée de son "
-    "propriétaire."
+    "propriétaire. La boîte, les sachets, les pièces et les étapes de montage sont une manière de présenter l’histoire "
+    "comme une notice : il ne s’agit pas d’un vrai produit LEGO et aucun jeu de construction n’accompagne ce livre."
 )
 
 # Texte de Manon, modèle commun aux livres de l'atelier ; seule change la phrase sur le genre
@@ -304,7 +306,7 @@ tw-story:has(.garde) { padding-top: 0; padding-bottom: 0; }
   gap: clamp(0.6em, 1.8vh, 1.2em); }
 /* Couverture en paysage, sans défilement : la boîte du set à gauche, le titre, le résumé et les boutons à droite */
 /* Couverture : le devant de la boîte et son dos, côte à côte et de même hauteur, centrés dans l'écran */
-.garde { --h-boite: min(91vh, 56vw); display: flex !important; flex-direction: row !important; align-items: stretch !important;
+.garde { --h-boite: min(89vh, 55vw); display: flex !important; flex-direction: row !important; align-items: stretch !important;
   justify-content: center !important; gap: 2.5vw !important; height: 100vh; min-height: 0 !important;
   padding: calc((100vh - var(--h-boite)) / 2 - 1.6vh) 1vw 0 !important; box-sizing: border-box; }
 .garde > .garde-image, .garde > .dos { height: var(--h-boite); }
