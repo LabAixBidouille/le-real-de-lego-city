@@ -141,8 +141,16 @@ tw-story { overflow: clip; }
 
 /* Chapitres centrés : l'image en tête (carrée, avec son cadre de briques), puis le titre et le texte */
 .page { max-width: 42em; margin: 0 auto; }
-.cote { margin: 0 auto 1.6em; max-width: 34em; }
-.cote img { display: block; width: 100%; height: auto; }
+/* Chapitre illustré : l'image entière à gauche, qui descend avec la lecture (sticky), le texte à droite */
+.page:has(.cote) { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.25fr); gap: 3em;
+  align-items: start; max-width: 1180px; }
+.cote { position: sticky; top: 1.2em; display: flex; justify-content: center; }
+.cote img { display: block; width: auto; max-width: 100%; height: auto; max-height: calc(100vh - 2.4em); }
+@media (max-width: 860px) {
+  .page:has(.cote) { display: block; max-width: 42em; }
+  .cote { position: static; margin: 0 auto 1.4em; }
+  .cote img { max-height: none; width: 100%; }
+}
 .page:not(:has(.cote)) .texte { padding-top: 2.2em; }
 
 /* En-tête d'étape, comme les cartes de l'arbre : un bandeau cerclé de gris-bleu, le gros numéro dans une case de
