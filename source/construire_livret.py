@@ -50,11 +50,18 @@ CSS = f"""
 html {{ font-family: "Jost", sans-serif; font-size: 11pt; line-height: 1.32; color: {ENCRE}; }}
 body {{ margin: 0; }}
 p {{ margin: 0 0 0.5em; orphans: 2; widows: 2; }}
+/* Quatrième de couverture : le QR code vers le site du livre */
+.qr {{ text-align: center; margin: 0 0 9mm; }}
+.qr img {{ display: block; width: 24mm; height: 24mm; margin: 0 auto 2mm; }}
+.qr p {{ margin: 0; font-size: 9.5pt; }}
+.qr .adresse {{ font-size: 7.5pt; opacity: 0.7; }}
 .page-seule {{ break-before: page; }}
 /* Illustration de chapitre en pleine page, à fond perdu et sans texte (tournée en paysage au besoin) */
 @page plein {{ margin: 0; @bottom-center {{ content: none; }} }}
 .pleine-image {{ page: plein; break-before: page; position: relative; height: 185.5mm; overflow: hidden; }}
 .pleine-image img {{ position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }}
+/* L'équipe : sur fond blanc, centrée avec une marge (tournée en paysage) */
+.pleine-image.avec-marge img {{ inset: 14mm 12mm; width: calc(100% - 24mm); height: calc(100% - 28mm); object-fit: contain; }}
 .sans-numero {{ page: sans-numero; }}
 .marque {{ font-size: 1pt; color: #ffffff; }}
 
@@ -66,8 +73,9 @@ p {{ margin: 0 0 0.5em; orphans: 2; widows: 2; }}
 .couverture .coins {{ position: absolute; left: 0; right: 0; top: 0; display: flex; justify-content: space-between; }}
 .couverture .set {{ background: {ROUGE}; color: #fff; font-weight: 800; font-size: 13pt; padding: 0.8mm 3mm; border-bottom-right-radius: 2mm; }}
 .couverture .age {{ background: {JAUNE}; color: {ENCRE}; font-weight: 800; font-size: 13pt; padding: 0.8mm 3mm; border-bottom-left-radius: 2mm; }}
-.couverture .titre {{ position: absolute; left: 0; right: 0; top: 19mm; text-align: center; }}
-.couverture .surtitre {{ font-weight: 600; font-size: 6.5pt; letter-spacing: 1.3pt; text-transform: uppercase; color: {ENCRE}; }}
+.couverture .titre {{ position: absolute; left: 0; right: 0; top: 115mm; text-align: center; }}
+/* Le surtitre dans une pilule blanche, légèrement transparente, pour se détacher du ciel */
+.couverture .surtitre {{ display: inline-block; background: rgba(255, 255, 255, 0.9); border-radius: 10mm; padding: 1.2mm 4mm 1mm; font-weight: 600; font-size: 7.5pt; letter-spacing: 1.3pt; text-transform: uppercase; color: {ENCRE}; }}
 .couverture h1 {{ margin: 1.5mm 0 0; font-weight: 800; font-size: 34pt; line-height: 0.95; color: {ROUGE}; }}
 /* La brique bleue : une rangée de tenons sur toute sa longueur */
 .couverture .brique {{ position: relative; display: inline-block; margin-top: 3.5mm; padding: 1.2mm 5mm 0.9mm; border-radius: 1.2mm;
@@ -144,14 +152,15 @@ p {{ margin: 0 0 0.5em; orphans: 2; widows: 2; }}
 .fin {{ text-align: center; font-weight: 800; font-size: 26pt; color: {ROUGE}; margin-top: 1mm; }}
 .fin span {{ display: block; font-weight: 600; font-size: 10pt; color: {DOUCE}; }}
 
-/* Chapitres resserrés : le polaroid et le montage rapetissent, jamais le texte */
-.serre .tete {{ width: 54%; }}
-.serre .montage img {{ width: 23mm; }}
-.serre2 .tete {{ width: 34%; margin-bottom: 3mm; }}
-.serre2 .montage {{ margin: 3mm 0 2mm; }}
-.serre2 .montage img {{ width: 16mm; }}
-/* Dernier cran : interligne un peu plus serré, le corps reste à 11 pt minimum */
-.serre2 .corps {{ line-height: 1.3; }}
+/* Chapitres resserrés : seul le texte se resserre (interligne, espaces entre paragraphes), jamais sous 11 pt ;
+   les images gardent toutes la même taille */
+.serre .corps {{ line-height: 1.36; }}
+.serre .montage {{ margin: 3mm 0 2mm; }}
+/* Second cran : si resserrer ne suffit pas, le chapitre est aéré (plus d'interligne et d'espace entre
+   paragraphes) pour que davantage de lignes passent sur sa dernière page, qui se remplit */
+.serre2 .corps {{ line-height: 1.55; }}
+.serre2 .corps p {{ margin-bottom: 0.8em; }}
+.serre2 .montage {{ margin: 5mm 0 4mm; }}
 
 /* Contexte, arbre, dos */
 .contexte h2 {{ font-weight: 800; font-size: 15pt; text-align: center; margin: 0 0 3mm; }}
@@ -237,6 +246,10 @@ def chapitre(ch, suivant, pages):
     return "".join(morceaux)
 
 
+# Images en pleine page pour les pages qui resteraient blanches avant la quatrième de couverture :
+# la première version de la couverture (le stade sous le grand ciel), remplacée le 13/11/2026
+RESERVE = ["couverture-premiere-version.png"]
+
 def document(pages, blanches=0):
     global BLANCHES
     BLANCHES = blanches
@@ -247,7 +260,7 @@ def document(pages, blanches=0):
                    for f in ("kylian", "messi", "ronaldo", "zidane", "pompier", "policiere", "boulangere", "pirate",
                              "astronaute", "blanchisseur", "maire", "entraineur-de-l-om", "petit-chien", "joueur-adverse"))
     couverture = (
-        # Couverture : l'image A5 de Manon (ciel en haut) ; « Le Real » en rouge sur le ciel, « de Lego City » sur une brique bleue
+        # Couverture : l'image A5 de Manon (la chute dans le ciel, 13/11/2026), titre dans le ciel dégagé au-dessus de la ville ; « Le Real » en rouge sur le ciel, « de Lego City » sur une brique bleue
         '<section class="couverture sans-numero">'
         f'<img class="fond" src="{(RACINE / "images" / "couverture-livret.png").as_uri()}" alt="">'
         '<div class="coins"><span class="set">2810</span><span class="age">8+</span></div>'
@@ -260,7 +273,7 @@ def document(pages, blanches=0):
     )
     chapitres_lus = lire_chapitres()
     cles = [cle_de(ch["nom"]) for ch in chapitres_lus]
-    equipe = ('<section class="pleine-image"><img src="' + (RACINE / "images" / "pleines" / "equipe.jpg").as_uri()
+    equipe = ('<section class="pleine-image avec-marge"><img src="' + (RACINE / "images" / "pleines" / "equipe.jpg").as_uri()
               + '" alt=""></section>') if "equipe" in ACTIVES else ""
     chapitres = "".join(chapitre(ch, cles[i + 1] if i + 1 < len(cles) else None, pages)
                         for i, ch in enumerate(chapitres_lus))
@@ -282,16 +295,15 @@ def document(pages, blanches=0):
         + "".join(para(p) for p in paragraphes[4:])
         + '<p class="credits">Une histoire librement inspirée du récit d’Ernest et d’Abel.<br>Réalisation du livre : '
           "Laboratoire d’Aix-périmentation et de Bidouille.</p></section>"
-        '<section class="page-seule contexte"><h2>Les fiches de l’atelier</h2><div class="fiches">'
-        f'<img src="{(fiches / "fiche_recit.jpg").as_uri()}" alt="">'
-        f'<img src="{(fiches / "fiche_personnage_kylian.jpg").as_uri()}" alt="">'
-        f'<img class="pleine" src="{(fiches / "fiche_situation_1.jpg").as_uri()}" alt="">'
-        "</div></section>"
     )
     arbre = ('<section class="page-seule contexte arbre sans-numero"><h2>L’arbre de l’histoire</h2>'
              f'<img src="{(RACINE / "images/arbre.svg").as_uri()}" alt=""></section>')
-    vides = '<section class="page-seule sans-numero">&nbsp;</section>' * blanches
+    # Les pages qui resteraient blanches reçoivent d'abord les images de RESERVE, en pleine page et sans texte
+    reserve = [RACINE / "images" / "pleines" / n for n in RESERVE][:blanches]
+    vides = ("".join(f'<section class="pleine-image"><img src="{r.as_uri()}" alt=""></section>' for r in reserve)
+             + '<section class="page-seule sans-numero">&nbsp;</section>' * (blanches - len(reserve)))
     der = ('<section class="page-seule sans-numero"><div class="der">'
+           f'<div class="qr"><img src="{(RACINE / "images" / "qr.svg").as_uri()}" alt=""><p>Lis cette histoire en ligne</p><p class="adresse">labaixbidouille.github.io/le-real-de-lego-city</p></div>'
            f'<p><i>{e(AVERTISSEMENT)}</i></p>'
            f"<p><b>{e(TITRE)}</b>, une histoire librement inspirée du récit imaginé par Ernest et Abel pendant l’atelier "
            "« La quête du curry, une histoire dont tu es le héros », à la bibliothèque Li Campaneto "
