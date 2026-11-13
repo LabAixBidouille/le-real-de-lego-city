@@ -38,6 +38,8 @@ COULEURS = {1: ROUGE, 2: JAUNE, 3: BLEU, 4: VERT, 5: ORANGE}
 
 CSS = f"""
 @font-face {{ font-family: "Jost"; font-weight: 300 800; src: url("{(RACINE / 'fonts' / 'Jost.woff2').as_uri()}"); }}
+@font-face {{ font-family: "Source Livre"; font-weight: 200 900; src: url("{(RACINE / 'fonts' / 'SourceSerif.woff2').as_uri()}"); }}
+@font-face {{ font-family: "Source Livre"; font-style: italic; font-weight: 200 900; src: url("{(RACINE / 'fonts' / 'SourceSerif-i.woff2').as_uri()}"); }}
 @page {{
   size: {LARGEUR_PAGE}mm {HAUTEUR_PAGE}mm;
   margin: 11mm 11mm 14mm 11mm;
@@ -110,21 +112,30 @@ p {{ margin: 0 0 0.5em; orphans: 2; widows: 2; }}
 .dos .mention {{ font-style: italic; font-size: 7.5pt; color: {DOUCE}; }}
 
 /* Bandeau d'étape et pièces */
-/* Chapitre de livre : l'image de tête pleine largeur, puis le numéro et le titre */
-.tete {{ display: block; width: 100%; height: auto; margin: 0 0 4mm; }}
-.scene {{ display: block; height: 92mm; width: auto; margin: 0 auto 4mm; }}
+/* Chapitre d'album */
+.tete {{ display: block; width: 66%; margin: 1mm auto 5mm; border: 1.6mm solid #fff; box-shadow: 0 0 0 0.3mm #c9ccd2;
+  transform: rotate(-2deg); }}
 .entete {{ text-align: center; margin: 0 0 4mm; break-after: avoid; }}
-.entete .num {{ display: inline-block; padding: 0.6mm 3.5mm; border-radius: 1.2mm; font-weight: 700; font-size: 8pt;
-  letter-spacing: 1.2pt; text-transform: uppercase; }}
-.entete h1 {{ margin: 2.5mm 0 0; font-weight: 700; font-size: 17pt; line-height: 1.12; color: {ENCRE}; }}
-.corps {{ text-align: justify; hyphens: none; }}
-.corps p {{ orphans: 3; widows: 3; }}
-.corps p {{ text-indent: 4.5mm; margin: 0; }}
+.entete .num {{ font-family: "Jost"; font-weight: 700; font-size: 7.5pt; letter-spacing: 2pt; text-transform: uppercase; color: {ROUGE}; }}
+.entete h1 {{ margin: 1.5mm 0 2mm; font-family: "Jost"; font-weight: 800; font-size: 17pt; line-height: 1.12; color: {ENCRE}; }}
+.briques-titre {{ display: flex; justify-content: center; gap: 1.2mm; }}
+.briques-titre i {{ position: relative; display: block; width: 3mm; height: 2.6mm; border-radius: 0.5mm; }}
+.briques-titre i::before {{ content: ""; position: absolute; left: 0.8mm; top: -0.9mm; width: 1.4mm; height: 1mm; border-radius: 0.3mm 0.3mm 0 0; background: inherit; }}
+.briques-titre i:nth-child(1) {{ background: {ROUGE}; }}
+.briques-titre i:nth-child(2) {{ background: {JAUNE}; }}
+.briques-titre i:nth-child(3) {{ background: {BLEU}; }}
+.corps {{ font-family: "Source Livre", serif; font-size: 11pt; line-height: 1.42; text-align: justify; hyphens: none; }}
+.corps p {{ text-indent: 5mm; margin: 0; orphans: 3; widows: 3; }}
 .corps p:first-child {{ text-indent: 0; }}
-/* Le carnet de montage, après le séparateur */
-.carnet {{ break-inside: avoid; margin-top: 1mm; }}
-.carnet-titre {{ display: block; text-align: center; font-weight: 600; font-size: 7pt; letter-spacing: 1.4pt; text-transform: uppercase;
-  color: {DOUCE}; margin: -0.5mm 0 1.5mm; }}
+.corps p:first-child::first-letter {{ float: left; font-family: "Jost"; font-weight: 800; font-size: 30pt; line-height: 0.88;
+  margin: 0.8mm 1.8mm 0 0; color: {BLEU}; }}
+.montage {{ display: flex; align-items: center; justify-content: center; gap: 2mm; margin: 5mm 0 4mm; }}
+.montage img {{ width: 27mm; height: auto; }}
+.montage .fl {{ font-family: "Jost"; font-weight: 700; color: {BLEU}; }}
+.de {{ margin-top: 3mm; padding: 2.5mm 0; border-top: 0.4mm solid {ENCRE}; border-bottom: 0.4mm solid {ENCRE}; break-inside: avoid; }}
+.consigne {{ font-family: "Source Livre", serif; font-style: italic; font-size: 11pt; margin: 0 0 1.5mm; }}
+.tirages {{ display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1mm 4mm; font-family: "Jost"; font-weight: 600; font-size: 10pt; }}
+.tirages b {{ color: {ROUGE}; }}
 /* Fin de chapitre */
 .suite {{ break-inside: avoid; }}
 .separateur {{ display: flex; align-items: flex-end; justify-content: center; gap: 1.3mm; margin: 3.5mm 0 2.5mm; }}
@@ -134,28 +145,18 @@ p {{ margin: 0 0 0.5em; orphans: 2; widows: 2; }}
 .separateur i:nth-of-type(1) {{ background: {ROUGE}; }}
 .separateur i:nth-of-type(2) {{ background: {JAUNE}; }}
 .separateur i:nth-of-type(3) {{ background: {BLEU}; }}
-.elan {{ margin-top: 3mm; text-align: center; font-weight: 700; font-size: 11.5pt; color: {BLEU}; }}
+.elan {{ margin-top: 4mm; text-align: center; font-family: "Jost"; font-weight: 700; font-size: 11.5pt; color: {BLEU}; }}
 .elan::after {{ content: " →"; color: {ROUGE}; }}
-.de {{ margin-top: 3mm; padding: 2.5mm 3.5mm 2mm; border: 0.7mm solid {BLEU}; border-radius: 2.5mm; break-inside: avoid; }}
-.consigne {{ font-weight: 600; font-size: 10.5pt; margin: 0 0 1.8mm; }}
-.tirage {{ display: grid; grid-template-columns: 22mm 1fr; gap: 3mm; align-items: center; margin: 0 0 1.4mm; }}
-.tirage b {{ text-align: center; background: {JAUNE}; border-radius: 1mm; padding: 0.3mm 0; font-weight: 700; font-size: 9pt; }}
-.renvoi {{ font-weight: 700; color: {BLEU}; }}
-.montage {{ display: flex; align-items: center; justify-content: space-between; gap: 1.5mm; margin-top: 3mm; padding: 2mm 2.5mm;
-  border-radius: 2.5mm; background: {NOTICE}; break-inside: avoid; }}
-.montage img {{ flex: 1 1 0; min-width: 0; width: 100%; height: auto; }}
-.montage .fl {{ flex: none; font-weight: 700; color: {BLEU}; }}
+
 .fin {{ text-align: center; font-weight: 800; font-size: 26pt; color: {ROUGE}; margin-top: 1mm; }}
 .fin span {{ display: block; font-weight: 600; font-size: 10pt; color: {DOUCE}; }}
 
-/* Chapitres resserrés : seule l'image de tête rapetisse, le texte reste à 11 pt */
-.serre .tete {{ width: 72%; margin-left: auto; margin-right: auto; }}
-.serre .montage {{ padding: 1.5mm 8mm; }}
-.serre .scene {{ height: 76mm; }}
-.serre2 .tete {{ width: 52%; }}
-.serre2 .montage {{ padding: 1mm 14mm; }}
-.serre2 .separateur {{ margin: 2mm 0 1.5mm; }}
-.serre2 .scene {{ height: 62mm; }}
+/* Chapitres resserrés : le polaroid et le montage rapetissent, jamais le texte */
+.serre .tete {{ width: 54%; }}
+.serre .montage img {{ width: 23mm; }}
+.serre2 .tete {{ width: 42%; margin-bottom: 3mm; }}
+.serre2 .montage {{ margin: 3mm 0 2mm; }}
+.serre2 .montage img {{ width: 19mm; }}
 
 /* Contexte, arbre, dos */
 .contexte h2 {{ font-weight: 800; font-size: 15pt; text-align: center; margin: 0 0 3mm; }}
@@ -176,6 +177,7 @@ p {{ margin: 0 0 0.5em; orphans: 2; widows: 2; }}
 """
 
 SEPARATEUR = '<div class="separateur"><i></i><i></i><i></i></div>'
+SEPARATEUR_TITRE = '<div class="briques-titre"><i></i><i></i><i></i></div>'
 
 
 def e(texte):
@@ -200,43 +202,36 @@ def pieces(cle):
 
 
 def chapitre(ch, suivant, pages):
-    """Un chapitre de livre : l'image de tête sur toute la largeur, le numéro et le titre, le texte, puis le
-    séparateur, le carnet de montage et enfin les choix (case du dé ou renvoi)."""
+    """Un chapitre d'album : le polaroid en tête (penché), le numéro, le titre et trois briques, le récit avec une
+    lettrine ; à la fin, le montage posé sans cadre et les choix entre deux filets."""
     cle = cle_de(ch["nom"])
     serre = (" serre" if cle in SERRES else "") + (" serre2" if cle in SERRES2 else "")
-    n_sachet, _ = sachet(cle)
     image = RACINE / "images" / "chapitres" / f"{illustration(ch['nom'])}.jpg"
-    etapes = sorted((RACINE / "images" / "etapes").glob(f"{illustration(ch['nom'])}-*.png"))
-    couleur = COULEURS[n_sachet]
-    morceaux = [f'<section class="page-seule chap{serre}"><span class="marque">@@CH{cle}@@</span>']
-    # Le prologue et la fin ont des scènes en hauteur : le livret en prend une version carrée, à la largeur du texte
     carre = image.with_name(image.stem + "-carre.jpg")
     if carre.exists():
         image = carre
+    etapes = sorted((RACINE / "images" / "etapes").glob(f"{illustration(ch['nom'])}-*.png"))
+    morceaux = [f'<section class="page-seule chap{serre}"><span class="marque">@@CH{cle}@@</span>']
     if image.exists():
         morceaux.append(f'<img class="tete" src="{image.as_uri()}" alt="">')
     numero = "Prologue" if ch["nom"] == "Prologue" else ch["numero"]
-    morceaux.append(f'<div class="entete"><span class="num" style="background:{couleur};color:{ENCRE if couleur == JAUNE else "#fff"}">'
-                    f'{e(numero)}</span><h1>{e(ch["titre"])}</h1></div>')
-
+    morceaux.append(f'<div class="entete"><span class="num">{e(numero)}</span><h1>{e(ch["titre"])}</h1>{SEPARATEUR_TITRE}</div>')
     corps, consigne, tirages, cible, fin = lire_choix(ch)
     morceaux.append('<div class="corps">' + "".join(f"<p>{e(p)}</p>" for p in corps) + "</div>")
-    # Fin de chapitre d'un seul bloc (jamais coupé) : séparateur, montage, puis les choix
+
     fin_bloc = []
     if etapes:
-        fin_bloc.append(SEPARATEUR + '<div class="montage">'
-                        + '<span class="fl">→</span>'.join(f'<img src="{x.as_uri()}" alt="">' for x in etapes) + '</div>')
-    suite = []
+        fin_bloc.append('<div class="montage">' + '<span class="fl">→</span>'.join(
+            f'<img src="{x.as_uri()}" alt="">' for x in etapes) + '</div>')
     if tirages:
-        suite.append(f'<div class="de"><p class="consigne">{e(consigne)}</p>' + "".join(
-            f'<div class="tirage"><b>{e(f)}</b><span class="renvoi">'
-            f'{"Tourne la page" if suivant is not None and int(n) == suivant else e(renvoi(n, pages))}</span></div>'
-            for f, n in tirages) + "</div>")
+        fin_bloc.append(f'<div class="de"><p class="consigne">{e(consigne)}</p><div class="tirages">' + "".join(
+            f'<span><b>{e(f)}</b> · '
+            f'{"tourne la page" if suivant is not None and int(n) == suivant else e(f"chapitre {n}, page {pages.get(int(n), 00)}")}</span>'
+            for f, n in tirages) + "</div></div>")
     elif cible and not (suivant is not None and int(cible) == suivant):
-        suite.append(f'<p class="elan">{e(renvoi(cible, pages))}</p>')
+        fin_bloc.append(f'<p class="elan">{e(renvoi(cible, pages))}</p>')
     if fin:
-        suite += ([] if etapes else [SEPARATEUR]) + ['<div class="fin">Fin</div>']
-    fin_bloc += suite
+        fin_bloc.append(SEPARATEUR + '<div class="fin">Fin</div>')
     if fin_bloc:
         morceaux.append(f'<div class="suite">{"".join(fin_bloc)}</div>')
     morceaux.append("</section>")
