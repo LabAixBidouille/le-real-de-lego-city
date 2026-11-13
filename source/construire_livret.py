@@ -64,13 +64,12 @@ p {{ margin: 0 0 0.5em; orphans: 2; widows: 2; }}
 .couverture .age {{ background: {JAUNE}; color: {ENCRE}; font-weight: 800; font-size: 13pt; padding: 0.8mm 3mm; border-bottom-left-radius: 2mm; }}
 .couverture .titre {{ position: absolute; left: 0; right: 0; top: 15mm; text-align: center; }}
 .couverture .surtitre {{ font-weight: 600; font-size: 6.5pt; letter-spacing: 1.3pt; text-transform: uppercase; color: {ENCRE}; }}
-.couverture h1 {{ margin: 1.5mm 0 0; font-weight: 800; font-size: 26pt; line-height: 0.95; color: {ROUGE}; }}
+.couverture h1 {{ margin: 1.5mm 0 0; font-weight: 800; font-size: 34pt; line-height: 0.95; color: {ROUGE}; }}
 /* La brique bleue : une rangée de tenons sur toute sa longueur */
 .couverture .brique {{ position: relative; display: inline-block; margin-top: 4.5mm; padding: 1.6mm 6mm 1.2mm; border-radius: 1.2mm;
-  background: {BLEU}; color: #fff; font-weight: 800; font-size: 34pt; line-height: 1.05; }}
-.couverture .brique::before {{ content: ""; position: absolute; left: 1.8mm; right: 1.8mm; top: -2.3mm; height: 2.4mm;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 15 4'%3E%3Cpath d='M2.5 4V1.2Q2.5 0 3.7 0H11.3Q12.5 0 12.5 1.2V4Z' fill='%230057b8'/%3E%3C/svg%3E");
-  background-size: 9mm 2.4mm; background-position: 0 0; background-repeat: space no-repeat; }}
+  background: {BLEU}; color: #fff; font-weight: 800; font-size: 27pt; line-height: 1.05; }}
+.couverture .tenons {{ position: absolute; left: 2.5mm; right: 2.5mm; top: -2.2mm; height: 2.4mm; display: flex; justify-content: space-between; }}
+.couverture .tenons i {{ display: block; width: 5mm; height: 2.4mm; background: {BLEU}; border-radius: 0.7mm 0.7mm 0 0; }}
 .couverture .par {{ margin-top: 2.5mm; font-weight: 600; font-size: 11pt; color: {ENCRE}; }}
 /* Page 2 : l'équipe sous le résumé */
 .dos .equipe {{ display: block; width: 100%; height: auto; }}
@@ -241,7 +240,7 @@ def document(pages, blanches=0):
         f'<img class="fond" src="{(RACINE / "images" / "couverture-livret.png").as_uri()}" alt="">'
         '<div class="coins"><span class="set">2810</span><span class="age">8+</span></div>'
         '<div class="titre"><div class="surtitre">Une histoire dont le lecteur est le héros</div>'
-        '<h1>Le Real</h1><div class="brique"><span>de Lego City</span></div>'
+        '<h1>Le Real</h1><div class="brique"><div class="tenons">' + '<i></i>' * 7 + '</div><span>de Lego City</span></div>'
         f'<div class="par">par {e(AUTEURS)}</div></div></section>'
         '<section class="page-seule sans-numero"><div class="dos">'
         f'<div class="resume">{e(SYNOPSIS)}</div>'
