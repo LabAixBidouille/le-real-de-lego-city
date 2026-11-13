@@ -671,7 +671,7 @@ def passage_garde():
     return (
         # Le devant de la boîte (image de Manon) et son dos, côte à côte, à la même hauteur
         '<div class="garde">'
-        '<div class="dos"><div class="dos-tete"><span class="set">2810</span><span class="age">6+</span></div>'
+        '<div class="dos"><div class="dos-tete"><span class="set">2810</span><span class="age">8+</span></div>'
         '<div class="dos-titre"><span class="surtitre">Une histoire dont le lecteur est le héros</span>'
         '<h1 class="grand-titre">Le Real de Lego City</h1>'
         f'<span class="nom-auteur">par {AUTEURS}</span></div>'

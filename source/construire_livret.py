@@ -54,19 +54,32 @@ p {{ margin: 0 0 0.5em; orphans: 2; widows: 2; }}
 
 /* Couverture : la boîte de Manon en pleine page */
 @page couverture {{ margin: 0; @bottom-center {{ content: none; }} }}
-/* Couverture : l'image du prologue sur toute la largeur, jusqu'en bas (jamais recadrée) ; l'encadré blanc du site par-dessus */
-.couverture {{ page: couverture; position: relative; height: 185.5mm; overflow: hidden; background: #fff; }}
-.couverture .fond {{ position: absolute; left: 0; bottom: 0; width: 100%; height: auto; }}
-.couverture .encadre {{ position: absolute; left: 9mm; right: 9mm; top: 10mm; padding: 9mm 4mm 4.5mm; background: #fff;
-  border: 0.8mm solid {ENCRE}; border-radius: 3mm; overflow: hidden; text-align: center; }}
-.couverture .coins {{ position: absolute; left: 0; right: 0; top: 0; display: flex; justify-content: space-between; }}
-.couverture .set {{ background: {ROUGE}; color: #fff; font-weight: 800; font-size: 13pt; padding: 0.8mm 3mm; border-bottom-right-radius: 2mm; }}
-.couverture .age {{ background: {JAUNE}; color: {ENCRE}; font-weight: 800; font-size: 13pt; padding: 0.8mm 3mm; border-bottom-left-radius: 2mm; }}
-.couverture .surtitre {{ font-weight: 600; font-size: 6pt; letter-spacing: 1.2pt; text-transform: uppercase; color: {DOUCE}; }}
-.couverture h1 {{ margin: 1mm 0 0; font-weight: 800; font-size: 22pt; line-height: 1.05; color: {ENCRE}; }}
-.couverture .par {{ margin-top: 1mm; font-weight: 600; font-size: 10pt; color: {DOUCE}; }}
-.couverture .equipe-couv {{ display: block; width: 100%; height: auto; margin-top: 2.5mm; }}
-.couverture h1 {{ font-size: 25pt !important; }}
+/* Couverture : fond bleu, titre blanc et jaune, prologue en polaroid penché, l'équipe sur une bande blanche */
+.couverture {{ page: couverture; position: relative; height: 185.5mm; overflow: hidden; background: {BLEU}; }}
+.couverture .coins {{ position: absolute; left: 0; right: 0; top: 0; display: flex; justify-content: space-between; z-index: 3; }}
+.couverture .set {{ background: {ROUGE}; color: #fff; font-weight: 800; font-size: 17pt; padding: 1.2mm 4mm; border-bottom-right-radius: 2.5mm; }}
+.couverture .age {{ background: {JAUNE}; color: {ENCRE}; font-weight: 800; font-size: 17pt; padding: 1.2mm 4mm; border-bottom-left-radius: 2.5mm; }}
+.couverture .titre {{ position: absolute; left: 0; right: 0; top: 15mm; text-align: center; color: #fff; }}
+.couverture .surtitre {{ font-weight: 600; font-size: 6.5pt; letter-spacing: 1.3pt; text-transform: uppercase; color: #cfe0ff; }}
+.couverture h1 {{ margin: 1.5mm 0 0; font-weight: 800; font-size: 34pt; line-height: 0.95; color: #fff; }}
+.couverture h1 span {{ display: block; font-size: 21pt; color: {JAUNE}; }}
+.couverture .par {{ margin-top: 1.5mm; font-weight: 600; font-size: 11pt; }}
+.couverture .polaroid {{ position: absolute; left: 50%; top: 58mm; width: 80mm; height: 80mm; margin-left: -40mm; object-fit: cover;
+  border: 2.2mm solid #fff; border-bottom-width: 7mm; transform: rotate(-3deg); z-index: 2; }}
+.couverture .bande-equipe {{ position: absolute; left: 0; right: 0; bottom: 9mm; height: 44mm; background: #fff;
+  display: flex; align-items: flex-end; justify-content: center; }}
+.couverture .bande-equipe img {{ width: 118mm; height: auto; margin-bottom: 1mm; }}
+.couverture .briques {{ position: absolute; left: 0; right: 0; bottom: 0; height: 9mm; display: flex; gap: 0.8mm; padding: 0 0.8mm; background: #fff; }}
+.couverture .briques i {{ position: relative; flex: 1; margin-top: 2.6mm; border-radius: 1mm 1mm 0 0; }}
+.couverture .briques i::before, .couverture .briques i::after {{ content: ""; position: absolute; top: -2.2mm; width: 4.5mm; height: 2.4mm;
+  border-radius: 0.6mm 0.6mm 0 0; background: inherit; }}
+.couverture .briques i::before {{ left: 22%; }}
+.couverture .briques i::after {{ right: 22%; }}
+.couverture .briques i:nth-child(5n+1) {{ background: {ROUGE}; }}
+.couverture .briques i:nth-child(5n+2) {{ background: {JAUNE}; }}
+.couverture .briques i:nth-child(5n+3) {{ background: {BLEU}; }}
+.couverture .briques i:nth-child(5n+4) {{ background: {VERT}; }}
+.couverture .briques i:nth-child(5n+5) {{ background: {ORANGE}; }}
 /* Page 2 : l'équipe sous le résumé */
 .dos .equipe {{ display: block; width: 100%; height: auto; }}
 /* Rangée de briques en bas de la boîte */
@@ -238,17 +251,17 @@ def document(pages, blanches=0):
                    for f in ("kylian", "messi", "ronaldo", "zidane", "pompier", "policiere", "boulangere", "pirate",
                              "astronaute", "blanchisseur", "maire", "entraineur-de-l-om", "petit-chien", "joueur-adverse"))
     couverture = (
-        # Couverture : l'image du prologue en pleine page ; par-dessus, l'encadré blanc du site
+        # Couverture : le bleu du titre, le prologue en polaroid, l'équipe sur une bande blanche, une rangée de briques
         '<section class="couverture sans-numero">'
-        f'<img class="fond" src="{(RACINE / "images" / "chapitres" / "prologue.jpg").as_uri()}" alt="">'
-        '<div class="encadre"><div class="coins"><span class="set">2810</span><span class="age">6+</span></div>'
-        '<div class="surtitre">Une histoire dont le lecteur est le héros</div>'
-        f'<h1>{e(TITRE)}</h1>'
-        f'<div class="par">par {e(AUTEURS)}</div>'
-        f'<img class="equipe-couv" src="{(RACINE / "images" / "equipe.jpg").as_uri()}" alt=""></div></section>'
+        '<div class="coins"><span class="set">2810</span><span class="age">8+</span></div>'
+        '<div class="titre"><div class="surtitre">Une histoire dont le lecteur est le héros</div>'
+        '<h1>Le Real<span>de Lego City</span></h1>'
+        f'<div class="par">par {e(AUTEURS)}</div></div>'
+        f'<img class="polaroid" src="{(RACINE / "images" / "chapitres" / "prologue-carre.jpg").as_uri()}" alt="">'
+        f'<div class="bande-equipe"><img src="{(RACINE / "images" / "equipe.jpg").as_uri()}" alt=""></div>'
+        '<div class="briques">' + '<i></i>' * 7 + '</div></section>'
         '<section class="page-seule sans-numero"><div class="dos">'
         f'<div class="resume">{e(SYNOPSIS)}</div>'
-        f'<img class="equipe" src="{(RACINE / "images" / "equipe.jpg").as_uri()}" alt="">'
         f'<div class="mention">{e(AVERTISSEMENT_COURT)}</div></div></section>'
     )
     chapitres_lus = lire_chapitres()
