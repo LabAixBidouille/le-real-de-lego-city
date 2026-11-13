@@ -62,7 +62,7 @@ p {{ margin: 0 0 0.5em; orphans: 2; widows: 2; }}
 .couverture .coins {{ position: absolute; left: 0; right: 0; top: 0; display: flex; justify-content: space-between; }}
 .couverture .set {{ background: {ROUGE}; color: #fff; font-weight: 800; font-size: 13pt; padding: 0.8mm 3mm; border-bottom-right-radius: 2mm; }}
 .couverture .age {{ background: {JAUNE}; color: {ENCRE}; font-weight: 800; font-size: 13pt; padding: 0.8mm 3mm; border-bottom-left-radius: 2mm; }}
-.couverture .titre {{ position: absolute; left: 0; right: 0; top: 8mm; text-align: center; }}
+.couverture .titre {{ position: absolute; left: 0; right: 0; top: 13mm; text-align: center; }}
 .couverture .surtitre {{ font-weight: 600; font-size: 6.5pt; letter-spacing: 1.3pt; text-transform: uppercase; color: {ENCRE}; }}
 .couverture h1 {{ margin: 1.5mm 0 0; font-weight: 800; font-size: 29pt; line-height: 0.95; color: {ROUGE}; }}
 /* La brique bleue : une rangée de tenons sur toute sa longueur */
