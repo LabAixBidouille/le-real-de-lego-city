@@ -143,9 +143,11 @@ p {{ margin: 0 0 0.5em; orphans: 2; widows: 2; }}
 /* Chapitres resserrés : le polaroid et le montage rapetissent, jamais le texte */
 .serre .tete {{ width: 54%; }}
 .serre .montage img {{ width: 23mm; }}
-.serre2 .tete {{ width: 42%; margin-bottom: 3mm; }}
+.serre2 .tete {{ width: 34%; margin-bottom: 3mm; }}
 .serre2 .montage {{ margin: 3mm 0 2mm; }}
-.serre2 .montage img {{ width: 19mm; }}
+.serre2 .montage img {{ width: 16mm; }}
+/* Dernier cran : interligne un peu plus serré, le corps reste à 11 pt minimum */
+.serre2 .corps {{ line-height: 1.3; }}
 
 /* Contexte, arbre, dos */
 .contexte h2 {{ font-weight: 800; font-size: 15pt; text-align: center; margin: 0 0 3mm; }}
@@ -284,7 +286,7 @@ def document(pages, blanches=0):
            "(bibliothèques Méjanes, Aix-en-Provence), en octobre 2026.</p><p>Réalisation du livre : Laboratoire d’Aix-périmentation et de Bidouille.</p>"
            "</div></section>")
     return (f'<!doctype html><html lang="fr"><head><meta charset="utf-8"><style>{CSS}</style></head>'
-            f"<body>{couverture}{chapitres}{contexte}{arbre}{vides}{der}</body></html>")
+            f"<body>{couverture}{chapitres}{arbre}{contexte}{vides}{der}</body></html>")
 
 
 def imprimer(source_html, pdf):
