@@ -674,7 +674,7 @@ def passage_garde():
         '<div class="dos"><div class="dos-tete"><span class="set">2810</span><span class="age">8+</span></div>'
         '<div class="dos-titre"><span class="surtitre">Une histoire dont le lecteur est le héros</span>'
         '<h1 class="grand-titre">Le Real de Lego City</h1>'
-        f'<span class="nom-auteur">par {AUTEURS}</span></div>'
+        f'<span class="nom-auteur">{AUTEURS}</span></div>'
         f'<div class="synopsis">{resume}</div>'
         '<img class="equipe" src="images/equipe.jpg" alt="L’équipe du Real de Lego City en maillots blancs : Kylian, Messi, Ronaldo, la boulangère, le pompier, l’astronaute, la policière, le pirate et leurs coéquipiers">'
         f'<div class="commencer">{lien("Découvrir l’histoire", "Prologue")}</div>'

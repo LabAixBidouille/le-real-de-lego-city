@@ -241,7 +241,7 @@ def document(pages, blanches=0):
         '<div class="coins"><span class="set">2810</span><span class="age">8+</span></div>'
         '<div class="titre"><div class="surtitre">Une histoire dont le lecteur est le héros</div>'
         '<h1>Le Real</h1><div class="brique"><div class="tenons">' + '<i></i>' * 7 + '</div><span>de Lego City</span></div>'
-        f'<div class="par">par {e(AUTEURS)}</div></div></section>'
+        f'<div class="par">{e(AUTEURS)}</div></div></section>'
         '<section class="page-seule sans-numero"><div class="dos">'
         f'<div class="resume">{e(SYNOPSIS)}</div>'
         f'<div class="mention">{e(AVERTISSEMENT_COURT)}</div></div></section>'
