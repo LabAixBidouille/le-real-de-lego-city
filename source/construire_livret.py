@@ -56,18 +56,22 @@ p {{ margin: 0 0 0.5em; orphans: 2; widows: 2; }}
 
 /* Couverture : la boîte de Manon en pleine page */
 @page couverture {{ margin: 0; @bottom-center {{ content: none; }} }}
-/* Couverture : l'image A5 en pleine page, l'encadré blanc du titre posé en haut */
+/* Couverture : l'image A5 en pleine page, le titre dans le ciel */
 .couverture {{ page: couverture; position: relative; height: 185.5mm; overflow: hidden; }}
-.couverture .fond {{ position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }}
-.couverture .encadre {{ position: absolute; left: 10mm; right: 10mm; top: 9mm; padding: 8mm 4mm 4mm; background: #fff;
-  border: 0.8mm solid {ENCRE}; border-radius: 3mm; overflow: hidden; text-align: center; }}
+.couverture .fond {{ position: absolute; inset: 0; width: 100%; height: 100%; }}
 .couverture .coins {{ position: absolute; left: 0; right: 0; top: 0; display: flex; justify-content: space-between; }}
-.couverture .set {{ background: {ROUGE}; color: #fff; font-weight: 800; font-size: 12pt; padding: 0.8mm 3mm; border-bottom-right-radius: 2mm; }}
-.couverture .age {{ background: {JAUNE}; color: {ENCRE}; font-weight: 800; font-size: 12pt; padding: 0.8mm 3mm; border-bottom-left-radius: 2mm; }}
-.couverture .surtitre {{ font-weight: 600; font-size: 6.3pt; letter-spacing: 1.2pt; text-transform: uppercase; color: {DOUCE}; }}
-.couverture h1 {{ margin: 1mm 0 0; font-weight: 800; font-size: 30pt; line-height: 0.92; color: {ROUGE}; }}
-.couverture h1 span {{ display: block; font-size: 19pt; color: {BLEU}; }}
-.couverture .par {{ margin-top: 2mm; font-weight: 600; font-size: 10.5pt; }}
+.couverture .set {{ background: {ROUGE}; color: #fff; font-weight: 800; font-size: 13pt; padding: 0.8mm 3mm; border-bottom-right-radius: 2mm; }}
+.couverture .age {{ background: {JAUNE}; color: {ENCRE}; font-weight: 800; font-size: 13pt; padding: 0.8mm 3mm; border-bottom-left-radius: 2mm; }}
+.couverture .titre {{ position: absolute; left: 0; right: 0; top: 15mm; text-align: center; }}
+.couverture .surtitre {{ font-weight: 600; font-size: 6.5pt; letter-spacing: 1.3pt; text-transform: uppercase; color: {ENCRE}; }}
+.couverture h1 {{ margin: 1.5mm 0 0; font-weight: 800; font-size: 44pt; line-height: 0.95; color: {ROUGE}; }}
+/* La brique bleue : une rangée de tenons sur toute sa longueur */
+.couverture .brique {{ position: relative; display: inline-block; margin-top: 4.5mm; padding: 1.4mm 5mm 1mm; border-radius: 1.2mm;
+  background: {BLEU}; color: #fff; font-weight: 800; font-size: 23pt; line-height: 1.05; }}
+.couverture .brique::before {{ content: ""; position: absolute; left: 1.8mm; right: 1.8mm; top: -2.6mm; height: 3mm;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 15 4'%3E%3Cpath d='M2.5 4V1.2Q2.5 0 3.7 0H11.3Q12.5 0 12.5 1.2V4Z' fill='%230057b8'/%3E%3C/svg%3E");
+  background-size: 7.5mm 3mm; background-position: 0 0; background-repeat: space no-repeat; }}
+.couverture .par {{ margin-top: 2.5mm; font-weight: 600; font-size: 11pt; color: {ENCRE}; }}
 /* Page 2 : l'équipe sous le résumé */
 .dos .equipe {{ display: block; width: 100%; height: auto; }}
 /* Rangée de briques en bas de la boîte */
@@ -232,12 +236,12 @@ def document(pages, blanches=0):
                    for f in ("kylian", "messi", "ronaldo", "zidane", "pompier", "policiere", "boulangere", "pirate",
                              "astronaute", "blanchisseur", "maire", "entraineur-de-l-om", "petit-chien", "joueur-adverse"))
     couverture = (
-        # Couverture : l'image A5 de Manon en pleine page ; par-dessus, l'encadré blanc du site
+        # Couverture : l'image A5 de Manon (ciel en haut) ; « Le Real » en rouge sur le ciel, « de Lego City » sur une brique bleue
         '<section class="couverture sans-numero">'
         f'<img class="fond" src="{(RACINE / "images" / "couverture-livret.jpg").as_uri()}" alt="">'
-        '<div class="encadre"><div class="coins"><span class="set">2810</span><span class="age">8+</span></div>'
-        '<div class="surtitre">Une histoire dont le lecteur est le héros</div>'
-        '<h1>Le Real<span>de Lego City</span></h1>'
+        '<div class="coins"><span class="set">2810</span><span class="age">8+</span></div>'
+        '<div class="titre"><div class="surtitre">Une histoire dont le lecteur est le héros</div>'
+        '<h1>Le Real</h1><div class="brique"><span>de Lego City</span></div>'
         f'<div class="par">par {e(AUTEURS)}</div></div></section>'
         '<section class="page-seule sans-numero"><div class="dos">'
         f'<div class="resume">{e(SYNOPSIS)}</div>'
