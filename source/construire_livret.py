@@ -62,15 +62,15 @@ p {{ margin: 0 0 0.5em; orphans: 2; widows: 2; }}
 .couverture .coins {{ position: absolute; left: 0; right: 0; top: 0; display: flex; justify-content: space-between; }}
 .couverture .set {{ background: {ROUGE}; color: #fff; font-weight: 800; font-size: 13pt; padding: 0.8mm 3mm; border-bottom-right-radius: 2mm; }}
 .couverture .age {{ background: {JAUNE}; color: {ENCRE}; font-weight: 800; font-size: 13pt; padding: 0.8mm 3mm; border-bottom-left-radius: 2mm; }}
-.couverture .titre {{ position: absolute; left: 0; right: 0; top: 15mm; text-align: center; }}
+.couverture .titre {{ position: absolute; left: 0; right: 0; top: 8mm; text-align: center; }}
 .couverture .surtitre {{ font-weight: 600; font-size: 6.5pt; letter-spacing: 1.3pt; text-transform: uppercase; color: {ENCRE}; }}
-.couverture h1 {{ margin: 1.5mm 0 0; font-weight: 800; font-size: 34pt; line-height: 0.95; color: {ROUGE}; }}
+.couverture h1 {{ margin: 1.5mm 0 0; font-weight: 800; font-size: 29pt; line-height: 0.95; color: {ROUGE}; }}
 /* La brique bleue : une rangée de tenons sur toute sa longueur */
-.couverture .brique {{ position: relative; display: inline-block; margin-top: 4.5mm; padding: 1.6mm 6mm 1.2mm; border-radius: 1.2mm;
-  background: {BLEU}; color: #fff; font-weight: 800; font-size: 27pt; line-height: 1.05; }}
+.couverture .brique {{ position: relative; display: inline-block; margin-top: 3.5mm; padding: 1.2mm 5mm 0.9mm; border-radius: 1.2mm;
+  background: {BLEU}; color: #fff; font-weight: 800; font-size: 23pt; line-height: 1.05; }}
 .couverture .tenons {{ position: absolute; left: 2.5mm; right: 2.5mm; top: -2.2mm; height: 2.4mm; display: flex; justify-content: space-between; }}
 .couverture .tenons i {{ display: block; width: 5mm; height: 2.4mm; background: {BLEU}; border-radius: 0.7mm 0.7mm 0 0; }}
-.couverture .par {{ margin-top: 2.5mm; font-weight: 600; font-size: 11pt; color: {ENCRE}; }}
+.couverture .par {{ display: table; margin: 2mm auto 0; padding: 0.4mm 3mm; border-radius: 3mm; background: rgba(255,255,255,0.88); font-weight: 600; font-size: 10.5pt; color: {ENCRE}; }}
 /* Page 2 : l'équipe sous le résumé */
 .dos .equipe {{ display: block; width: 100%; height: auto; }}
 /* Rangée de briques en bas de la boîte */
