@@ -70,7 +70,7 @@ p {{ margin: 0 0 0.5em; orphans: 2; widows: 2; }}
   background: {BLEU}; color: #fff; font-weight: 800; font-size: 27pt; line-height: 1.05; }}
 .couverture .tenons {{ position: absolute; left: 2.5mm; right: 2.5mm; top: -2.2mm; height: 2.4mm; display: flex; justify-content: space-between; }}
 .couverture .tenons i {{ display: block; width: 5mm; height: 2.4mm; background: {BLEU}; border-radius: 0.7mm 0.7mm 0 0; }}
-.couverture .par {{ display: table; margin: 2mm auto 0; padding: 0.4mm 3mm; border-radius: 3mm; background: rgba(255,255,255,0.88); font-weight: 600; font-size: 10.5pt; color: {ENCRE}; }}
+.couverture .par {{ display: table; margin: 2mm auto 0; font-weight: 600; font-size: 10.5pt; color: {ENCRE}; }}
 /* Page 2 : l'équipe sous le résumé */
 .dos .equipe {{ display: block; width: 100%; height: auto; }}
 /* Rangée de briques en bas de la boîte */
