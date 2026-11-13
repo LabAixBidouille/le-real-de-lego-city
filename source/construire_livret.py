@@ -68,9 +68,9 @@ p {{ margin: 0 0 0.5em; orphans: 2; widows: 2; }}
 /* La brique bleue : une rangée de tenons sur toute sa longueur */
 .couverture .brique {{ position: relative; display: inline-block; margin-top: 4.5mm; padding: 1.4mm 5mm 1mm; border-radius: 1.2mm;
   background: {BLEU}; color: #fff; font-weight: 800; font-size: 23pt; line-height: 1.05; }}
-.couverture .brique::before {{ content: ""; position: absolute; left: 1.8mm; right: 1.8mm; top: -2.6mm; height: 3mm;
+.couverture .brique::before {{ content: ""; position: absolute; left: 1.8mm; right: 1.8mm; top: -2.3mm; height: 2.4mm;
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 15 4'%3E%3Cpath d='M2.5 4V1.2Q2.5 0 3.7 0H11.3Q12.5 0 12.5 1.2V4Z' fill='%230057b8'/%3E%3C/svg%3E");
-  background-size: 7.5mm 3mm; background-position: 0 0; background-repeat: space no-repeat; }}
+  background-size: 9mm 2.4mm; background-position: 0 0; background-repeat: space no-repeat; }}
 .couverture .par {{ margin-top: 2.5mm; font-weight: 600; font-size: 11pt; color: {ENCRE}; }}
 /* Page 2 : l'équipe sous le résumé */
 .dos .equipe {{ display: block; width: 100%; height: auto; }}
