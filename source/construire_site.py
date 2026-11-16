@@ -215,11 +215,11 @@ tw-story { overflow: clip; }
 
 /* Lien Couverture */
 .retour { max-width: 1120px; margin: 0 auto 0.6em; text-align: left; }
-.autres-livres, .retour tw-link, .retour .enchantment-link, .lien-retour tw-link, .lien-retour .enchantment-link {
+.retour tw-link, .retour .enchantment-link, .lien-retour tw-link, .lien-retour .enchantment-link {
   font-family: "Jost", sans-serif; font-weight: 500; font-size: 0.95em; color: var(--encre-douce);
 }
 .retour tw-link::before, .lien-retour tw-link::before { content: "← "; }
-.autres-livres:hover, .retour tw-link:hover, .lien-retour tw-link:hover { color: var(--bleu); }
+.retour tw-link:hover, .lien-retour tw-link:hover { color: var(--bleu); }
 
 tw-link, .enchantment-link { color: var(--bleu-fonce); font-weight: 500; text-decoration: none; }
 tw-link:hover, .enchantment-link:hover { color: var(--bleu); }
@@ -441,13 +441,6 @@ tw-passage:has(.garde) { max-width: none; }
   .garde-texte { width: auto; }
 }
 
-/* Lien discret vers la page qui réunit tous les livres de l'atelier, en bas à droite de la page de garde */
-.garde { position: relative; }
-.autres-livres { position: absolute; right: 0.4em; bottom: 0.6em; z-index: 3; text-decoration: none; }
-.autres-livres::after { content: " →"; }
-@media (max-width: 760px) {
-  .autres-livres { position: static; order: 99; align-self: center; display: block; text-align: center; margin: 1.2em auto 0.4em; }
-}
 """.replace("ROUGE", ROUGE).replace("JAUNE", JAUNE).replace("BLEU", BLEU).replace("VERT", VERT).replace("BRIQUE_DE", BRIQUE_DE) + CSS_BRIQUES
 
 SEPARATEUR = '<div class="separateur"><i></i><i></i><i></i></div>'
@@ -678,7 +671,7 @@ def passage_garde():
     minutes = minutes_de_lecture()
     return (
         # Le devant de la boîte (image de Manon) et son dos, côte à côte, à la même hauteur
-        '<div class="garde"><a class="autres-livres" href="https://labaixbidouille.github.io/la-quete-du-curry/" target="_top">Découvrir les autres livres</a>'
+        '<div class="garde">'
         '<div class="dos"><div class="dos-tete"><span class="set">2810</span><span class="age">8+</span></div>'
         '<div class="dos-titre"><span class="surtitre">Une histoire dont le lecteur est le héros</span>'
         '<h1 class="grand-titre">Le Real de Lego City</h1>'
@@ -687,7 +680,7 @@ def passage_garde():
         '<img class="equipe" src="images/equipe.jpg" alt="L’équipe du Real de Lego City en maillots blancs : Kylian, Messi, Ronaldo, la boulangère, le pompier, l’astronaute, la policière, le pirate et leurs coéquipiers">'
         f'<div class="commencer">{lien("Découvrir l’histoire", "Prologue")}</div>'
         f'<div class="secondaires">{lien("Comment est née cette histoire", "Comment est née cette histoire")}'
-        f'<span class="point">·</span>{lien("L’arbre de l’histoire", "L’arbre de l’histoire")}</div></div>'
+        f'<span class="point">·</span>{lien("L’arbre de l’histoire", "L’arbre de l’histoire")}<span class="point">·</span>(link: "Les autres livres")[(goto-url: "https://labaixbidouille.github.io/la-quete-du-curry/")]</div></div>'
         f'<span class="mention">{AVERTISSEMENT_COURT}</span></div>'
     )
 
