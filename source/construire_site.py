@@ -215,11 +215,11 @@ tw-story { overflow: clip; }
 
 /* Lien Couverture */
 .retour { max-width: 1120px; margin: 0 auto 0.6em; text-align: left; }
-.retour tw-link, .retour .enchantment-link, .lien-retour tw-link, .lien-retour .enchantment-link {
+.autres-livres, .retour tw-link, .retour .enchantment-link, .lien-retour tw-link, .lien-retour .enchantment-link {
   font-family: "Jost", sans-serif; font-weight: 500; font-size: 0.95em; color: var(--encre-douce);
 }
 .retour tw-link::before, .lien-retour tw-link::before { content: "← "; }
-.retour tw-link:hover, .lien-retour tw-link:hover { color: var(--bleu); }
+.autres-livres:hover, .retour tw-link:hover, .lien-retour tw-link:hover { color: var(--bleu); }
 
 tw-link, .enchantment-link { color: var(--bleu-fonce); font-weight: 500; text-decoration: none; }
 tw-link:hover, .enchantment-link:hover { color: var(--bleu); }
@@ -439,6 +439,14 @@ tw-passage:has(.garde) { max-width: none; }
   .dos-titre { margin-top: 0.4em !important; }
   .garde .dos .set, .garde .dos .age { font-size: 1.5em; }
   .garde-texte { width: auto; }
+}
+
+/* Lien discret vers la page qui réunit tous les livres de l'atelier, en bas à droite de la page de garde */
+.garde { position: relative; }
+.autres-livres { position: absolute; right: 0.4em; bottom: 0.6em; z-index: 3; text-decoration: none; }
+.autres-livres::after { content: " →"; }
+@media (max-width: 760px) {
+  .autres-livres { position: static; order: 99; align-self: center; display: block; text-align: center; margin: 1.2em auto 0.4em; }
 }
 """.replace("ROUGE", ROUGE).replace("JAUNE", JAUNE).replace("BLEU", BLEU).replace("VERT", VERT).replace("BRIQUE_DE", BRIQUE_DE) + CSS_BRIQUES
 
@@ -670,7 +678,7 @@ def passage_garde():
     minutes = minutes_de_lecture()
     return (
         # Le devant de la boîte (image de Manon) et son dos, côte à côte, à la même hauteur
-        '<div class="garde">'
+        '<div class="garde"><a class="autres-livres" href="https://labaixbidouille.github.io/la-quete-du-curry/" target="_top">Découvrir les autres livres</a>'
         '<div class="dos"><div class="dos-tete"><span class="set">2810</span><span class="age">8+</span></div>'
         '<div class="dos-titre"><span class="surtitre">Une histoire dont le lecteur est le héros</span>'
         '<h1 class="grand-titre">Le Real de Lego City</h1>'
