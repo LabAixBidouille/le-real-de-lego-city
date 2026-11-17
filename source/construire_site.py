@@ -675,6 +675,7 @@ def minutes_de_lecture(mots_par_minute=120):
     return max(5, round(sum(chemins) / len(chemins) / mots_par_minute / 5) * 5)
 
 
+# Le patron du dé du livret, à télécharger si on l'a perdu (outils/)
 def passage_garde():
     resume = "".join(f"<p>{p}</p>" for p in SYNOPSIS.split("\n\n"))
     etapes = len(lire_chapitres()) - 1
@@ -690,7 +691,7 @@ def passage_garde():
         '<img class="equipe" src="images/equipe.jpg" alt="L’équipe du Real de Lego City en maillots blancs : Kylian, Messi, Ronaldo, la boulangère, le pompier, l’astronaute, la policière, le pirate et leurs coéquipiers">'
         f'<div class="commencer">{lien("Découvrir l’histoire", "Prologue")}</div>'
         f'<div class="secondaires">{lien("Comment est née cette histoire", "Comment est née cette histoire")}'
-        f'<span class="point">·</span>{lien("L’arbre de l’histoire", "L’arbre de l’histoire")}</div></div>'
+        f'<span class="point">·</span>{lien("L’arbre de l’histoire", "L’arbre de l’histoire")}<span class="point">·</span>(link-repeat: "Le dé à fabriquer")[(open-url: "outils/Le_Real_de_Lego_City_de_a_fabriquer.pdf")]</div></div>'
         f'<span class="mention">{AVERTISSEMENT_COURT}</span></div>'
     )
 
